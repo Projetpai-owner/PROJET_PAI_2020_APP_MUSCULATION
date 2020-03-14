@@ -38,4 +38,6 @@ public class BanniController {
 	public Optional<Banni> findById(@PathVariable String email) {
 		return banniDAO.findById(email);
 	}
+	
+	
 }
