@@ -1,18 +1,21 @@
 package fr.univ.lille.fil.mbprestservice.controller;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univ.lille.fil.mbprestservice.dao.BanniDAO;
+import fr.univ.lille.fil.mbprestservice.entity.Banni;
+
 @RestController
 public class TomcatController {
- 
+	@Autowired
+	BanniDAO banni;
+	
     @GetMapping("/")
-    public Collection<String> sayHello() {
-        return IntStream.range(0, 10)
-          .mapToObj(i -> "Hello number " + i)
-          .collect(Collectors.toList());
+    public String welcomeMessage() {
+    	return "Bienvenue sur l'api rest MyBodyPartner";
     }
 }
