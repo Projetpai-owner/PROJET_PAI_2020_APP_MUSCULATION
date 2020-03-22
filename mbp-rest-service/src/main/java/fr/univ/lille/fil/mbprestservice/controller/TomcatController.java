@@ -1,10 +1,13 @@
 package fr.univ.lille.fil.mbprestservice.controller;
 
+<<<<<<< HEAD
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+>>>>>>> 7222fb335be2d56c333dc72ee8a9765127e03548
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +23,6 @@ public class TomcatController {
 	@Autowired
 	CustomRepository advertRepository;
 
-	@GetMapping("/")
-	public Collection<String> sayHello() {
-		return IntStream.range(0, 10).mapToObj(i -> "Hello number " + i).collect(Collectors.toList());
-	}
-
 	@PostMapping("/createRequest")
 	public Advert createAdvert(@RequestBody CreateAdvertBody body) {
 		Advert newAdvert= new Advert();
@@ -37,4 +35,8 @@ public class TomcatController {
 		advertRepository.save(newAdvert);
 		return newAdvert;
 	}
+    @GetMapping("/")
+    public String welcomeMessage() {
+    	return "Bienvenue sur l'api rest MyBodyPartner";
+    }
 }
