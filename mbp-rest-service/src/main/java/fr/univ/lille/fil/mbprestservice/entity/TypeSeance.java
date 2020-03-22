@@ -1,4 +1,6 @@
-package fr.univ.lille.fil.mbprestservice.domain;
+package fr.univ.lille.fil.mbprestservice.entity;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "type_seance")
-public class TypeSeance {
+public class TypeSeance implements Serializable{
+
+	private static final long serialVersionUID = 3019234408725889354L;
 
 	@Id
 	@Column(name = "id_seance")

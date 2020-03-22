@@ -4,21 +4,12 @@ import java.sql.Date;
 
 public class CreateAdvertBody {
 
-	private int idUser;
 	private String description;
 	private String niveauPratique;
 	private int dureeSeance;
 	private String nom;
 	private Date dateSeance;
 	private int idSeance;
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
 
 	public String getDescription() {
 		return description;

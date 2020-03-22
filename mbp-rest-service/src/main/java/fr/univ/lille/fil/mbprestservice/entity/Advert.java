@@ -1,11 +1,13 @@
-package fr.univ.lille.fil.mbprestservice.domain;
+package fr.univ.lille.fil.mbprestservice.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,7 @@ public class Advert implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private int aid;
 
 	private String description;
 
@@ -34,16 +36,16 @@ public class Advert implements Serializable {
 	@Column(name = "date_seance")
 	private Date dateSeance;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "id_seance")
 	private TypeSeance idSeance;
 
-	public int getId() {
-		return id;
+	public int getAid() {
+		return aid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setAid(int aid) {
+		this.aid = aid;
 	}
 
 	public String getDescription() {

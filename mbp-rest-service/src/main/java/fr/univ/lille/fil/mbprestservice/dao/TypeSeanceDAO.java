@@ -1,0 +1,21 @@
+package fr.univ.lille.fil.mbprestservice.dao;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
+import fr.univ.lille.fil.mbprestservice.repository.TypeSeanceRepository;
+
+@Service
+public class TypeSeanceDAO {
+	
+	@Autowired
+	TypeSeanceRepository typeSeanceRepository;
+	
+	public Optional<TypeSeance> findById(int idTypeSeance) {
+		return typeSeanceRepository.findById(idTypeSeance);
+	}
+}
+	
