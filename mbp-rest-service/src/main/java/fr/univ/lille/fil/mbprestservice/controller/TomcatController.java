@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TomcatController {
  
-    @GetMapping("/")
+    @GetMapping("/hello")
     public Collection<String> sayHello() {
         return IntStream.range(0, 10)
           .mapToObj(i -> "Hello number " + i)
