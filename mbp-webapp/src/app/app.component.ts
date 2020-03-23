@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from './services/User.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mbp-webapp';
+
+  constructor(private userService: UserService){ }
 }
