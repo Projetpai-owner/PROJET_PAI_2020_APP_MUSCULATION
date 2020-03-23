@@ -2,7 +2,7 @@
 
 ###### mbp-rest [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mybodypartner-rest&metric=alert_status)](https://sonarcloud.io/dashboard?id=mybodypartner-rest)
 
-###### mbp-webapp
+###### mbp-webapp [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Projetpai-owner_PROJET_PAI_2020_APP_MUSCULATION&metric=alert_status)](https://sonarcloud.io/dashboard?id=Projetpai-owner_PROJET_PAI_2020_APP_MUSCULATION)
 
 ### Prérequis
 
