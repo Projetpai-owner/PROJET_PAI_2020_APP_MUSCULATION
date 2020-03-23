@@ -1,4 +1,4 @@
-# PROJET_PAI_2020_APP_MUSCULATION
+# PROJET_PAI_2020_APP_MUSCULATION [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Projetpai-owner_PROJET_PAI_2020_APP_MUSCULATION&metric=alert_status)](https://sonarcloud.io/dashboard?id=Projetpai-owner_PROJET_PAI_2020_APP_MUSCULATION)
 Forge de l'application de mise en relation de personne cherchant un partenaire de musculation
 
 
