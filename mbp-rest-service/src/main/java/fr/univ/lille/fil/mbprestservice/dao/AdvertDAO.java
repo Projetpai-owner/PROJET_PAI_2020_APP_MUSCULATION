@@ -15,19 +15,18 @@ public class AdvertDAO {
 
 	@Autowired
 	AdvertRepository advertRepository;
-	
+
 	@Autowired
 	TypeSeanceDAO typeSeanceDAO;
-	
+
 	public Advert save(Advert advert) {
 		return advertRepository.save(advert);
 	}
-	
-	public List<Advert> findAll(){
+
+	public List<Advert> findAll() {
 		return advertRepository.findAll();
 	}
-	
-	
+
 	public Advert mapFromDto(CreateAdvertBody body) {
 		Advert adv = new Advert();
 		adv.setDescription(body.getDescription());
