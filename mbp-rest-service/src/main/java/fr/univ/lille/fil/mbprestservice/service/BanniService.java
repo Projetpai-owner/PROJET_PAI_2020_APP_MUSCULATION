@@ -1,4 +1,4 @@
-package fr.univ.lille.fil.mbprestservice.dao;
+package fr.univ.lille.fil.mbprestservice.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import fr.univ.lille.fil.mbprestservice.repository.BanniRepository;
 
 
 @Service
-public class BanniDAO {
+public class BanniService {
 
 	@Autowired
 	BanniRepository banniRepository;

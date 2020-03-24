@@ -6,12 +6,15 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
 
 @Entity
 @Table(name = "annonce")
@@ -25,8 +28,9 @@ public class Advert implements Serializable {
 
 	private String description;
 
-	@Column(name = "niveau_pratique", length = 10)
-	private String niveauPratique;
+	@Column(name = "niveau_pratique")
+    @Enumerated(EnumType.STRING)
+	private Niveau niveauPratique;
 
 	@Column(name = "duree_seance")
 	private int dureeSeance;
@@ -56,11 +60,12 @@ public class Advert implements Serializable {
 		this.description = description;
 	}
 
-	public String getNiveauPratique() {
+
+	public Niveau getNiveauPratique() {
 		return niveauPratique;
 	}
 
-	public void setNiveauPratique(String niveauPratique) {
+	public void setNiveauPratique(Niveau niveauPratique) {
 		this.niveauPratique = niveauPratique;
 	}
 

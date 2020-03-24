@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univ.lille.fil.mbprestservice.dao.TypeSeanceDAO;
 import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
+import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
 
 @RestController
 public class TypeSeanceController {
 
 	@Autowired
-	TypeSeanceDAO typeSeanceDAO;
+	TypeSeanceService typeSeanceService;
 
 	@CrossOrigin
 	@GetMapping("/getAllTypeSeance")
 	public List<TypeSeance> getAllTypeSeance() {
-		return typeSeanceDAO.findAll();
+		return typeSeanceService.findAll();
 	}
 
 }
