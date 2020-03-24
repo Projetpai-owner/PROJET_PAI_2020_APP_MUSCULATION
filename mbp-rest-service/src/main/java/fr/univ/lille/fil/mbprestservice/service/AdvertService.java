@@ -1,4 +1,4 @@
-package fr.univ.lille.fil.mbprestservice.dao;
+package fr.univ.lille.fil.mbprestservice.service;
 
 import java.util.List;
 
@@ -11,13 +11,13 @@ import fr.univ.lille.fil.mbprestservice.repository.AdvertRepository;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
 
 @Service
-public class AdvertDAO {
+public class AdvertService {
 
 	@Autowired
 	AdvertRepository advertRepository;
 
 	@Autowired
-	TypeSeanceDAO typeSeanceDAO;
+	TypeSeanceService typeSeanceService;
 
 	public Advert save(Advert advert) {
 		return advertRepository.save(advert);
@@ -34,7 +34,7 @@ public class AdvertDAO {
 		adv.setDureeSeance(body.getDureeSeance());
 		adv.setNom(body.getNom());
 		adv.setNiveauPratique(body.getNiveauPratique());
-		TypeSeance advertTypeSeance = typeSeanceDAO.findById(body.getIdSeance()).orElse(null);
+		TypeSeance advertTypeSeance = typeSeanceService.findById(body.getIdSeance()).orElse(null);
 		adv.setIdSeance(advertTypeSeance);
 		return adv;
 	}

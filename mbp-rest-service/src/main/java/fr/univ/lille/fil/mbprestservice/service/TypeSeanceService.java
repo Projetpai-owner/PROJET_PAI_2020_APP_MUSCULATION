@@ -1,4 +1,4 @@
-package fr.univ.lille.fil.mbprestservice.dao;
+package fr.univ.lille.fil.mbprestservice.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.repository.TypeSeanceRepository;
 
 @Service
-public class TypeSeanceDAO {
+public class TypeSeanceService {
 	
 	@Autowired
 	TypeSeanceRepository typeSeanceRepository;

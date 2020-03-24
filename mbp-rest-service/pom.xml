@@ -19,10 +19,10 @@
 
 	<properties>
 		<java.version>11</java.version>
-		  <sonar.projectKey>mybodypartner-rest</sonar.projectKey>
-		  <sonar.organization>projetpai-owner</sonar.organization>
-		  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		  <sonar.login>76490b9a43e65bef04474e3993daf84f960a914c</sonar.login>
+		<sonar.projectKey>mybodypartner-rest</sonar.projectKey>
+		<sonar.organization>projetpai-owner</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>76490b9a43e65bef04474e3993daf84f960a914c</sonar.login>
 	</properties>
 
 	<dependencies>
@@ -42,6 +42,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,7 +92,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source> 
+					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>

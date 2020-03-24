@@ -8,7 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import fr.univ.lille.fil.mbprestservice.dao.BanniDAO;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -18,7 +18,7 @@ public class AdvertControllerTest {
 	MockMvc mockMvc;
 		
 	@MockBean
-	BanniDAO banniDAO;
+	BanniService banniService;
 	
 	@Test
 	public void createAdvertTest() throws Exception {

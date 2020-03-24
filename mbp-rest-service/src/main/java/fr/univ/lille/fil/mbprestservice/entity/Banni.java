@@ -11,7 +11,6 @@ import javax.persistence.Table;
 public class Banni {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String email;
 
 	public String getEmail() {

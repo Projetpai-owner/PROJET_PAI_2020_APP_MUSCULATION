@@ -2,10 +2,16 @@ package fr.univ.lille.fil.mbprestservice.requestbody;
 
 import java.sql.Date;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
+
 public class CreateAdvertBody {
 
 	private String description;
-	private String niveauPratique;
+	@Enumerated(EnumType.STRING)
+	private Niveau niveauPratique;
 	private int dureeSeance;
 	private String nom;
 	private Date dateSeance;
@@ -19,11 +25,11 @@ public class CreateAdvertBody {
 		this.description = description;
 	}
 
-	public String getNiveauPratique() {
+	public Niveau getNiveauPratique() {
 		return niveauPratique;
 	}
 
-	public void setNiveauPratique(String niveauPratique) {
+	public void setNiveauPratique(Niveau niveauPratique) {
 		this.niveauPratique = niveauPratique;
 	}
 

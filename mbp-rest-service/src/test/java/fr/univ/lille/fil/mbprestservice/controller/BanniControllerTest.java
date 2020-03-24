@@ -20,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import fr.univ.lille.fil.mbprestservice.dao.BanniDAO;
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -30,20 +30,20 @@ public class BanniControllerTest {
 	MockMvc mockMvc;
 		
 	@MockBean
-	BanniDAO banniDAO;
+	BanniService banniService;
 	
 	@Test
 	public void getAllBanniTest() throws Exception {
 		Banni expected=new Banni();
 		expected.setEmail("antho59.bliecq@gmail.com");
 		
-		Mockito.when(banniDAO.findAll()).thenReturn(Stream.of(expected).collect(Collectors.toList()));
+		Mockito.when(banniService.findAll()).thenReturn(Stream.of(expected).collect(Collectors.toList()));
 		MvcResult mvcResult=mockMvc.perform(MockMvcRequestBuilders.get("/banni")
 				.accept(MediaType.APPLICATION_JSON)).andReturn();
 		
 		
 		//on verifie que findAll est appele lors du get
-		Mockito.verify(banniDAO).findAll();
+		Mockito.verify(banniService).findAll();
 		
 		assertEquals(mvcResult.getResponse().getContentAsString(), "[{\"email\":\"antho59.bliecq@gmail.com\"}]");
 		
