@@ -16,8 +16,7 @@ public class AdvertService {
 	@Autowired
 	AdvertRepository advertRepository;
 
-	@Autowired
-	TypeSeanceService typeSeanceService;
+	
 
 	public Advert save(Advert advert) {
 		return advertRepository.save(advert);
@@ -27,15 +26,5 @@ public class AdvertService {
 		return advertRepository.findAll();
 	}
 
-	public Advert mapFromDto(CreateAdvertBody body) {
-		Advert adv = new Advert();
-		adv.setDescription(body.getDescription());
-		adv.setDateSeance(body.getDateSeance());
-		adv.setDureeSeance(body.getDureeSeance());
-		adv.setNom(body.getNom());
-		adv.setNiveauPratique(body.getNiveauPratique());
-		TypeSeance advertTypeSeance = typeSeanceService.findById(body.getIdSeance()).orElse(null);
-		adv.setIdSeance(advertTypeSeance);
-		return adv;
-	}
+
 }

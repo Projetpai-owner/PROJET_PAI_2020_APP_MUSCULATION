@@ -2,12 +2,9 @@ package fr.univ.lille.fil.mbprestservice.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.assertj.core.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -47,11 +44,9 @@ public class BanniControllerTest {
 		
 		assertEquals(mvcResult.getResponse().getContentAsString(), "[{\"email\":\"antho59.bliecq@gmail.com\"}]");
 		
-		
-		
-		
 	}
 	
+
 	
 	
 	

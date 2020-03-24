@@ -14,12 +14,12 @@ import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
 public class TypeSeanceController {
 
 	@Autowired
-	TypeSeanceService typeSeanceDAO;
+	TypeSeanceService typeSeanceService;
 
 	@CrossOrigin
 	@GetMapping("/getAllTypeSeance")
 	public List<TypeSeance> getAllTypeSeance() {
-		return typeSeanceDAO.findAll();
+		return typeSeanceService.findAll();
 	}
 
 }
