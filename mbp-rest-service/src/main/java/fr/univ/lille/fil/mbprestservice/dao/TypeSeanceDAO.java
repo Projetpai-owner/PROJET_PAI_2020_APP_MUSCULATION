@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,10 @@ public class TypeSeanceDAO {
 	public Optional<TypeSeance> findById(int idTypeSeance) {
 		return typeSeanceRepository.findById(idTypeSeance);
 	}
+	
+	public List<TypeSeance> findAll() {
+		return typeSeanceRepository.findAll();
+	}
+	
 }
 	
