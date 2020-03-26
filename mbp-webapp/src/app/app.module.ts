@@ -6,12 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AcceuilComponent,
     NavbarComponent,
+    FormCreationAnnonceComponent
   ],
   imports: [
     BrowserModule,
