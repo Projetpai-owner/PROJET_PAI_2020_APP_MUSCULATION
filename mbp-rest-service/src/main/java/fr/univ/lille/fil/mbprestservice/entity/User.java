@@ -3,6 +3,7 @@ package fr.univ.lille.fil.mbprestservice.entity;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pid;
-	private String firstName;
-	private String lastName;
+	private String nom;
+	private String prenom;
+	@Column(name="date_de_naissance")
 	private Date bornDate;
-	private String sex;
+	private String sexe;
 	private String email;
 	private String password;
 
@@ -29,25 +31,8 @@ public class User {
 	@JoinColumn(name = "sid")
 	private Gym sid;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "adresse")
-	private Place adresse;
+	private String adresse;
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
 	public Date getBornDate() {
 		return bornDate;
@@ -57,13 +42,6 @@ public class User {
 		this.bornDate = bornDate;
 	}
 
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
 
 	public String getEmail() {
 		return email;
@@ -81,11 +59,7 @@ public class User {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [firstName=" + firstName + "; lastName=" + lastName + "; bornDate= " + bornDate.toString()
-				+ "; sex=" + sex + "; email=" + email + "; password=" + password + "]";
-	}
+
 
 	public int getPid() {
 		return pid;
@@ -103,12 +77,44 @@ public class User {
 		this.sid = sid;
 	}
 
-	public Place getAdresse() {
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public String getAdresse() {
 		return adresse;
 	}
 
-	public void setAdresse(Place adresse) {
+	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+
+	@Override
+	public String toString() {
+		return "User [pid=" + pid + ", nom=" + nom + ", prenom=" + prenom + ", bornDate=" + bornDate + ", sexe=" + sexe
+				+ ", email=" + email + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+	}
+
+
 
 }
