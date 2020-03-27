@@ -41,6 +41,7 @@ export class InscriptionComponent implements OnInit {
       formValue['password']
     ) 
     console.log("Utilisateur crée !"); 
+    console.log(newUser);
     this.userService.addUser(newUser);
   }
 
