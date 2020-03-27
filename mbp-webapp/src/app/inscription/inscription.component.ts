@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { User } from '../models/User.model';
 import { UserService} from '../services/User.service';
 
@@ -47,8 +47,8 @@ export class InscriptionComponent implements OnInit {
     console.log("Utilisateur crée !"); 
     console.log(newUser);
     this.userService.addUser(newUser).subscribe(
-      newUser => {
-        console.log(newUser);
+      user => {
+        console.log(user);
       }
     );
   }

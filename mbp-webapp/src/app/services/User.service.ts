@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/User.model';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
