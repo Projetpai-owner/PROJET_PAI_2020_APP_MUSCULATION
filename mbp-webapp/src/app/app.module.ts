@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
 
 import { UserService} from './services/User.service';
@@ -13,6 +16,8 @@ import { UserService} from './services/User.service';
   declarations: [
     AppComponent,
     InscriptionComponent,
+    AcceuilComponent,
+    NavbarComponent,
     FormCreationAnnonceComponent
   ],
   imports: [
@@ -20,10 +25,13 @@ import { UserService} from './services/User.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [
     UserService
+
   ],
   bootstrap: [AppComponent]
 })
