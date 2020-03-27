@@ -5,12 +5,16 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
 @Entity
 @Table(name = "personne")
@@ -23,13 +27,14 @@ public class User {
 	private String prenom;
 	@Column(name="date_de_naissance")
 	private Date bornDate;
-	private String sexe;
+	@Enumerated(EnumType.STRING)
+	private Sexe sexe;
 	private String email;
 	private String password;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "sid")
-	private Gym sid;
+	private Salle sid;
 
 	private String adresse;
 
@@ -69,11 +74,11 @@ public class User {
 		this.pid = pid;
 	}
 
-	public Gym getSid() {
+	public Salle getSid() {
 		return sid;
 	}
 
-	public void setSid(Gym sid) {
+	public void setSid(Salle sid) {
 		this.sid = sid;
 	}
 
@@ -93,11 +98,11 @@ public class User {
 		this.prenom = prenom;
 	}
 
-	public String getSexe() {
+	public Sexe getSexe() {
 		return sexe;
 	}
 
-	public void setSexe(String sexe) {
+	public void setSexe(Sexe sexe) {
 		this.sexe = sexe;
 	}
 
