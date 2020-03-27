@@ -21,10 +21,12 @@ export class InscriptionComponent implements OnInit {
 
   initForm(){
     this.inscriptionForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      prenom: ['', Validators.required],
+      nom: ['', Validators.required],
       bornDate: ['', Validators.required],
-      sex: ['', Validators.required],
+      sexe: ['', Validators.required],
+      adresse: ['', Validators.required],
+      sid: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -33,16 +35,22 @@ export class InscriptionComponent implements OnInit {
   onSubmitForm(){
     const formValue = this.inscriptionForm.value;
     const newUser = new User(
-      formValue['firstName'],
-      formValue['lastName'],
+      formValue['nom'],
+      formValue['prenom'],
       formValue['bornDate'],
-      formValue['sex'],
+      formValue['sexe'],
       formValue['email'],
-      formValue['password']
+      formValue['password'],
+      +formValue['sid'],
+      formValue['adresse']
     ) 
     console.log("Utilisateur crée !"); 
     console.log(newUser);
-    this.userService.addUser(newUser);
+    this.userService.addUser(newUser).subscribe(
+      newUser => {
+        console.log(newUser);
+      }
+    );
   }
 
 }

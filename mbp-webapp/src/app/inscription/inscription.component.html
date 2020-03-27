@@ -1,34 +1,50 @@
 <h1 class="h1 text-center">Inscription</h1>
-<div class="col-sm-8 col-sm-offset-2">
-    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">
-        <div class="form-group">
-            <label for="firstName">Prenom</label>
-            <input type="text" class="form-control" id="firstName" formControlName="firstName">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-4 col-offset-2">
+            <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">
+                <div class="form-group">
+                    <label for="prenom">Prenom</label>
+                    <input type="text" class="form-control form-control-sm" id="prenom" formControlName="prenom">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control form-control-sm" id="nom" formControlName="nom">
+                </div>
+                <div class="form-group">
+                    <label for="bornDate">Date de naissance</label>
+                    <input type="date" class="form-control form-control-sm" id="bornDate" formControlName="bornDate">
+                </div>
+                <div class="form-group">
+                    <label for="sexe">Sexe</label>
+                    <select id="sexe" class="form-control form-control-sm" formControlName="sexe">
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                        <option value="NC">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adresse</label>
+                    <input type="text" class="form-control form-control-sm" id="adresse" formControlName="adresse">
+                </div>
+                <div class="form-group">
+                    <label for="sid">Salle de musculation</label>
+                    <select id="sid" class="form-control form-control-sm" formControlName="sid">
+                        <option value="1">Basic Fit Lille Montebello</option>
+                        <option value="2">Fitness Park Villeneuve d'Ascq Boulevard de l'Ouest</option>
+                        <option value="3">Fitness Park Marseille Bourse</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="lastName">Nom</label>
-            <input type="text" class="form-control" id="lastName" formControlName="lastName">
-        </div>
-        <div class="form-group">
-            <label for="bornDate">Date de naissance</label>
-            <input type="date" class="form-control" id="bornDate" formControlName="bornDate">
-        </div>
-        <div class="form-group">
-            <label for="sex">Sexe</label>
-            <select id="sex" class="form-control" formControlName="sex">
-                <option value="H">Homme</option>
-                <option value="F">Femme</option>
-                <option value="NC">Autre</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="email">Adresse e-mail</label>
-            <input type="text" class="form-control" id="email" formControlName="email">
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" class="form-control" id="password" formControlName="password">
-        </div>
-        <button class="btn btn-primary" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
-    </form>
+    </div>
 </div>
