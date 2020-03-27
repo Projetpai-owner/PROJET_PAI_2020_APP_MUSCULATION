@@ -21,7 +21,7 @@ public class Salle {
 	
 	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "lid")
-	private Place lid;
+	private Lieu lid;
 
 	public int getSid() {
 		return sid;
@@ -47,11 +47,11 @@ public class Salle {
 		this.capacite = capacite;
 	}
 
-	public Place getLid() {
+	public Lieu getLid() {
 		return lid;
 	}
 
-	public void setLid(Place lid) {
+	public void setLid(Lieu lid) {
 		this.lid = lid;
 	}
 	
