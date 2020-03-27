@@ -1,10 +1,9 @@
-package fr.univ.lille.fil.mbprestservice.dao;
+package fr.univ.lille.fil.mbprestservice.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
@@ -12,7 +11,7 @@ import fr.univ.lille.fil.mbprestservice.repository.BanniRepository;
 
 
 @Service
-public class BanniDAO {
+public class BanniService {
 
 	@Autowired
 	BanniRepository banniRepository;

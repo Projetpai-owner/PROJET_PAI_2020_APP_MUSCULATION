@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TomcatController {
-	
-    @GetMapping("/")
-    public String welcomeMessage() {
-    	return "Bienvenue sur l'api rest MyBodyPartner";
-    }
+
+	@GetMapping("/")
+	public String welcomeMessage() {
+		return "Bienvenue sur l'api rest MyBodyPartner";
+	}
 }

@@ -1,4 +1,4 @@
-package fr.univ.lille.fil.mbprestservice.dao;
+package fr.univ.lille.fil.mbprestservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,20 +11,20 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.repository.BanniRepository;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 
 @RunWith(SpringRunner.class)
-public class BanniDAOTest {
+public class BanniServiceTest {
 
 	@Mock
 	BanniRepository banniRepository;
 
 	@InjectMocks
-	BanniDAO dao;
+	BanniService service;
 	
 	@Before
 	public void init() {
@@ -36,7 +36,7 @@ public class BanniDAOTest {
 	@Test
 	public void findAllTest() {
 
-		List<Banni> list=dao.findAll();
+		List<Banni> list=service.findAll();
 		Mockito.verify(banniRepository).findAll();
 		assertEquals(list.size(),1);
 	}
