@@ -1,5 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
 
 }

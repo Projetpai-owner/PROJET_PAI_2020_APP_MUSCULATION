@@ -30,9 +30,7 @@
                 <div class="form-group">
                     <label for="sid">Salle de musculation</label>
                     <select id="sid" class="form-control form-control-sm" formControlName="sid">
-                        <option value="1">Basic Fit Lille Montebello</option>
-                        <option value="2">Fitness Park Villeneuve d'Ascq Boulevard de l'Ouest</option>
-                        <option value="3">Fitness Park Marseille Bourse</option>
+                        <option *ngFor="let salle of obsSalles | async" value="{{salle.sid}}">{{salle.nom}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -45,6 +43,7 @@
                 </div>
                 <button class="btn btn-primary" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
             </form>
+        <p class="text-danger">{{errorMessage}}</p>
         </div>
     </div>
 </div>

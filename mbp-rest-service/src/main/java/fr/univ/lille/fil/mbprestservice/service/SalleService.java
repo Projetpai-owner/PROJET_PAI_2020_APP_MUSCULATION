@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class SalleService {
 	
 	public Optional<Salle> findById(int id) {
 		return salleRepository.findById(id);
+	}
+	
+	public List<Salle> findAll() {
+		return salleRepository.findAll();
 	}
 	
 }

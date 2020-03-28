@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
 
 import { UserService} from './services/User.service';
+import { SalleService } from './services/Salle.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserService} from './services/User.service';
     NgbModule
   ],
   providers: [
-    UserService
+    UserService,
+    SalleService
 
   ],
   bootstrap: [AppComponent]
