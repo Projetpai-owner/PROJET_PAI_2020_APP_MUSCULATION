@@ -45,7 +45,17 @@
                     <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
                     <p class="text-info">Au moins 7 caractères avec 1 majuscule, 1 miniscule et 1 chiffre</p>
                 </div>
-                <button class="btn btn-primary" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+                <div class="row">
+                    <div class="col-8"></div>
+                        <div class="col-4">
+                            <button class="btn btn-primary" *ngIf="!IsWait" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+                            <div class="d-flex" *ngIf="IsWait">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                 </div>
+                            </div>
+                        </div>
+                </div>
             </form>
         <p class="text-danger">{{errorMessage}}</p>
         </div>
