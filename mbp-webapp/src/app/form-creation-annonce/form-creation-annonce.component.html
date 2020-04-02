@@ -1,25 +1,57 @@
-<form>
-	<div class="form-group">
-		<label for="NomCreaAnnonce">Nom</label>
-		<input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce">
+<div class="MBP_CORPS">
+	<div class="MBP_CORPS_TITRE">
+		Création d'annonce
 	</div>
-	<div class="form-group">
-		<label for="DescriptionCreaAnnonce">Description</label>
-		<input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce">
+	<div class="MBP_CORPS_CONTENU">
+		<form>
+			<div class="form-group row">	
+				<div class="col-4">
+					<label for="NomCreaAnnonce">Nom : </label>
+				</div>
+				<div class="col-8">
+					<input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-4">
+					<label for="DescriptionCreaAnnonce">Description : </label>
+				</div>
+				<div class="col-8">
+					<input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce">
+				</div>	
+			</div>
+			<div class="form-group row">
+				<div class="col-4">
+					<label for="DureeSeanceCreaAnnonce">Durée de la séance : </label>
+				</div>
+				<div class="col-8">
+					<input type="time" id="DureeSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la durée de la séance">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-4">
+					<label for="DateSeanceCreaAnnonce">Date de la séance : </label>
+				</div>
+				<div class="col-8">
+					<input type="date" id="DateSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la date de la séance">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-4">
+					<label for="typeSeance">Type de séance : </label>
+				</div>
+				<div class="col-8">
+					<select class="form-control" id="typeSeance">
+					</select>
+				</div>
+			</div>
+			<script type="text/javascript" src="scriptCreaAnnonce.js"></script>
+			<div class="row">
+				<div class="col-10"></div>
+				<div class="col-2">					
+					<button type="submit" class="btn btn-primary MBP_BTN_SUBMIT">Créer</button>
+				</div>	
+			</div>
+		</form>
 	</div>
-	<div class="form-group">
-		<label for="DureeSeanceCreaAnnonce">Durée de la séance</label>
-		<input type="time" id="DureeSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la durée de la séance">
-	</div>
-	<div class="form-group">
-		<label for="DateSeanceCreaAnnonce">Date de la séance</label>
-		<input type="date" id="DateSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la date de la séance">
-	</div>
-	<div class="form-group">
-		<label for="typeSeance">Type de séance</label>
-		<select class="form-control" id="typeSeance">
-		</select>
-	</div>
-	<script type="text/javascript" src="scriptCreaAnnonce.js"></script>
-	<button type="submit" class="btn btn-primary">Créer</button>
-</form>
+</div>
