@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
 @Entity
-@Table(name = "personne")
+@Table(name = "user")
 public class User {
 
 	@Id
@@ -29,7 +29,7 @@ public class User {
 	private Date bornDate;
 	@Enumerated(EnumType.STRING)
 	private Sexe sexe;
-	private String email;
+	private String username;
 	private String password;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
@@ -48,12 +48,12 @@ public class User {
 	}
 
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -117,7 +117,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [pid=" + pid + ", nom=" + nom + ", prenom=" + prenom + ", bornDate=" + bornDate + ", sexe=" + sexe
-				+ ", email=" + email + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+				+ ", email=" + username + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
 	}
 
 

@@ -31,7 +31,7 @@ public class UserService {
 	public boolean checkExistingEmail(@Valid User user){
 		List<User> listUser = this.findAll();
 		for(User u : listUser) {
-			if((user.getEmail()).equals(u.getEmail())) {
+			if((user.getUsername()).equals(u.getUsername())) {
 				return true;
 			}
 		} 
