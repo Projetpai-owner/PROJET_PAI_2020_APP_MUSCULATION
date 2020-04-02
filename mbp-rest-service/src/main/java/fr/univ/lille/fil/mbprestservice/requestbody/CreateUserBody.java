@@ -12,7 +12,7 @@ public class CreateUserBody {
 	private String nom;
 	private String prenom;
 	private Date bornDate;
-	private String email;
+	private String username;
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Sexe sexe;
@@ -28,8 +28,8 @@ public class CreateUserBody {
 	public Date getBornDate() {
 		return bornDate;
 	}
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 	public String getPassword() {
 		return password;

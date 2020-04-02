@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.entity;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,11 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
 @Entity
-@Table(name = "personne")
-public class User {
+@Table(name = "user")
+public class User implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +33,7 @@ public class User {
 	private Date bornDate;
 	@Enumerated(EnumType.STRING)
 	private Sexe sexe;
-	private String email;
+	private String username;
 	private String password;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
@@ -48,12 +52,12 @@ public class User {
 	}
 
 
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -117,7 +121,37 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [pid=" + pid + ", nom=" + nom + ", prenom=" + prenom + ", bornDate=" + bornDate + ", sexe=" + sexe
-				+ ", email=" + email + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+				+ ", username=" + username + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 
