@@ -9,9 +9,9 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
-
 import { UserService} from './services/User.service';
 import { SalleService } from './services/Salle.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { SalleService } from './services/Salle.service';
     InscriptionComponent,
     AcceuilComponent,
     NavbarComponent,
-    FormCreationAnnonceComponent
+    FormCreationAnnonceComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

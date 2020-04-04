@@ -20,7 +20,7 @@ import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.service.BanniService;
 
 @RestController
-@Secured(value = "ROLE_ADMIN")
+@Secured(value = "ROLE_USER")
 public class BanniController {
 	@Autowired
 	private BanniService banniService;
