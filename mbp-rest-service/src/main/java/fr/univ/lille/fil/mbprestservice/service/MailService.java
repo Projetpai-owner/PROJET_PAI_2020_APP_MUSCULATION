@@ -13,13 +13,21 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 
-@Service
-public class MailService {
+public class MailService implements Runnable{
 	
 	private String username = "projetpai2020fa@gmail.com";
 	private String password = "paifa2020";
+	private String destination,object,msg;
 	
-	public void sendMail(String destination, String object, String msg) {
+	
+	public MailService (String destination, String object, String msg) {
+		this.destination=destination;
+		this.object=object;
+		this.msg=msg;
+	}
+
+	@Override
+	public void run() {
 		Properties properties = new Properties();
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable", "true");
@@ -46,7 +54,6 @@ public class MailService {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);			
 		}
-		
 		
 	}
 

@@ -70,6 +70,16 @@ public class User implements UserDetails{
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public String getPassword() {
 		return password;

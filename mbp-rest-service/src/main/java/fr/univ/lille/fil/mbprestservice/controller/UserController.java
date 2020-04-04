@@ -36,8 +36,7 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 	@Autowired
 	private JwtUtil jwtTokenUtil;
-	@Autowired
-	private MailService mailService;
+
 
 	@CrossOrigin
 	@PostMapping("/login")
@@ -58,7 +57,7 @@ public class UserController {
 	@PostMapping("/user")
 	public User createUser(@Valid @RequestBody CreateUserBody body) {
 		User user = mapFromDto(body);
-		if (userService.checkExistingEmail(user)) {
+		if (userService.loadUserByUsername(user.getUsername())!=null) {
 			throw new EmailAlreadyExistException();
 		}
 		this.sendMail(body);
@@ -78,6 +77,7 @@ public class UserController {
 		user.setPassword(userService.encryptPassword(body.getPassword()));
 		user.setPrenom(body.getPrenom());
 		user.setSexe(body.getSexe());
+		user.setRole(body.getRole());
 		Salle salle = salleService.findById(body.getSid()).orElse(null);
 		user.setSid(salle);
 
@@ -88,7 +88,7 @@ public class UserController {
 		String object = "Confirmation Inscription MyBodyPartner";
 		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
 				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
-		mailService.sendMail(user.getUsername(), object, message);
+		new Thread(new MailService(user.getUsername(), object, message)).start();
 	}
 
 }

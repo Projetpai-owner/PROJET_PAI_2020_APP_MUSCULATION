@@ -38,16 +38,6 @@ public class UserService implements UserDetailsService{
 		return userRepository.findByUsername(username);
 	}
 	
-
-	public boolean checkExistingEmail(@Valid User user){
-		List<User> listUser = this.findAll();
-		for(User u : listUser) {
-			if((user.getUsername()).equals(u.getUsername())) {
-				return true;
-			}
-		} 
-		return false;
-	}
 	
 	public String encryptPassword(String password) {
 		try {
