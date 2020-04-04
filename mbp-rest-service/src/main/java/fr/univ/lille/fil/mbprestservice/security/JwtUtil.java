@@ -1,4 +1,4 @@
-package fr.univ.lille.fil.mbprestservice.controller;
+package fr.univ.lille.fil.mbprestservice.security;
 
 import java.util.Date;
 import java.util.HashMap;
