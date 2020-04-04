@@ -32,6 +32,13 @@ public class UserService implements UserDetailsService{
 		return userRepository.findAll();
 	}
 	
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByUsername(username);
+	}
+	
+
 	public boolean checkExistingEmail(@Valid User user){
 		List<User> listUser = this.findAll();
 		for(User u : listUser) {
@@ -63,11 +70,6 @@ public class UserService implements UserDetailsService{
 		
 		return password;
 		
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userRepository.findByUsername(username);
 	}
 
 }

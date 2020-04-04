@@ -18,6 +18,7 @@ export class InscriptionComponent implements OnInit {
   errorMessage: string;
   inscriptionForm: FormGroup;
   obsSalles: Observable<Salle[]>;
+  IsWait: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -47,6 +48,7 @@ export class InscriptionComponent implements OnInit {
   }
 
   onSubmitForm(){
+    this.IsWait = true;
     const formValue = this.inscriptionForm.value;
     const newUser = new User(
       formValue['nom'],
@@ -60,6 +62,7 @@ export class InscriptionComponent implements OnInit {
     )
     this.errorMessage = '';
     this.userService.addUser(newUser).subscribe(res => {
+        this.IsWait = false;
         this.router.navigate(['/']);
       },
       (err: HttpErrorResponse) => {
