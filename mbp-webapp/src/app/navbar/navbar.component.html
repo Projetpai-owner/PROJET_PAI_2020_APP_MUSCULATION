@@ -3,12 +3,20 @@
         <img id="img-logo-mbp-navbar" src="assets/img/logos/mbp_logo_blanc.png" width="50px" height="50px" class="d-inline-block align-top" alt="Logo MyBodyPartner"> 
         <span id="label-navbar" class="d-inline-block">My Body Partner</span>
     </a>
-    <ul class="nav">
+    <ul class="nav" *ngIf="!currentUser" >
         <li class="nav-item">
             <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="signIn">Connexion</button>
         </li>
-        <li class="nav-item">
+        <li  class="nav-item">
             <button type="button" class="btn btn-outline-light"  color ="black" routerLinkActive="active" routerLink="signUp">Inscription</button>
+        </li>
+    </ul>
+    <ul class="nav" *ngIf="currentUser" >
+        <li class="nav-item">
+            <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>
+        </li>
+        <li  class="nav-item">
+            <button type="button" class="btn btn-outline-light"  color ="black" (click)="logout()">Logout</button>
         </li>
     </ul>
 </nav>

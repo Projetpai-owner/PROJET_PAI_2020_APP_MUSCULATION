@@ -29,7 +29,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     UserService,

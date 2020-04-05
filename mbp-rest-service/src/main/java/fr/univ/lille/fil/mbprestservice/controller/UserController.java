@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponse;
+import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
@@ -46,7 +46,8 @@ public class UserController {
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		final UserDetails userDetails = userService.loadUserByUsername(request.getUsername());
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		return ResponseEntity.ok(new AuthenticationResponseDTO(jwt,""+((User)userDetails).getPid(),
+				((User)userDetails).getPrenom(),userDetails.getAuthorities()));
 	}
 	
 
@@ -73,7 +74,7 @@ public class UserController {
 		user.setBornDate(body.getBornDate());
 		user.setUsername(body.getUsername());
 		user.setNom(body.getNom());
-		user.setPassword(userService.encryptPassword(body.getPassword()));
+		user.setPassword(body.getPassword());
 		user.setPrenom(body.getPrenom());
 		user.setSexe(body.getSexe());
 		user.setRole(body.getRole());

@@ -39,27 +39,6 @@ public class UserService implements UserDetailsService{
 	}
 	
 	
-	public String encryptPassword(String password) {
-		try {
-			byte[] bytesOfMessage = password.getBytes("UTF-8");
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] theDigest = md.digest(bytesOfMessage);
-			
-			BigInteger bigInt = new BigInteger(1, theDigest);
-			String hashPwd = bigInt.toString(16);
-			while(hashPwd.length() < 32) {
-				hashPwd = "0" + hashPwd; 
-			}
-			
-			return hashPwd;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} 
-		
-		return password;
-		
-	}
+
 
 }
