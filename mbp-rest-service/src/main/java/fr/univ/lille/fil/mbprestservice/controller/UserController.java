@@ -25,6 +25,7 @@ import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 
@@ -38,7 +39,6 @@ public class UserController {
 	private JwtUtil jwtTokenUtil;
 
 
-	@CrossOrigin
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest request) throws Exception {
 
@@ -53,7 +53,6 @@ public class UserController {
 
 
 	// save a user
-	@CrossOrigin
 	@PostMapping("/user")
 	public User createUser(@Valid @RequestBody CreateUserBody body) {
 		User user = mapFromDto(body);
