@@ -8,7 +8,7 @@ export class UserService {
 
     httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         })
     };
 
@@ -18,8 +18,5 @@ export class UserService {
         return this.http.post<User>('http://localhost:8080/user', user, this.httpOptions);
     }
 
-    getEmails(): Observable<string[]> {
-        return this.http.get<string[]>('http://localhost:8080/checkEmail');
-    }
 
 }

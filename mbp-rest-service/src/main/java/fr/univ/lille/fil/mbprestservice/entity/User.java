@@ -1,6 +1,9 @@
 package fr.univ.lille.fil.mbprestservice.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,12 +17,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import fr.univ.lille.fil.mbprestservice.enumeration.Role;
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pid;
@@ -31,6 +43,9 @@ public class User {
 	private Sexe sexe;
 	private String username;
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "sid")
@@ -54,6 +69,16 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getPassword() {
@@ -117,7 +142,46 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [pid=" + pid + ", nom=" + nom + ", prenom=" + prenom + ", bornDate=" + bornDate + ", sexe=" + sexe
-				+ ", email=" + username + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+				+ ", username=" + username + ", password=" + password + ", sid=" + sid + ", adresse=" + adresse + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+	    List<GrantedAuthority> authorities
+	      = new ArrayList<>();
+
+
+	    authorities.add(new SimpleGrantedAuthority("ROLE_"+role.toString()));
+	    System.out.println(authorities.get(0).getAuthority());
+
+	    return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 
