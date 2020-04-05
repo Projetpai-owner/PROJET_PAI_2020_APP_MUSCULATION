@@ -1,30 +1,58 @@
 /* Style de l'application */
 
+.MBP_APP{
+    height: 92vh;
+    max-height: 92vh;
+}
+
+.MBP_NAVBAR{
+    height: 8vh;
+    max-height: 8vh;
+}
+
 .MBP_CORPS{
-    height: 100%;
+    height: 92vh;
     background-color: white;
+    padding-top: 1%;
 }
 
 .MBP_CORPS_TITRE{
     height: 10%;
-    width: 75%;
-    margin : 2.5% 12.5% 0% 12.5%;
+    width: 50vw;
+    margin : 0% 25vw 0% 25vw;
     padding : 1rem;
     border : solid 1px #d9d7d7;
     border-bottom: solid 3px #6d0000;
 }
 
 .MBP_CORPS_CONTENU{
-    height: 85%;
-    width: 75%;
+    height: auto;
+    width: 50vw;
     padding: 1rem;
-    margin : 0% 12.5% 2.5% 12.5%;
+    margin : 0% 25vw 0% 25vw;
     border : solid 1px #d9d7d7;
     border-top : 0px;
 }
 
 .MBP_BTN_SUBMIT{
-    float: right !important;
     background-color: #6d0000 !important;
     border-color: #6d0000 !important;
+    color : white !important;
+}
+
+.MBP_BTN_SUBMIT:hover:enabled{
+    background-color: #530000 !important;
+    border-color: #530000 !important;
+}
+
+.MBP_LINE_1PX{
+    border-bottom: solid 1px #6d0000;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+    margin-top: 0.5%;
+    margin-bottom: 1%;    
+}
+
+.MBP_SPINNER{
+    color : #6d0000;
 }

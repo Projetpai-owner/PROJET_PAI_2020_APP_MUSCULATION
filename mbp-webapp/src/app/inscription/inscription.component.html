@@ -1,63 +1,72 @@
-<h1 class="h1 text-center">Inscription</h1>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-sm-4 col-offset-2">
-            <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">
-                <div class="form-group">
-                    <label for="prenom">Prénom</label>
+<div class="MBP_CORPS">
+    <div class="MBP_CORPS_TITRE">
+        <div class="h2">Inscription</div>
+    </div>
+    <div class="MBP_CORPS_CONTENU">
+        <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">  
+            <div class="row">
+                <div class="form-group col">
+                    <label for="prenom">Prénom : </label>
                     <input type="text" class="form-control form-control-sm" id="prenom" formControlName="prenom">
                     <p class="text-info">30 caractères maximum</p>
                 </div>
-                <div class="form-group">
-                    <label for="nom">Nom</label>
+                <div class="form-group col">
+                    <label for="nom">Nom : </label>
                     <input type="text" class="form-control form-control-sm" id="nom" formControlName="nom">
                     <p class="text-info">25 caractères maximum</p>
                 </div>
-                <div class="form-group">
-                    <label for="bornDate">Date de naissance</label>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label for="bornDate">Date de naissance : </label>
                     <input type="date" class="form-control form-control-sm" id="bornDate" formControlName="bornDate">
                 </div>
-                <div class="form-group">
-                    <label for="sexe">Sexe</label>
-                    <select id="sexe" class="form-control form-control-sm" formControlName="sexe">
-                        <option value="H">Homme</option>
-                        <option value="F">Femme</option>
-                        <option value="NC">Autre</option>
-                    </select>
+                <div class="form-group col">
+                    <label for="sexe">Sexe : </label>
+                        <select id="sexe" class="form-control form-control-sm" formControlName="sexe">
+                            <option value="H">Homme</option>
+                            <option value="F">Femme</option>
+                            <option value="NC">Autre</option>
+                        </select>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="MBP_LINE_1PX"></div>
+            <div class="row">
+                <div class="form-group col">
                     <label for="adresse">Adresse</label>
                     <input type="text" class="form-control form-control-sm" id="adresse" formControlName="adresse">
                     <p class="text-info">200 caractères maximum</p>
                 </div>
-                <div class="form-group">
+                <div class="form-group col">
                     <label for="sid">Salle de musculation</label>
                     <select id="sid" class="form-control form-control-sm" formControlName="sid">
                         <option *ngFor="let salle of obsSalles | async" value="{{salle.sid}}">{{salle.nom}}</option>
                     </select>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="MBP_LINE_1PX"></div>
+            <div class="row">
+                <div class="form-group col">
                     <label for="email">E-mail</label>
                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
                 </div>
-                <div class="form-group">
+                <div class="form-group col">            
                     <label for="password">Mot de passe</label>
                     <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
                     <p class="text-info">Au moins 7 caractères avec 1 majuscule, 1 miniscule et 1 chiffre</p>
                 </div>
-                <div class="row">
-                    <div class="col-8"></div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" *ngIf="!IsWait" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
-                            <div class="d-flex" *ngIf="IsWait">
-                                <div class="spinner-border" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                 </div>
-                            </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn float-right MBP_BTN_SUBMIT" *ngIf="!IsWait" type="submit" [disabled]="inscriptionForm.invalid">S'inscrire</button>
+                    <div class="float-right" *ngIf="IsWait">
+                        <div class="spinner-border MBP_SPINNER" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
+                    </div>
                 </div>
-            </form>
+            </div>  
+        </form>
         <p class="text-danger">{{errorMessage}}</p>
-        </div>
     </div>
 </div>
