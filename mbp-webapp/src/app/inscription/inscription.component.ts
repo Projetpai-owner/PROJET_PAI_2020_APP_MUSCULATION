@@ -58,7 +58,8 @@ export class InscriptionComponent implements OnInit {
       formValue['email'],
       formValue['password'],
       +formValue['sid'],
-      formValue['adresse']
+      formValue['adresse'],
+	'USER'
     )
     this.errorMessage = '';
     this.userService.addUser(newUser).subscribe(res => {
