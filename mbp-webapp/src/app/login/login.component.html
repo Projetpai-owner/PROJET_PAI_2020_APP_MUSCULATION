@@ -1,0 +1,25 @@
+<h1 class="h1 text-center mb-5">Connexion</h1>
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-sm-4 col-offset-2">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
+                </div>
+
+                <div class="row">
+                    <div class="col-8"></div>
+                        <div class="col-4">
+                            <button class="btn btn-primary"  type="submit" [disabled]="loginForm.invalid">Valider</button>
+                        </div>
+                </div>
+            </form>
+        <p class="text-danger">{{errorMessage}}</p>
+        </div>
+    </div>
+</div>
