@@ -16,6 +16,7 @@ import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
 import {TypeSeanceService} from './services/TypeSeance.service';
 import {AdvertService} from './services/Advert.service';
+import { AdvertListComponent } from './advert-list/advert-list.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import {AdvertService} from './services/Advert.service';
 		NavbarComponent,
 		FormCreationAnnonceComponent,
 		LoginComponent,
-		UserAccueilComponent
+		UserAccueilComponent,
+		AdvertListComponent
 	],
 	imports: [
 		BrowserModule,

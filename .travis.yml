@@ -1,1 +1,9 @@
+before_install: cd mbp-rest-service
 language: java
+
+addons:
+  sonarcloud:
+    organization: "projetpai-owner" # the key of the org you chose at step #3
+
+script:
+- mvn clean verify sonar:sonar -Dsonar.projectKey=mybodypartner-rest

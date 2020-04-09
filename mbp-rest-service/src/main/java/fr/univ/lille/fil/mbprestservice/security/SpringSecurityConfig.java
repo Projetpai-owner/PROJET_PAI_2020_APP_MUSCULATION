@@ -25,51 +25,47 @@ import fr.univ.lille.fil.mbprestservice.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)  
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService);
 
 	}
-	
-    // Secure the endpoins with HTTP Basic authentication
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().and().csrf().disable()
-        .authorizeRequests().antMatchers("/getAllSalles","/user","/login").permitAll()
-        .anyRequest().authenticated()
-        .and().sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-  
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-    
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-      final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      source.registerCorsConfiguration("http://localhost:4200/**", new CorsConfiguration().applyPermitDefaultValues());
-      return source;
-    }
+	// Secure the endpoins with HTTP Basic authentication
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/getAllSalles", "/user", "/login")
+				.permitAll().anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    
-    @Bean
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;
+	}
+
+	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		// TODO Auto-generated method stub
 		return super.authenticationManager();
 	}
 
 	@Bean
-    public PasswordEncoder passwordEncoder() {
-    	return NoOpPasswordEncoder.getInstance();
-    }
-	   
+	public PasswordEncoder passwordEncoder() {
+		return NoOpPasswordEncoder.getInstance();
+	}
+
 }
