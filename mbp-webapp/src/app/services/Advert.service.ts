@@ -12,7 +12,7 @@ export class AdvertService {
     })
   };
 
-  constructor(private http: HttpClient){ }
+  constructor(private http: HttpClient) { }
 
   createAdvert(advert: Advert): Observable<Advert> {
     return this.http.post<Advert>('http://localhost:8080/createAdvert', advert, this.httpOptions);

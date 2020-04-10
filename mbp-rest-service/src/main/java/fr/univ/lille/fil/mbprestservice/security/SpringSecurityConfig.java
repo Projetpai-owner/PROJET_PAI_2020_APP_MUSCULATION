@@ -39,7 +39,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-        .authorizeRequests().antMatchers("/getAllSalles","/user","/login").permitAll()
+        .authorizeRequests().antMatchers("/getAllSalles","/user","/login","/getAllTypeSeance","/createAdvert").permitAll()
         .anyRequest().authenticated()
         .and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -59,5 +59,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
     	return NoOpPasswordEncoder.getInstance();
     }
-    
+	   
 }

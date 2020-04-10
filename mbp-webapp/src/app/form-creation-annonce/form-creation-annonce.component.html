@@ -5,27 +5,32 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
         <div class="form-group">
           <label for="NomCreaAnnonce">Nom</label>
-          <input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce">
+          <input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce" formControlName="NomCreaAnnonce">
         </div>
         <div class="form-group">
-          <label for="NiveauPratiquantCreaAnnonce">Description</label>
-          <input type="txt" id="NiveauPratiquantCreaAnnonce" class="form-control"placeholder="Niveau de votre pratiquant">
+          <label for="NiveauCreaAnnonce">Sexe</label>
+          <select id="NiveauCreaAnnonce" class="form-control form-control-sm" formControlName="NiveauCreaAnnonce">
+            <option value="DEBUTANT">Débutant</option>
+            <option value="AMATEUR">Amateur</option>
+            <option value="AVANCE">Avancé</option>
+            <option value="PROFESSIONEL">Professionnel</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="DescriptionCreaAnnonce">Description</label>
-          <input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce">
+          <input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce" formControlName="DescriptionCreaAnnonce">
         </div>
         <div class="form-group">
           <label for="DureeSeanceCreaAnnonce">Durée de la séance</label>
-          <input type="time" id="DureeSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la durée de la séance">
+          <input type="time" id="DureeSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la durée de la séance" formControlName="DureeSeanceCreaAnnonce">
         </div>
         <div class="form-group">
           <label for="DateSeanceCreaAnnonce">Date de la séance</label>
-          <input type="date" id="DateSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la date de la séance">
+          <input type="date" id="DateSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la date de la séance" formControlName="DateSeanceCreaAnnonce">
         </div>
         <div class="form-group">
           <label for="typeSeanceCreaAnnonce">Type de séance</label>
-          <select class="form-control" id="typeSeanceCreaAnnonce">
+          <select class="form-control" id="typeSeanceCreaAnnonce" formControlName="typeSeanceCreaAnnonce">
             <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
           </select>
         </div>

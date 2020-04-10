@@ -1,6 +1,10 @@
 export class Advert {
 
-  constructor(description: string, niveauPratique: string, dureeSeance: number, nom: string, dateSeance: Date, idSeance: number) {
-
+  constructor(public description: string,
+              public niveauPratique: string,
+              public dureeSeance: number,
+              public nom: string,
+              public dateSeance: Date,
+              public idSeance: number) {
   }
 }

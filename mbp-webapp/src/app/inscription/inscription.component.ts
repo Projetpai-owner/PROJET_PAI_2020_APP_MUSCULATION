@@ -53,7 +53,7 @@ export class InscriptionComponent implements OnInit {
 	onSubmitForm() {
 		this.IsWait = true;
 		const formValue = this.inscriptionForm.value;
-		const hashedPassword=this.hashService.hashPassword(formValue['password'])
+		const hashedPassword = this.hashService.hashPassword(formValue['password'])
 		const newUser = new User(
 			formValue['nom'],
 			formValue['prenom'],

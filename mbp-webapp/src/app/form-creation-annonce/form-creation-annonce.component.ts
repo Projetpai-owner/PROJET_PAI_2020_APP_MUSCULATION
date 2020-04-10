@@ -14,7 +14,7 @@ import {AdvertService} from '../services/Advert.service';
   styleUrls: ['./form-creation-annonce.component.scss']
 })
 export class FormCreationAnnonceComponent implements OnInit {
-  loginForm: FormGroup
+  loginForm: FormGroup;
   errorMessage: string;
   obsTypeSeance: Observable<TypeSeance[]>;
   isWait: boolean;
@@ -29,9 +29,11 @@ export class FormCreationAnnonceComponent implements OnInit {
   initForm() {
     this.loginForm = this.formBuilder.group({
       NomCreaAnnonce: ['', Validators.required],
+      NiveauCreaAnnonce : ['', Validators.required],
       DescriptionCreaAnnonce: ['', Validators.required],
       DureeSeanceCreaAnnonce: ['', Validators.required],
-      DateSeanceCreaAnnonce: ['', Validators.required]
+      DateSeanceCreaAnnonce: ['', Validators.required],
+      typeSeanceCreaAnnonce: ['', Validators.required]
     });
     this.getAllTypeSeances();
   }
@@ -43,15 +45,23 @@ export class FormCreationAnnonceComponent implements OnInit {
   onSubmitForm() {
     this.isWait = true;
     const formValue = this.loginForm.value;
+
+    function transformTimeIntoNumber(value: number) {
+      const tmp1 = +(value.toString().split(':')[0]) * 60;
+      const tmp2 = +(value.toString().split(':')[1]);
+      return tmp1 + tmp2;
+    }
+
     const newAdvert = new Advert(
       formValue['DescriptionCreaAnnonce'],
-      formValue['NiveauPratiquantCreaAnnonce'],
-      formValue['DureeSeanceCreaAnnonce'],
+      formValue['NiveauCreaAnnonce'],
+      transformTimeIntoNumber(formValue['DureeSeanceCreaAnnonce']),
       formValue['NomCreaAnnonce'],
       formValue['DateSeanceCreaAnnonce'],
-      +formValue['idSeance']
+      +formValue['typeSeanceCreaAnnonce']
     )
     this.errorMessage = '';
+    console.log(newAdvert);
     this.advertService.createAdvert(newAdvert).subscribe(res => {
         this.isWait = false;
         this.router.navigate(['/']);
@@ -61,5 +71,4 @@ export class FormCreationAnnonceComponent implements OnInit {
       }
     );
   }
-
 }
