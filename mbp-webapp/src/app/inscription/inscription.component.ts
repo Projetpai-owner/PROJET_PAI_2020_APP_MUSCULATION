@@ -72,6 +72,7 @@ export class InscriptionComponent implements OnInit {
 		},
 			(err: HttpErrorResponse) => {
 				this.errorMessage = err.error.message;
+				this.IsWait = false;
 			}
 		);
 	}

@@ -1,13 +1,15 @@
-<h1 class="h1 text-center">Inscription</h1>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-4 col-offset-2">
+<div class="MBP_CORPS">
+<div class="MBP_CORPS_TITRE">
+  <div class="h2">Création d'annonce</div>
+</div>
+  <div class="MBP_CORPS_CONTENU">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
-        <div class="form-group">
+        <div class="row">
+        <div class="form-group col">
           <label for="NomCreaAnnonce">Nom</label>
           <input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce" formControlName="NomCreaAnnonce">
         </div>
-        <div class="form-group">
+        <div class="form-group col">
           <label for="NiveauCreaAnnonce">Sexe</label>
           <select id="NiveauCreaAnnonce" class="form-control form-control-sm" formControlName="NiveauCreaAnnonce">
             <option value="DEBUTANT">Débutant</option>
@@ -16,27 +18,37 @@
             <option value="PROFESSIONEL">Professionnel</option>
           </select>
         </div>
+        </div>
+        <div class="MBP_LINE_1PX"></div>
         <div class="form-group">
           <label for="DescriptionCreaAnnonce">Description</label>
           <input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce" formControlName="DescriptionCreaAnnonce">
         </div>
-        <div class="form-group">
+        <div class="MBP_LINE_1PX"></div>
+        <div class="row">
+        <div class="form-group col">
           <label for="DureeSeanceCreaAnnonce">Durée de la séance</label>
           <input type="time" id="DureeSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la durée de la séance" formControlName="DureeSeanceCreaAnnonce">
         </div>
-        <div class="form-group">
+        <div class="form-group col">
           <label for="DateSeanceCreaAnnonce">Date de la séance</label>
           <input type="date" id="DateSeanceCreaAnnonce" class="form-control" placeholder="Indiquez la date de la séance" formControlName="DateSeanceCreaAnnonce">
         </div>
+        </div>
+        <div class="MBP_LINE_1PX"></div>
         <div class="form-group">
           <label for="typeSeanceCreaAnnonce">Type de séance</label>
           <select class="form-control" id="typeSeanceCreaAnnonce" formControlName="typeSeanceCreaAnnonce">
             <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <div class="row">
+          <div class="col text-center">
+           <button type="submit" class="btn MBP_BTN_SUBMIT">Créer</button>
+          </div>
+        </div>
       </form>
     <p class="text-danger">{{errorMessage}}</p>
   </div>
 </div>
-</div>
+
