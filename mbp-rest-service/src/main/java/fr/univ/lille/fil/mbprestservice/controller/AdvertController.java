@@ -16,7 +16,6 @@ import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
 import fr.univ.lille.fil.mbprestservice.service.AdvertService;
 import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
 
-@CrossOrigin(origins="http://localhost:4200")
 @RestController
 @Secured(value = "ROLE_USER")
 public class AdvertController {
@@ -26,6 +25,7 @@ public class AdvertController {
 	@Autowired
 	TypeSeanceService typeSeanceService;
 	
+	@CrossOrigin(origins="http://localhost:4200")
 	@PostMapping("/createAdvert")
 	public Advert createAdvert(@Valid @RequestBody CreateAdvertBody body) {
 		return advertService.save(mapFromDto(body));

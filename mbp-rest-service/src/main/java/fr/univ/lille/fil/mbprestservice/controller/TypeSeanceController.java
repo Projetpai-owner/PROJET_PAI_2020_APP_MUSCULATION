@@ -16,7 +16,7 @@ public class TypeSeanceController {
 	@Autowired
 	TypeSeanceService typeSeanceService;
 
-	@CrossOrigin
+	@CrossOrigin(origins="http://localhost:4200")
 	@GetMapping("/getAllTypeSeance")
 	public List<TypeSeance> getAllTypeSeance() {
 		return typeSeanceService.findAll();
