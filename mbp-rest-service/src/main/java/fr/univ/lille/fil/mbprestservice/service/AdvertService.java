@@ -25,6 +25,9 @@ public class AdvertService {
 	public List<Advert> findAll() {
 		return advertRepository.findAll();
 	}
-
-
+	
+	public void delete(int id) {
+		 advertRepository.deleteById(id);
+	}
+	
 }
