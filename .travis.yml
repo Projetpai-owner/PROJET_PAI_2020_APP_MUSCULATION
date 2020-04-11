@@ -8,4 +8,5 @@ addons:
 install: true
 
 script:
+- mvn clean install -DskipTests
 - mvn sonar:sonar -Dsonar.projectKey=mybodypartner-rest
