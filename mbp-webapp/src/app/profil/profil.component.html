@@ -1,0 +1,82 @@
+<div class="MBP_CORPS">
+    <div class="MBP_CORPS_TITRE">
+        <div class="h2 text-center">Mon Profil</div>
+    </div>
+    <div class="MBP_CORPS_CONTENU"> 
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>Prénom : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				 value="{{user.prenom}}" readonly="readonly">		
+			</div>
+        </div>
+        <div class="row MBP-top5">
+           <div class="col-6 MBP-padding-left-10">
+				<label>Nom : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				value="{{user.nom}}" readonly="readonly">			
+			</div>
+        </div>
+		<div class="MBP_LINE_1PX MBP-top5"></div>  
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>Date de naissance : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				value="{{user.bornDate | date: 'dd/MM/yyyy'}}" readonly="readonly">			
+			</div>
+        </div>
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>Sexe : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				*ngIf="user.sexe == 'H'" value="Homme" readonly="readonly">	
+				<input type="text" class="form-control form-control-sm" 
+				*ngIf="user.sexe == 'F'" value="Femme" readonly="readonly">
+				<input type="text" class="form-control form-control-sm" 
+				*ngIf="user.sexe == 'NC'" value="Autre" readonly="readonly">		
+			</div>
+        </div>
+		<div class="MBP_LINE_1PX MBP-top5"></div>  
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>Adresse : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				value="{{user.adresse}}" readonly="readonly">			
+			</div>
+		</div>
+		<div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>Salle : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				value="{{user.sid.nom}}" readonly="readonly">			
+			</div>
+        </div>
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<label>E-mail : </label>
+			</div>
+			<div class="col-6">
+				<input type="text" class="form-control form-control-sm" 
+				value="{{user.username}}" readonly="readonly">			
+			</div>
+		</div>
+		<div class="MBP_LINE_1PX MBP-top5"></div>  
+        <div class="row MBP-top5">
+            <div class="col-6 MBP-padding-left-10">
+				<button class="btn btn-danger">Résilier mon compte</button>
+			</div>
+		</div>	
+    </div>
+</div>

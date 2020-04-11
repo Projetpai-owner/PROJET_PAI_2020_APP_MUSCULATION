@@ -14,6 +14,7 @@ import { SalleService } from './services/Salle.service';
 import { LoginComponent } from './login/login.component';
 import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
 		NavbarComponent,
 		FormCreationAnnonceComponent,
 		LoginComponent,
-		UserAccueilComponent
+		UserAccueilComponent,
+		ProfilComponent
 	],
 	imports: [
 		BrowserModule,
