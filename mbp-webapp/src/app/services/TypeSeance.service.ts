@@ -8,7 +8,7 @@ export class TypeSeanceService {
 
   constructor(private http: HttpClient){ }
 
-  getSalles(): Observable<TypeSeance[]> {
+  getTypeSeance(): Observable<TypeSeance[]> {
     return this.http.get<TypeSeance[]>('http://localhost:8080/getAllTypeSeance');
   }
 

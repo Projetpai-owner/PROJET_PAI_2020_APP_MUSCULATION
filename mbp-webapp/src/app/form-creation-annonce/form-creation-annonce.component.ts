@@ -39,7 +39,7 @@ export class FormCreationAnnonceComponent implements OnInit {
   }
 
   getAllTypeSeances(){
-    this.obsTypeSeance = this.typeSeanceService.getSalles();
+    this.obsTypeSeance = this.typeSeanceService.getTypeSeance();
   }
 
   onSubmitForm() {
