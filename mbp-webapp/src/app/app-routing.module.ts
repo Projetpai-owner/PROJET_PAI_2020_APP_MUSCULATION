@@ -9,9 +9,9 @@ import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creat
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
-  {path: 'signUp', component: InscriptionComponent,canActivate:[AuthGuard]},
-  {path: 'signIn', component: LoginComponent},
-  {path: 'createAdvert', component: FormCreationAnnonceComponent}
+  {path: 'signUp', component: InscriptionComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
+  {path: 'signIn', component: LoginComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
+  {path: 'createAdvert', component: FormCreationAnnonceComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}}
 
 
 ];
