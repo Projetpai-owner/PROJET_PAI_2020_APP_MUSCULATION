@@ -34,7 +34,7 @@ export class AuthService {
 
 		return this.http.post<CurrentUser>('http://localhost:8080/login', { username, password }, this.httpOptions)
 			.pipe(map(user => {
-				if (user && user.jwt) {
+				if (user && user.accessToken&&user.refreshToken) {
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);
 				}
@@ -47,6 +47,8 @@ export class AuthService {
 
 
 	logout() {
+		let refreshToken=this.currentUserValue.refreshToken
+		this.http.delete('http://localhost:8080/revoke/'+refreshToken,this.httpOptions);
 		localStorage.removeItem('currentUser');
 		this.currentUserSubject.next(null);
 	}
