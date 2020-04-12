@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 public class AuthenticationResponseDTO {
 	private final String jwt;
 	private final String userId;
-	private final boolean isAdmin;
+	private final String role;
 	private final String prenom;
 	
 	public AuthenticationResponseDTO(String jwt, String userId, String prenom,Collection<? extends GrantedAuthority> collection) {
@@ -15,7 +15,7 @@ public class AuthenticationResponseDTO {
 		this.jwt = jwt;
 		this.userId = userId;
 		this.prenom=prenom;
-		isAdmin=collection.iterator().next().getAuthority().equals("ROLE_ADMIN");
+		this.role=collection.iterator().next().getAuthority();
 	}
 
 	
@@ -32,8 +32,8 @@ public class AuthenticationResponseDTO {
 		return userId;
 	}
 
-	public boolean getIsAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
 }
