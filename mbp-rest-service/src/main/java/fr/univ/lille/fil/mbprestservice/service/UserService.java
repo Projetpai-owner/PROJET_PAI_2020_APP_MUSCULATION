@@ -1,6 +1,5 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
 import fr.univ.lille.fil.mbprestservice.entity.User;
-import fr.univ.lille.fil.mbprestservice.entity.UserRefreshToken;
 import fr.univ.lille.fil.mbprestservice.repository.UserRefreshTokenRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRepository;
 import fr.univ.lille.fil.mbprestservice.security.JwtUtil;
@@ -44,7 +42,6 @@ public class UserService implements UserDetailsService{
 	}
 
 	public Optional<AccessTokenDTO> refreshAccessToken(String refreshToken) {
-		// TODO Auto-generated method stub
 		 return userRefreshTokenRepository.findByToken(refreshToken)
 	                .map(userRefreshToken -> new AccessTokenDTO(
 	                        jwtTokenUtil.generateToken(userRefreshToken.getUsername())
@@ -60,10 +57,9 @@ public class UserService implements UserDetailsService{
 		final UserDetails userDetails = loadUserByUsername(username);
 		final String accessToken = jwtTokenUtil.generateToken(userDetails.getUsername());
 		final String refreshToken = jwtTokenUtil.createRefreshToken(userDetails);
-		AuthenticationResponseDTO dto=new AuthenticationResponseDTO(accessToken,refreshToken,""+((User)userDetails).getPid(),
-				((User)userDetails).getPrenom(),userDetails.getAuthorities());
 		
-		return dto;
+		return new AuthenticationResponseDTO(accessToken,refreshToken,""+((User)userDetails).getPid(),
+				((User)userDetails).getPrenom(),userDetails.getAuthorities());
 
 	}
 	

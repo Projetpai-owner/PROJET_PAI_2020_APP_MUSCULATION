@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +21,6 @@ import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
-import fr.univ.lille.fil.mbprestservice.requestbody.RefreshTokenBody;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
@@ -44,14 +42,12 @@ public class UserController {
 
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		AuthenticationResponseDTO dto = userService.login(request.getUsername());
-		return dto;
+		return userService.login(request.getUsername());
 	}
 
 	@PostMapping("/refresh/{token}")
 	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token) {
-		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
-		return dto;
+		return userService.refreshAccessToken(token).orElse(null);
 	}
 
 	@DeleteMapping("/revoke/{token}")
