@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,7 +68,13 @@ public class UserController {
 
 	}
 	
-	
+	//update user information
+	@Transactional
+	@PostMapping("/updateUser")
+	public int updateUser(@Valid @RequestBody CreateUserBody body) {
+		User user = mapFromDto(body);
+		return userService.updateUser(user);
+	}
 
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {

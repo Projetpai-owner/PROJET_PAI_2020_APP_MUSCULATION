@@ -28,6 +28,10 @@ public class UserService implements UserDetailsService{
 		return userRepository.save(user);
 	}
 	
+	public int updateUser (@Valid User user) {
+		return userRepository.updateUser(user.getPassword(), user.getSid(), user.getAdresse(), user.getUsername());
+	}
+	
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}

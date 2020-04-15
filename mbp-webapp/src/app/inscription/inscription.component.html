@@ -50,10 +50,17 @@
                     <label for="email">E-mail</label>
                     <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
                 </div>
+            </div>
+            <div class="row">
                 <div class="form-group col">            
                     <label for="password">Mot de passe</label>
                     <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
                     <p class="text-info">Au moins 7 caractères avec 1 majuscule, 1 miniscule et 1 chiffre</p>
+                </div>
+                <div class="form-group col">            
+                    <label for="confirmpassword">Confirmer mot de passe</label>
+                    <input type="password" class="form-control form-control-sm" id="confirmpassword" formControlName="confirmpassword">
+                    <p class="text-danger" *ngIf="this.inscriptionForm.value['password'] !== this.inscriptionForm.value['confirmpassword']">Les mots de passe ne sont pas identiques</p>
                 </div>
             </div>
             <div class="row">
