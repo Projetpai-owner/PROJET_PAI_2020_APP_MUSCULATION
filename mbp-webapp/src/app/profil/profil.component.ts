@@ -103,7 +103,7 @@ export class ProfilComponent implements OnInit {
       this.ngOnInit();
 		},
 			(err: HttpErrorResponse) => {
-				console.log(err.error.message);
+				console.log(err.message);
 			}
 		);
   }

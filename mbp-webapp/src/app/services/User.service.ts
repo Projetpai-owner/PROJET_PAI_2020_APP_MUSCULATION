@@ -24,7 +24,7 @@ export class UserService {
     }
 
     updateUser(user: User): Observable<User>{
-        return this.http.post<User>('http://localhost:8080/updateUser', user, this.httpOptions);
+        return this.http.put<User>('http://localhost:8080/updateUser', user, this.httpOptions);
     }
 
 
