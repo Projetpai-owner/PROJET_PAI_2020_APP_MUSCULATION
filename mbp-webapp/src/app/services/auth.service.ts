@@ -44,13 +44,20 @@ export class AuthService {
 
 
 	}
+	
+	refresh(){
+		let url='http://localhost:8080/refresh/'+this.currentUserValue.refreshToken
+		return this.http.post<string>(url,this.httpOptions)
+	}
 
 
 	logout() {
-		let refreshToken=this.currentUserValue.refreshToken
-		this.http.delete('http://localhost:8080/revoke/'+refreshToken,this.httpOptions);
-		localStorage.removeItem('currentUser');
-		this.currentUserSubject.next(null);
+		let url='http://localhost:8080/revoke/'+this.currentUserValue.refreshToken
+		this.http.delete(url,this.httpOptions).subscribe(response=>{
+			localStorage.removeItem('currentUser');
+			this.currentUserSubject.next(null);
+		});
+	
 	}
 
 

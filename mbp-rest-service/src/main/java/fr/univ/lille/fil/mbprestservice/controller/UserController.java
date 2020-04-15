@@ -50,7 +50,8 @@ public class UserController {
 
 	@PostMapping("/refresh/{token}")
 	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token) {
-		return userService.refreshAccessToken(token).orElse(null);
+		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
+		return dto;
 	}
 
 	@DeleteMapping("/revoke/{token}")

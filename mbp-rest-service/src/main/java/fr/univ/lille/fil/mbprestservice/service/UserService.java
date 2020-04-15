@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,6 @@ public class UserService implements UserDetailsService{
 		final UserDetails userDetails = loadUserByUsername(username);
 		final String accessToken = jwtTokenUtil.generateToken(userDetails.getUsername());
 		final String refreshToken = jwtTokenUtil.createRefreshToken(userDetails);
-		
 		AuthenticationResponseDTO dto=new AuthenticationResponseDTO(accessToken,refreshToken,""+((User)userDetails).getPid(),
 				((User)userDetails).getPrenom(),userDetails.getAuthorities());
 		
