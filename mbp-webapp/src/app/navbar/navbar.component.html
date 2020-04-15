@@ -20,28 +20,6 @@
         <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>    
         <button type="button" class="btn btn-outline-light"  color ="black" (click)="logout()">Logout</button>
     </div>
-    <!-- <ul class="nav" *ngIf="!currentUser" >
-        <li class="nav-item mr-auto">
-            <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="signIn">Connexion</button>
-        </li>
-        <li  class="nav-item mr-auto">
-            <button type="button" class="btn btn-outline-light"  color ="black" routerLinkActive="active" routerLink="signUp">Inscription</button>
-        </li>
-    </ul> -->
-   <!-- <ul class="nav" *ngIf="currentUser &&  !isAdmin">
-        <li class="nav-item ">
-          <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="createAdvert">Créer annonce</button>
-        </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="listAdverts">Liste des annonces</button>
-      </li>
-        <li class="nav-item mr-auto">
-            <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>
-        </li>
-        <li  class="nav-item mr-auto">
-            <button type="button" class="btn btn-outline-light"  color ="black" (click)="logout()">Logout</button>
-        </li>
-    </ul> -->
     <div id="navbar-admin" class="collapse navbar-collapse" *ngIf="currentUser && isAdmin">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
