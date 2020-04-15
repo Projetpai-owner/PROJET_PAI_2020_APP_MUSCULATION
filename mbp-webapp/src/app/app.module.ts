@@ -15,6 +15,9 @@ import { LoginComponent } from './login/login.component';
 import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
 import { ProfilComponent } from './profil/profil.component';
+import { TypeSeanceService } from './services/TypeSeance.service';
+import { AdvertService } from './services/Advert.service';
+import { AdvertListComponent } from './advert-list/advert-list.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +28,8 @@ import { ProfilComponent } from './profil/profil.component';
 		FormCreationAnnonceComponent,
 		LoginComponent,
 		UserAccueilComponent,
-		ProfilComponent
+		ProfilComponent,
+		AdvertListComponent
 	],
 	imports: [
 		BrowserModule,
@@ -39,6 +43,8 @@ import { ProfilComponent } from './profil/profil.component';
 	providers: [
 		UserService,
 		SalleService,
+    TypeSeanceService,
+    AdvertService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],

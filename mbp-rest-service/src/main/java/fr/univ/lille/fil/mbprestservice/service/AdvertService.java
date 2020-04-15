@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.univ.lille.fil.mbprestservice.entity.Advert;
-import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.repository.AdvertRepository;
-import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
 
 @Service
 public class AdvertService {
@@ -25,6 +23,9 @@ public class AdvertService {
 	public List<Advert> findAll() {
 		return advertRepository.findAll();
 	}
-
-
+	
+	public void delete(int id) {
+		 advertRepository.deleteById(id);
+	}
+	
 }

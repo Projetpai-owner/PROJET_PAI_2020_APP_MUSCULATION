@@ -4,19 +4,20 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { LoginComponent } from './login/login.component';
 import { ProfilComponent } from './profil/profil.component';
-
+import { AuthGuard } from './auth/auth.guard';
+import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
-  {path: 'signUp', component: InscriptionComponent},
-  {path: 'signIn', component: LoginComponent},
-  {path: 'myAccount', component: ProfilComponent}
-
-
+  {path: 'signUp', component: InscriptionComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
+  {path: 'signIn', component: LoginComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
+  {path: 'myAccount', component: ProfilComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}},
+  {path: 'createAdvert', component: FormCreationAnnonceComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

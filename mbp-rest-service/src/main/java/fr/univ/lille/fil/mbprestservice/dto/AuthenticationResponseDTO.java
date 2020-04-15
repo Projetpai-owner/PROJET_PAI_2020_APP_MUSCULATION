@@ -5,17 +5,19 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 
 public class AuthenticationResponseDTO {
-	private final String jwt;
+	private final String accessToken;
+	private final String refreshToken;
 	private final String userId;
-	private final boolean isAdmin;
+	private final String role;
 	private final String prenom;
 	
-	public AuthenticationResponseDTO(String jwt, String userId, String prenom,Collection<? extends GrantedAuthority> collection) {
+	public AuthenticationResponseDTO(String accessToken,String refreshToken, String userId, String prenom,Collection<? extends GrantedAuthority> collection) {
 		super();
-		this.jwt = jwt;
+		this.accessToken = accessToken;
+		this.refreshToken=refreshToken;
 		this.userId = userId;
 		this.prenom=prenom;
-		isAdmin=collection.iterator().next().getAuthority().equals("ROLE_ADMIN");
+		this.role=collection.iterator().next().getAuthority();
 	}
 
 	
@@ -24,16 +26,24 @@ public class AuthenticationResponseDTO {
 	}
 
 
-	public String getJwt() {
-		return jwt;
+
+
+	public String getAccessToken() {
+		return accessToken;
 	}
+
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
 
 	public String getUserId() {
 		return userId;
 	}
 
-	public boolean getIsAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
 }
