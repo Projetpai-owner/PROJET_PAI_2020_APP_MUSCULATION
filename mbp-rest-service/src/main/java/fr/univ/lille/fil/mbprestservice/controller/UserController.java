@@ -19,6 +19,7 @@ import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
+import fr.univ.lille.fil.mbprestservice.exceptions.InvalidRefreshTokenException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
@@ -46,8 +47,11 @@ public class UserController {
 	}
 
 	@PostMapping("/refresh/{token}")
-	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token) {
-		return userService.refreshAccessToken(token).orElse(null);
+	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
+		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
+		if(dto==null)
+			throw new InvalidRefreshTokenException();
+		return dto;
 	}
 
 	@DeleteMapping("/revoke/{token}")
