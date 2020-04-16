@@ -38,8 +38,7 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request)
-			throws Exception {
+	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
 
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
