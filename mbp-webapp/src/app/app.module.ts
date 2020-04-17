@@ -17,6 +17,7 @@ import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
 import {TypeSeanceService} from './services/TypeSeance.service';
 import {AdvertService} from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
+import { UserListeComponent } from './user-liste/user-liste.component';
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,8 @@ import { AdvertListComponent } from './advert-list/advert-list.component';
 		FormCreationAnnonceComponent,
 		LoginComponent,
 		UserAccueilComponent,
-		AdvertListComponent
+		AdvertListComponent,
+		UserListeComponent
 	],
 	imports: [
 		BrowserModule,
