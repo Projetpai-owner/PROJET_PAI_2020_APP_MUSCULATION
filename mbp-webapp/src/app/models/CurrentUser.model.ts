@@ -1,6 +1,6 @@
 export class CurrentUser {
 
-	constructor(public jwt: string,public userId:string,public prenom:string,public role:string) {
+	constructor(public accessToken: string,public refreshToken: string,public userId:string,public prenom:string,public role:string) {
 
 	}
 }

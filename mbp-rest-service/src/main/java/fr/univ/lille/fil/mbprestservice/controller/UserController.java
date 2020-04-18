@@ -3,22 +3,25 @@ package fr.univ.lille.fil.mbprestservice.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
+import fr.univ.lille.fil.mbprestservice.exceptions.InvalidRefreshTokenException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
-import fr.univ.lille.fil.mbprestservice.security.JwtUtil;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
@@ -33,37 +36,40 @@ public class UserController {
 	private SalleService salleService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	@Autowired
-	private JwtUtil jwtTokenUtil;
-
 
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest request) throws Exception {
+	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
 
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		final UserDetails userDetails = userService.loadUserByUsername(request.getUsername());
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new AuthenticationResponseDTO(jwt,""+((User)userDetails).getPid(),
-				((User)userDetails).getPrenom(),userDetails.getAuthorities()));
+		return userService.login(request.getUsername());
 	}
-	
 
+	@PostMapping("/refresh/{token}")
+	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
+		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
+		if(dto==null)
+			throw new InvalidRefreshTokenException();
+		return dto;
+	}
 
+	@DeleteMapping("/revoke/{token}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
+		userService.logoutUser(token);
+	}
 
 	// save a user
 	@PostMapping("/user")
 	public User createUser(@Valid @RequestBody CreateUserBody body) {
 		User user = mapFromDto(body);
-		if (userService.loadUserByUsername(user.getUsername())!=null) {
+		if (userService.loadUserByUsername(user.getUsername()) != null) {
 			throw new EmailAlreadyExistException();
 		}
 		this.sendMail(body);
 		return userService.save(user);
 
 	}
-	
-	
 
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {
