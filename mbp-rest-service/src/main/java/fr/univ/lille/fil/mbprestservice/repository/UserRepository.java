@@ -1,6 +1,10 @@
 package fr.univ.lille.fil.mbprestservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.univ.lille.fil.mbprestservice.entity.User;
 
@@ -8,5 +12,10 @@ import fr.univ.lille.fil.mbprestservice.entity.User;
 public interface UserRepository extends JpaRepository<User, String> {
 
 	public User findByUsername(String username);
+	
+	@Modifying(clearAutomatically=true)
+    @Transactional
+	@Query("UPDATE User u SET u.password = :password WHERE u.username = :username")
+	public int changePassword(@Param("password") String password,@Param("username") String username);
 	
 }

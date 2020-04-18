@@ -18,5 +18,19 @@ export class UserService {
         return this.http.post<User>('http://localhost:8080/user', user, this.httpOptions);
     }
 
+	createPasswordToken(email:string):Observable<string> {
+	    return this.http.post<string>('http://localhost:8080/createPasswordToken/'+email, this.httpOptions);
+
+	}
+	
+	isValidPasswordToken(token:string):Observable<string> {
+	    return this.http.get<string>('http://localhost:8080/isValidPasswordToken/'+token, this.httpOptions);
+
+	}
+	
+	resetPassword(password:string,token:string):Observable<string> {
+		return this.http.put<string>('http://localhost:8080/resetPasswordWithToken/'+token, {password},this.httpOptions);
+
+	}
 
 }
