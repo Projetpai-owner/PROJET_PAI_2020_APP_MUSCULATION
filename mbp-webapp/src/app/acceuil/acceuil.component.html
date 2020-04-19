@@ -24,3 +24,6 @@
     </div>
   </ng-template>
 </ngb-carousel>
+<div class="MBP-alert">
+	<ngb-alert *ngIf="inscription" [dismissible]="false" type="success" (close)="inscription = false">{{inscription_success}}</ngb-alert>
+</div>

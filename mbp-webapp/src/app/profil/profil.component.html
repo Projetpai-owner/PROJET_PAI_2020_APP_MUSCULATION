@@ -113,6 +113,9 @@
 					this.getHashedPassword(this.profilForm.value['password']) !== myUser.password)"
 					[disabled]="profilForm.invalid">Enregistrer mes informations</button>
 				</div>
+			</div>
+			<div class="MBP-alert">
+				<ngb-alert *ngIf="_success" type="success" (close)="_success = false">Votre compte a bien été mis à jour</ngb-alert>
 			</div>	
 		</form>
     </div>

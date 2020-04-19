@@ -5,7 +5,7 @@ import { Salle } from '../models/Salle.model';
 import { UserService } from '../services/User.service';
 import { SalleService } from '../services/Salle.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HashService } from '../services/hash.service';
 
@@ -71,7 +71,8 @@ export class InscriptionComponent implements OnInit {
 		this.errorMessage = '';
 		this.userService.addUser(newUser).subscribe(res => {
 			this.IsWait = false;
-			this.router.navigate(['/']);
+			const navigationExtras: NavigationExtras = {state: {data: 'Votre inscription est prise en compte'}};
+			this.router.navigate(['/'], navigationExtras);
 		},
 			(err: HttpErrorResponse) => {
 				this.errorMessage = err.error.message;

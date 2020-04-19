@@ -7,8 +7,8 @@ import { SalleService } from '../services/Salle.service';
 import { User } from '../models/User.model';
 import { UserBody } from '../models/UserBody.model';
 import { Salle } from '../models/Salle.model';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { tap, debounceTime } from 'rxjs/operators';
 import { HashService } from '../services/hash.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class ProfilComponent implements OnInit {
   myUser: UserBody;
   salles: Salle[];
   currentSalle: number;
+  _success: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -100,7 +101,8 @@ export class ProfilComponent implements OnInit {
     )
     this.userService.updateUser(newUser).subscribe(res => {
       this.authService.refresh();
-      this.router.navigate(['myAccount']);
+      this._success = true;
+      setTimeout(() => this._success = false, 5000);
       this.ngOnInit();
 		},
 			(err: HttpErrorResponse) => {
