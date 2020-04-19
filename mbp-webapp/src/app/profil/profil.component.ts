@@ -99,6 +99,7 @@ export class ProfilComponent implements OnInit {
 			'USER'
     )
     this.userService.updateUser(newUser).subscribe(res => {
+      this.authService.refresh();
       this.router.navigate(['myAccount']);
       this.ngOnInit();
 		},
