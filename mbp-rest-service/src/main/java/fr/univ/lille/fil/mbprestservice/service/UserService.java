@@ -87,8 +87,7 @@ public class UserService implements UserDetailsService{
 
 	}
 
-	public UserPasswordReset loadUserWithPasswordResetToken(String token) throws ResetPasswordTokenExpiratedException,ResetPasswordTokenInvalidException{
-		// TODO Auto-generated method stub
+	public UserPasswordReset loadUserWithPasswordResetToken(String token){
 		UserPasswordReset passwordReset= userPasswordResetRepository.findByToken(token).orElse(null);
 		if(passwordReset==null) {
 			throw new ResetPasswordTokenInvalidException();

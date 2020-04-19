@@ -100,7 +100,7 @@ public class UserController {
 	
 	@GetMapping("/isValidPasswordToken/{token}")
 	public ResponseEntity<String> isValidPasswordToken(@PathVariable(value="token") final String token){
-		UserPasswordReset userPassword=userService.loadUserWithPasswordResetToken(token);
+		userService.loadUserWithPasswordResetToken(token);
 		return new ResponseEntity<>("{ \"message\": \"valid token\" }",HttpStatus.OK);
 		
 	}
