@@ -11,7 +11,7 @@ export const routes: Routes = [
   {path: '', component: AcceuilComponent},
   {path: 'signUp', component: InscriptionComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
   {path: 'signIn', component: LoginComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
-  {path: 'myAccount', component: ProfilComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}},
+  {path: 'myAccount', component: ProfilComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_BOTH'}},
   {path: 'createAdvert', component: FormCreationAnnonceComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}}
 ];
 
