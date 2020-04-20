@@ -110,6 +110,10 @@ public class UserController {
 		new Thread(new MailService(user.getUsername(), object, message)).start();
 	}
 
+	@GetMapping("/getUser")
+	public User getUser(String userId) {
+		return userService.findUserById(userId);
+	}
 
 	// save a user
 	@PostMapping("/user")
