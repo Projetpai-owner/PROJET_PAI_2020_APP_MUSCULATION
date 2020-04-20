@@ -28,6 +28,9 @@ export class ProfilComponent implements OnInit {
   salles: Salle[];
   currentSalle: number;
   _success: boolean = false;
+  password: string;
+  adresse: string;
+  sid: number;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -44,12 +47,14 @@ export class ProfilComponent implements OnInit {
   initForm(){
     this.getAllSalles();
     this.profilForm = this.formBuilder.group({
-      prenom: ['', Validators.required],
-			nom: ['', Validators.required],
-			bornDate: ['', Validators.required],
+      prenom: [{value : '', disabled: true},  Validators.required],
+			nom: [{value : '', disabled: true}, Validators.required],
+      bornDate: [{value : '', disabled: true}, Validators.required],
+      sexe: [{value : '', disabled: true}, Validators.required],
 			adresse: [''],
-			sid: [''],
-			username: ['', [Validators.required, Validators.email]],
+      sid: [{value : '', disabled: true}],
+      sidList: [''],
+			username: [{value : '', disabled: true}, [Validators.required, Validators.email]],
 			password: ['', [Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$")]],
 			confirmpassword: ['']
 		}, {
@@ -64,6 +69,25 @@ export class ProfilComponent implements OnInit {
     })
   }
 
+  getSexe(sexe: String){
+    return sexe === 'H' ? 'Homme' : sexe === 'F' ? 'Femme' : 'Autre';
+  }
+
+  getPassword(pwd: string){
+    this.password = pwd;
+    return '';
+  }
+
+  getAdresse(adresse: string){
+    this.adresse = adresse;
+    return adresse;
+  }
+
+  getSid(sid: number){
+    this.sid = sid;
+    return sid;
+  }
+
   getUserInfos(){
     this.currentUser = this.authService.currentUserValue;
     this.userService.getUser(this.currentUser.userId).pipe(
@@ -71,8 +95,12 @@ export class ProfilComponent implements OnInit {
         prenom: user.prenom,
         nom: user.nom,
         bornDate: user.bornDate.substring(0, 10),
-        adresse: user.adresse,
-        username: user.username
+        adresse: this.getAdresse(user.adresse),
+        username: user.username,
+        sid: user.sid.nom,
+        sidList: this.getSid(user.sid.sid),
+        password: this.getPassword(user.password),
+        sexe: this.getSexe(user.sexe)
       }))).subscribe(res => {
         this.myUser = res;
       });
@@ -81,23 +109,23 @@ export class ProfilComponent implements OnInit {
   onSubmitForm(){
     const formValue = this.profilForm.value;
     let hashedPassword = this.myUser.password;
-    let finalSid = +formValue['sid'];
+    let finalSid = +formValue['sidList'];
     if (formValue['password'] !== ''){
 		  hashedPassword = this.hashService.hashPassword(formValue['password'])
     } 
-    if (+formValue['sid'] === 0){
+    if (+formValue['sidList'] === 0){
       finalSid = +this.myUser.sid.sid;
     }
 		const newUser = new User(
-			formValue['nom'],
-			formValue['prenom'],
-			formValue['bornDate'],
+			this.myUser.nom,
+			this.myUser.prenom,
+			this.myUser.bornDate,
 			this.myUser.sexe,
-			formValue['username'],
+			this.myUser.username,
 			hashedPassword,
 			finalSid,
 			formValue['adresse'],
-			'USER'
+			this.myUser.role
     )
     this.userService.updateUser(newUser).subscribe(res => {
       this.authService.refresh();
