@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/User.model';
+import { UserBody } from '../models/UserBody.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -32,5 +33,13 @@ export class UserService {
 		return this.http.put<string>('http://localhost:8080/resetPasswordWithToken/'+token, {password},this.httpOptions);
 
 	}
+    getUser(userId: string): Observable<UserBody> {
+        return this.http.get<UserBody>('http://localhost:8080/getUser' + '?userId=' + userId);
+    }
+
+    updateUser(user: User): Observable<User>{
+        return this.http.put<User>('http://localhost:8080/updateUser', user, this.httpOptions);
+    }
+
 
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   currentUser:CurrentUser;
+
   constructor(private authService:AuthService,private route:Router) { 
 	authService.currentUser.subscribe(user=>this.currentUser=user);
   }
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(){
+
 	this.authService.logout();
 	this.route.navigate(['/'])
   }

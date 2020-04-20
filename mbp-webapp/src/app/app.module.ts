@@ -18,6 +18,7 @@ import {TypeSeanceService} from './services/TypeSeance.service';
 import {AdvertService} from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
 	declarations: [
@@ -29,7 +30,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 		LoginComponent,
 		UserAccueilComponent,
 		AdvertListComponent,
-		ResetPasswordComponent
+		ResetPasswordComponent,
+		ProfilComponent,
+		AdvertListComponent
 	],
 	imports: [
 		BrowserModule,

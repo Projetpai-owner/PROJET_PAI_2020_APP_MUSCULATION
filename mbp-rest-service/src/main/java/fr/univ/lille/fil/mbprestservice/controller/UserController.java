@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,7 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
+	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request) {
 
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -52,18 +53,63 @@ public class UserController {
 	}
 
 	@PostMapping("/refresh/{token}")
-	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
-		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
-		if(dto==null)
+	public AccessTokenDTO tokenPostRefresh(@PathVariable(value = "token") final String token) {
+		AccessTokenDTO dto = userService.refreshAccessToken(token).orElse(null);
+		if (dto == null)
 			throw new InvalidRefreshTokenException();
 		return dto;
 	}
 
 	@DeleteMapping("/revoke/{token}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
+	public void tokenDeleteLogout(@PathVariable(value = "token") final String token) {
 		userService.logoutUser(token);
 	}
+
+
+
+	@PostMapping("/createPasswordToken/{email}")
+	public ResponseEntity<String> createPasswordToken(@PathVariable(value = "email") final String email) {
+		User user = (User) userService.loadUserByUsername(email);
+		if (user == null) {
+			throw new NoAccountFoundException();
+		}
+		String token = userService.createResetPasswordToken(user.getUsername());
+		String object = "Réinitialisation de votre mot de passe";
+		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
+				+ "Le lien ci-dessous vous permet de réinitialiser votre mot de passe : " + "\n\n"
+				+ "http://localhost:4200/resetPassword?token=" + token;
+		sendMail(user, object, message);
+
+		return new ResponseEntity<>("{ \"message\": \"password reset token created successfull\" }", HttpStatus.OK);
+
+	}
+
+	@GetMapping("/isValidPasswordToken/{token}")
+	public ResponseEntity<String> isValidPasswordToken(@PathVariable(value = "token") final String token) {
+		userService.loadUserWithPasswordResetToken(token);
+		return new ResponseEntity<>("{ \"message\": \"valid token\" }", HttpStatus.OK);
+
+	}
+
+	@PutMapping("/resetPasswordWithToken/{token}")
+	public ResponseEntity<String> resetPasswordWithToken(@PathVariable(value = "token") final String token,
+			@RequestBody ResetPasswordBody reset) {
+		UserPasswordReset userPassword = userService.loadUserWithPasswordResetToken(token);
+		User user = (User) userService.loadUserByUsername(userPassword.getUsername());
+		userService.resetPassword(user, reset.getPassword());
+		String object = "Mot de passe réinitialisé";
+		String message = "Votre mot de passe a été correctement réinitialisé ";
+		sendMail(user, object, message);
+
+		return new ResponseEntity<>("{ \"message\": \"password reset successfull\" }", HttpStatus.OK);
+
+	}
+
+	private void sendMail(User user, String object, String message) {
+		new Thread(new MailService(user.getUsername(), object, message)).start();
+	}
+
 
 	// save a user
 	@PostMapping("/user")
@@ -72,52 +118,22 @@ public class UserController {
 		if (userService.loadUserByUsername(user.getUsername()) != null) {
 			throw new EmailAlreadyExistException();
 		}
-		
+
 		String object = "Confirmation Inscription MyBodyPartner";
 		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
 				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
-		this.sendMail(user,object,message);
+		this.sendMail(user, object, message);
 		return userService.save(user);
 
 	}
-	
-	@PostMapping("/createPasswordToken/{email}")
-	public ResponseEntity<String> createPasswordToken(@PathVariable(value="email") final String email){
-		User user=(User)userService.loadUserByUsername(email);
-		if(user==null) {
-			throw new NoAccountFoundException();
-		}
-		String token=userService.createResetPasswordToken(user.getUsername());
-		String object = "Réinitialisation de votre mot de passe";
-		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
-				+ "Le lien ci-dessous vous permet de réinitialiser votre mot de passe : "+"\n\n"
-				+"http://localhost:4200/resetPassword?token="+token;
-		sendMail(user, object, message);
-		
-		return new ResponseEntity<>("{ \"message\": \"password reset token created successfull\" }",HttpStatus.OK);
-		
+
+	// update user information
+	@Transactional
+	@PutMapping("/updateUser")
+	public int updateUser(@Valid @RequestBody CreateUserBody body) {
+		User user = mapFromDto(body);
+		return userService.updateUser(user);
 	}
-	
-	@GetMapping("/isValidPasswordToken/{token}")
-	public ResponseEntity<String> isValidPasswordToken(@PathVariable(value="token") final String token){
-		userService.loadUserWithPasswordResetToken(token);
-		return new ResponseEntity<>("{ \"message\": \"valid token\" }",HttpStatus.OK);
-		
-	}
-	
-	@PutMapping("/resetPasswordWithToken/{token}")
-	public ResponseEntity<String> resetPasswordWithToken(@PathVariable(value="token") final String token,@RequestBody ResetPasswordBody reset){
-		UserPasswordReset userPassword=userService.loadUserWithPasswordResetToken(token);
-		User user=(User)userService.loadUserByUsername(userPassword.getUsername());
-		userService.resetPassword(user,reset.getPassword());
-		String object = "Mot de passe réinitialisé";
-		String message ="Votre mot de passe a été correctement réinitialisé ";
-		sendMail(user, object, message);
-		
-		return new ResponseEntity<>("{ \"message\": \"password reset successfull\" }",HttpStatus.OK);
-		
-	}
-	
 
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {
@@ -134,10 +150,6 @@ public class UserController {
 		user.setSid(salle);
 
 		return user;
-	}
-
-	private void sendMail(User user,String object,String message) {
-		new Thread(new MailService(user.getUsername(), object, message)).start();
 	}
 
 }
