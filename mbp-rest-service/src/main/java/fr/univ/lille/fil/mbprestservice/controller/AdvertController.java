@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Advert;
 import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
@@ -39,9 +40,9 @@ public class AdvertController {
 		this.advertService.delete(advertId);
 	}
 	
-	@GetMapping("/getAllAdverts")
-	public List<Advert> getAllAdverts(){
-		return this.advertService.findAll();
+	@GetMapping("/getAllAdvertsItems")
+	public List<ListAdvertItemDTO> getAllAdvertsItems(){
+		return this.advertService.findAllAdverts();
 	}
 
 	
