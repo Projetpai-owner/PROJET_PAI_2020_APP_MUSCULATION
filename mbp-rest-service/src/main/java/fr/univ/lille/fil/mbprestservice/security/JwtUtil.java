@@ -5,15 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import fr.univ.lille.fil.mbprestservice.entity.UserRefreshToken;
+import fr.univ.lille.fil.mbprestservice.repository.UserRefreshTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class JwtUtil {
+	
+	@Autowired
+	private UserRefreshTokenRepository userRefreshTokenRepository;
 	
 	private final String SECRET_KEY="secret";
 	
@@ -41,16 +48,27 @@ public class JwtUtil {
 		return extractExpiration(token).before(new Date());
 	}
 	
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(String userName) {
 		Map<String,Object> claims=new HashMap<>();
-		return createToken(claims,userDetails.getUsername());
+		return createToken(claims,userName);
 		
+	}
+	
+	public String createRefreshToken(UserDetails userDetails) {
+        String token = RandomStringUtils.randomAlphanumeric(128);
+        UserRefreshToken userRefreshToken=new UserRefreshToken();
+        userRefreshToken.setToken(token);
+        userRefreshToken.setUsername(userDetails.getUsername());
+        userRefreshTokenRepository.save(userRefreshToken);
+        return token;
 	}
 
 	private String createToken(Map<String, Object> claims, String username) {
 		// TODO Auto-generated method stub
-		return Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis()+1000*60*60*10))
+		return Jwts.builder().setClaims(claims)
+				.setSubject(username)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis()+1000*60*15))
 				.signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
 	}
 
@@ -59,4 +77,6 @@ public class JwtUtil {
 		return (username.equals(userDetails.getUsername())&&!isTokenExpired(token));
 	}
 	
+	
+
 }

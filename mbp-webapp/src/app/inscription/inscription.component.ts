@@ -41,7 +41,10 @@ export class InscriptionComponent implements OnInit {
 			adresse: ['', Validators.required],
 			sid: ['', Validators.required],
 			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required, Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$")]]
+			password: ['', [Validators.required, Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$")]],
+			confirmpassword: ['', [Validators.required]]
+		}, {
+			validator: this.mustMatch('password', 'confirmpassword')
 		});
 		this.getAllSalles();
 	}
@@ -75,6 +78,21 @@ export class InscriptionComponent implements OnInit {
 				this.IsWait = false;
 			}
 		);
+	}
+
+	mustMatch(controlName: string, matchingControlName: string){
+		return (formGroup: FormGroup) => {
+			const control = formGroup.controls[controlName];
+			const matchingControl = formGroup.controls[matchingControlName];
+			if(matchingControl.errors && !matchingControl.errors.mustMatch){
+				return;
+			}
+			if(control.value !== matchingControl.value){
+				matchingControl.setErrors({mustMatch: true});
+			} else {
+				matchingControl.setErrors(null);
+			}
+		}
 	}
 
 }
