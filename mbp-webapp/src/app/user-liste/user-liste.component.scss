@@ -1,1 +1,23 @@
-//not empty
+.ROW_USER{
+    margin: 0.5% 0.25% 0.5% 0.25%;
+    background-color: #eee;
+    padding : 0.5% 0.5% 0.5% 0.5%;
+    border-left: solid 4px #6d0000;
+}
+
+.USER_LABEL{
+    font-weight: bold;
+}
+
+.BOUTON_SUPPRIMER{
+   display: inline-block;
+   width: 100%;
+   height: 100%;
+   background-color: #b80000;
+   color:white
+}
+
+.BOUTON_SUPPRIMER:hover{
+    border: solid 1px white;
+    background-color: #900000;
+}

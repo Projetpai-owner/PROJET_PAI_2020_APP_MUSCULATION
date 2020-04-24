@@ -14,17 +14,12 @@ import { SalleService } from './services/Salle.service';
 import { LoginComponent } from './login/login.component';
 import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
-<<<<<<< HEAD
-import {TypeSeanceService} from './services/TypeSeance.service';
-import {AdvertService} from './services/Advert.service';
-import { AdvertListComponent } from './advert-list/advert-list.component';
 import { UserListeComponent } from './user-liste/user-liste.component';
-=======
 import { ProfilComponent } from './profil/profil.component';
 import { TypeSeanceService } from './services/TypeSeance.service';
 import { AdvertService } from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
->>>>>>> master_clem_merge
+import { BanniService } from './services/Banni.service';
 
 @NgModule({
 	declarations: [
@@ -35,13 +30,9 @@ import { AdvertListComponent } from './advert-list/advert-list.component';
 		FormCreationAnnonceComponent,
 		LoginComponent,
 		UserAccueilComponent,
-<<<<<<< HEAD
-		AdvertListComponent,
-		UserListeComponent
-=======
+		UserListeComponent,
 		ProfilComponent,
 		AdvertListComponent
->>>>>>> master_clem_merge
 	],
 	imports: [
 		BrowserModule,
@@ -55,8 +46,9 @@ import { AdvertListComponent } from './advert-list/advert-list.component';
 	providers: [
 		UserService,
 		SalleService,
-    TypeSeanceService,
-    AdvertService,
+    	TypeSeanceService,
+		AdvertService,
+		BanniService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],
