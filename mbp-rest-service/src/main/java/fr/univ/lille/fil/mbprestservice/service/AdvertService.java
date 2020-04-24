@@ -40,8 +40,8 @@ public class AdvertService {
 			tmp.setDescription(ad.getDescription());
 			tmp.setDuree(""+ad.getDureeSeance());
 			tmp.setNomAnnonce(ad.getNom());
+			res.add(tmp);
 		}
-		
 		return res;
 	}
 }
