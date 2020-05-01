@@ -27,5 +27,9 @@ export class UserService {
         return this.http.put<User>('http://localhost:8080/updateUser', user, this.httpOptions);
     }
 
+    cancelUserAccount(username: string): Observable<User> {
+        return this.http.delete<User>('http://localhost:8080/cancelUserAccount' + '?username=' + username);
+    }
+
 
 }

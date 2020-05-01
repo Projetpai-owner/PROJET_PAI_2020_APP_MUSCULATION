@@ -84,6 +84,13 @@ public class UserController {
 		User user = mapFromDto(body);
 		return userService.updateUser(user);
 	}
+	
+	//cancel user account by deleting this user
+	@Transactional
+	@DeleteMapping("/cancelUserAccount")
+	public int cancelUserAccount(String username) {
+		return userService.cancelUserAccount(username);
+	}
 
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {

@@ -71,7 +71,7 @@ export class InscriptionComponent implements OnInit {
 		this.errorMessage = '';
 		this.userService.addUser(newUser).subscribe(res => {
 			this.IsWait = false;
-			const navigationExtras: NavigationExtras = {state: {data: 'Votre inscription est prise en compte'}};
+			const navigationExtras: NavigationExtras = {state: [{data: 'Votre inscription est prise en compte'}, {from: 'inscription'}]};
 			this.router.navigate(['/'], navigationExtras);
 		},
 			(err: HttpErrorResponse) => {

@@ -11,12 +11,14 @@ import { Observable, Subject } from 'rxjs';
 import { tap, debounceTime } from 'rxjs/operators';
 import { HashService } from '../services/hash.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  styleUrls: ['./profil.component.scss'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ProfilComponent implements OnInit {
 
@@ -34,10 +36,15 @@ export class ProfilComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-    		  private salleService: SalleService,
+              private salleService: SalleService,
               private userService: UserService,
               private hashService: HashService,
-              private router: Router) { }
+              private router: Router,
+              public config: NgbModalConfig,
+              public modal: NgbModal) { 
+                config.backdrop = 'static';
+                config.keyboard = false;
+              }
 
   ngOnInit(): void {
     this.initForm();
@@ -60,6 +67,10 @@ export class ProfilComponent implements OnInit {
 		}, {
 			validator: this.mustMatch('password', 'confirmpassword')
     });
+  }
+
+  open(content){
+    this.modal.open(content);
   }
 
   getAllSalles() {
@@ -141,6 +152,16 @@ export class ProfilComponent implements OnInit {
 
   getHashedPassword(password: string){
     return this.hashService.hashPassword(password);
+  }
+
+  cancelAccount(){
+    this.userService.cancelUserAccount(this.myUser.username).subscribe(res => {
+            console.log("Résiliation confirmée");
+        });
+    this.modal.dismissAll('Cross click');
+    this.authService.logout();
+    const navigationExtras: NavigationExtras = {state: [{data: 'Votre compte a est Resilie. A bientot !'}, {from: 'cancel'}]};
+		this.router.navigate(['/'], navigationExtras);
   }
 
   mustMatch(controlName: string, matchingControlName: string){

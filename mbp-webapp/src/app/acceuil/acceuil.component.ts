@@ -10,15 +10,25 @@ export class AcceuilComponent implements OnInit {
 
   inscription_success: string;
   inscription: boolean = false;
+
+  cancel_success: string;
+  cancel: boolean = false;
  
   constructor(private router: Router) { 
     const navigation = this.router.getCurrentNavigation();
     if(navigation !== null){
-      const state = navigation.extras.state as {data: string};
+      const state = navigation.extras.state as [{data: string}, {from: string}];
       if(state !== undefined){
-        this.inscription = true;
-        this.inscription_success = state.data;
-        setTimeout(() => this.inscription = false, 6000);
+        if(state[1].from === 'inscription'){
+          this.inscription = true;
+          this.inscription_success = state[0].data;
+          setTimeout(() => this.inscription = false, 6000);
+        }
+        if(state[1].from === 'cancel'){
+          this.cancel = true;
+          this.cancel_success = state[0].data;
+          setTimeout(() => this.cancel = false, 6000);
+        }
       }
     }
   }
