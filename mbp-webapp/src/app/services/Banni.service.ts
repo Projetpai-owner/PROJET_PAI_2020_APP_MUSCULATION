@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Banni } from '../models/Banni.model';
 import { Observable } from 'rxjs';
 
+
 @Injectable()
 export class BanniService {
 
