@@ -20,6 +20,10 @@ import { TypeSeanceService } from './services/TypeSeance.service';
 import { AdvertService } from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
 import { BanniService } from './services/Banni.service';
+import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
+import { ConfirmAlertService } from './services/confirm-alert.service';
+import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
+import { ClassicAlertService } from './services/classic-alert.service';
 
 @NgModule({
 	declarations: [
@@ -32,7 +36,9 @@ import { BanniService } from './services/Banni.service';
 		UserAccueilComponent,
 		UserListeComponent,
 		ProfilComponent,
-		AdvertListComponent
+		AdvertListComponent,
+		ConfirmAlertComponent,
+		ClassicAlertComponent
 	],
 	imports: [
 		BrowserModule,
@@ -49,6 +55,8 @@ import { BanniService } from './services/Banni.service';
     	TypeSeanceService,
 		AdvertService,
 		BanniService,
+		ConfirmAlertService,
+		ClassicAlertService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],
