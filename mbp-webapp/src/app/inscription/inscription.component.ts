@@ -76,7 +76,7 @@ export class InscriptionComponent implements OnInit {
 			if(listBanned.find(banned => banned.email === newUser.username)){
 				this.errorMessage = 'Votre compte est banni. Vous ne pouvez pas vous reinscrire.';
 			} else {
-				this.userService.addUser(newUser).subscribe(res => {
+				this.userService.addUser(newUser).subscribe(response => {
 					const navigationExtras: NavigationExtras = {state: [{data: 'Votre inscription est prise en compte'}, {from: 'inscription'}]};
 					this.router.navigate(['/'], navigationExtras);
 					},

@@ -7,8 +7,8 @@ import { SalleService } from '../services/Salle.service';
 import { User } from '../models/User.model';
 import { UserBody } from '../models/UserBody.model';
 import { Salle } from '../models/Salle.model';
-import { Observable, Subject } from 'rxjs';
-import { tap, debounceTime } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { HashService } from '../services/hash.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
@@ -80,7 +80,7 @@ export class ProfilComponent implements OnInit {
     })
   }
 
-  getSexe(sexe: String){
+  getSexe(sexe: string){
     return sexe === 'H' ? 'Homme' : sexe === 'F' ? 'Femme' : 'Autre';
   }
 
