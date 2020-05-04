@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Router, NavigationExtras } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HashService } from '../services/hash.service';
+import { BanniService } from '../services/Banni.service';
 
 @Component({
 	selector: 'app-inscription',
@@ -25,7 +26,8 @@ export class InscriptionComponent implements OnInit {
 		private userService: UserService,
 		private salleService: SalleService,
 		private router: Router,
-		private hashService: HashService
+		private hashService: HashService,
+		private banniService: BanniService
 	) { }
 
 	ngOnInit() {
@@ -69,16 +71,23 @@ export class InscriptionComponent implements OnInit {
 			'USER'
 		)
 		this.errorMessage = '';
-		this.userService.addUser(newUser).subscribe(res => {
-			this.IsWait = false;
-			const navigationExtras: NavigationExtras = {state: [{data: 'Votre inscription est prise en compte'}, {from: 'inscription'}]};
-			this.router.navigate(['/'], navigationExtras);
-		},
-			(err: HttpErrorResponse) => {
-				this.errorMessage = err.error.message;
-				this.IsWait = false;
+		this.banniService.getBanned().subscribe(res => {
+			const listBanned = res;
+			if(listBanned.find(banned => banned.email === newUser.username)){
+				this.errorMessage = 'Votre compte est banni. Vous ne pouvez pas vous reinscrire.';
+			} else {
+				this.userService.addUser(newUser).subscribe(res => {
+					const navigationExtras: NavigationExtras = {state: [{data: 'Votre inscription est prise en compte'}, {from: 'inscription'}]};
+					this.router.navigate(['/'], navigationExtras);
+					},
+					(err: HttpErrorResponse) => {
+						this.errorMessage = err.error.message;
+					}
+				);
 			}
-		);
+			this.IsWait = false;
+		});
+		
 	}
 
 	mustMatch(controlName: string, matchingControlName: string){

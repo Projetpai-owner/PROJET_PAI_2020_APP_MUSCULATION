@@ -160,7 +160,7 @@ export class ProfilComponent implements OnInit {
         });
     this.modal.dismissAll('Cross click');
     this.authService.logout();
-    const navigationExtras: NavigationExtras = {state: [{data: 'Votre compte a est Resilie. A bientot !'}, {from: 'cancel'}]};
+    const navigationExtras: NavigationExtras = {state: [{data: 'La resiliation est prise en compte. A bientot !'}, {from: 'cancel'}]};
 		this.router.navigate(['/'], navigationExtras);
   }
 

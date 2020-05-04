@@ -18,6 +18,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { TypeSeanceService } from './services/TypeSeance.service';
 import { AdvertService } from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
+import { BanniService } from './services/Banni.service';
 
 @NgModule({
 	declarations: [
@@ -43,8 +44,9 @@ import { AdvertListComponent } from './advert-list/advert-list.component';
 	providers: [
 		UserService,
 		SalleService,
-    TypeSeanceService,
-    AdvertService,
+    	TypeSeanceService,
+		AdvertService,
+		BanniService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],
