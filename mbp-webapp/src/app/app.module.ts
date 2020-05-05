@@ -18,6 +18,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { TypeSeanceService } from './services/TypeSeance.service';
 import { AdvertService } from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
+import { EditAdvertComponent } from './edit-advert/edit-advert.component';
 
 @NgModule({
 	declarations: [
@@ -29,7 +30,8 @@ import { AdvertListComponent } from './advert-list/advert-list.component';
 		LoginComponent,
 		UserAccueilComponent,
 		ProfilComponent,
-		AdvertListComponent
+		AdvertListComponent,
+		EditAdvertComponent
 	],
 	imports: [
 		BrowserModule,

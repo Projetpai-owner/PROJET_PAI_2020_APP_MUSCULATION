@@ -7,6 +7,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { AuthGuard } from './auth/auth.guard';
 import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creation-annonce.component';
 import { AdvertListComponent } from './advert-list/advert-list.component';
+import {EditAdvertComponent} from './edit-advert/edit-advert.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
@@ -14,7 +15,8 @@ export const routes: Routes = [
   {path: 'signIn', component: LoginComponent, canActivate: [AuthGuard], data: {expectedRole: 'NONE'}},
   {path: 'myAccount', component: ProfilComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'createAdvert', component: FormCreationAnnonceComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
-  {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
+  {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
 ];
 
 @NgModule({

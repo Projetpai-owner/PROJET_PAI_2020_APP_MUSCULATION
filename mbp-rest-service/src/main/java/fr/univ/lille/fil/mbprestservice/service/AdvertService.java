@@ -2,6 +2,9 @@ package fr.univ.lille.fil.mbprestservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +29,17 @@ public class AdvertService {
 		return advertRepository.findAll();
 	}
 	
+	public Advert findByAid(int aid) {
+		return advertRepository.findByAid(aid);
+	}
+	
 	public void delete(int id) {
 		 advertRepository.deleteById(id);
+	}
+	
+	public Advert updateAdvert(@Valid Advert advert) {
+		advertRepository.updateAdvert();
+		return advert;
 	}
 	
 	public List<ListAdvertItemDTO> findAllAdverts(){

@@ -16,6 +16,7 @@ public class CreateAdvertBody {
 	private String nom;
 	private Date dateSeance;
 	private int idSeance;
+	private int idUser;
 
 	public String getDescription() {
 		return description;
@@ -64,5 +65,15 @@ public class CreateAdvertBody {
 	public void setIdSeance(int idSeance) {
 		this.idSeance = idSeance;
 	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+	
+	
 
 }

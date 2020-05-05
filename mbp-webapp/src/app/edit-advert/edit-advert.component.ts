@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {TypeSeanceService} from '../services/TypeSeance.service';
+import {AdvertService} from '../services/Advert.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import {Advert} from '../models/Advert.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
-import {TypeSeanceService} from '../services/TypeSeance.service';
-import {Advert} from '../models/Advert.model';
-import {AdvertService} from '../services/Advert.service';
 import {CurrentUser} from '../models/CurrentUser.model';
+import {tap} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-form-creation-annonce',
-  templateUrl: './form-creation-annonce.component.html',
-  styleUrls: ['./form-creation-annonce.component.scss']
+  selector: 'app-edit-advert',
+  templateUrl: './edit-advert.component.html',
+  styleUrls: ['./edit-advert.component.scss']
 })
-export class FormCreationAnnonceComponent implements OnInit {
+export class EditAdvertComponent implements OnInit {
+
   loginForm: FormGroup;
   errorMessage: string;
   obsTypeSeance: Observable<TypeSeance[]>;
   isWait: boolean;
   currentUser: CurrentUser;
+  preAid: string;
+  currentAdvert: Advert;
 
+  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private route: ActivatedRoute) { }
 
-  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router) { }
 
   ngOnInit(): void {
+    this.preAid = this.router.url.split('/').pop();
     this.initForm();
   }
 
@@ -38,6 +43,20 @@ export class FormCreationAnnonceComponent implements OnInit {
       typeSeanceCreaAnnonce: ['', Validators.required]
     });
     this.getAllTypeSeances();
+    this.getAdvertInfos();
+  }
+
+  getAdvertInfos(){
+    this.advertService.getAdvertById(+this.preAid).pipe(
+      tap(advert => this.loginForm.patchValue({
+        description: advert.description,
+        niveauPratique: advert.niveauPratique,
+        dureeSeance: advert.dureeSeance,
+        nom: advert.nom,
+        dateSeance: advert.dateSeance
+      }))).subscribe(res => {
+      this.currentAdvert = res;
+    });
   }
 
   getAllTypeSeances() {
@@ -64,13 +83,7 @@ export class FormCreationAnnonceComponent implements OnInit {
     );
     this.errorMessage = '';
     console.log(newAdvert);
-    this.advertService.createAdvert(newAdvert).subscribe(res => {
-        this.isWait = false;
-        this.router.navigate(['/']);
-      },
-      (err: HttpErrorResponse) => {
-        this.errorMessage = err.error.message;
-      }
-    );
+    this.advertService.updateAdvert(newAdvert);
   }
+
 }

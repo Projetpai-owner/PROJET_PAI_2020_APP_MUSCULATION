@@ -4,6 +4,7 @@ import { Advert } from '../models/Advert.model';
 import { Observable } from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
 import {AdvertItemList} from '../models/AdvertItemList.model';
+import {User} from '../models/User.model';
 
 @Injectable()
 export class AdvertService {
@@ -30,5 +31,12 @@ export class AdvertService {
       });
   }
 
+  getAdvertById( aid : number): Observable<Advert> {
+    return this.http.get<Advert>('http://localhost:8080/getAdvertById/' + aid );
+  }
+
+  updateAdvert(advert: Advert): Observable<Advert> {
+    return this.http.put<Advert>('http://localhost:8080/updateAdvert', advert, this.httpOptions);
+  }
 
 }
