@@ -1,5 +1,4 @@
 package fr.univ.lille.fil.mbprestservice.controller;
-
 import java.util.List;
 
 import javax.validation.Valid;

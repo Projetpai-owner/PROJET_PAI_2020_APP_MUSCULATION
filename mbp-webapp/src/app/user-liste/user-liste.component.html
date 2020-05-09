@@ -3,8 +3,30 @@
         <div class="h2">Liste des utilisateurs</div>
     </div>
     <div class="MBP_CORPS_CONTENU">
-        <div class="user" *ngFor="let user of obsListUser | async">
-             <span>{{user.prenom}} {{user.nom}}</span>
+        <div class="row ROW_USER" *ngFor="let user of obsListUser | async">
+                <div class="col-10 INFO_USER">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="row">
+                                <label class="USER_LABEL">Prénom</label>&nbsp;:&nbsp;
+                                <span> {{ user.prenom}} </span>
+                            </div>
+                            <div class="row">
+                                <label class="USER_LABEL">Nom</label>&nbsp;:&nbsp; 
+                                <span> {{ user.nom}} </span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <label class="USER_LABEL">Username</label>&nbsp;:&nbsp;
+                                <span> {{ user.username}} </span>
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 "> 
+                    <button type="button" class="btn btn-danger BOUTON_SUPPRIMER" (click)="confirmDeleteUser(user)">Bannir</button>
+                </div>
+            </div>
         </div> 
-    </div>
 </div>
