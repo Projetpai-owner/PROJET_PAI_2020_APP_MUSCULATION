@@ -64,6 +64,11 @@ public class UserService implements UserDetailsService{
 		userRefreshTokenRepository.findByToken(refreshToken)
         .ifPresent(userRefreshTokenRepository::delete);		
 	}
+	
+	public void logoutUserByUsername(String username){
+		userRefreshTokenRepository.findById(username)
+		.ifPresent(userRefreshTokenRepository::delete);
+	}
 
 	public AuthenticationResponseDTO login(String username) {
 		final UserDetails userDetails = loadUserByUsername(username);
@@ -75,7 +80,9 @@ public class UserService implements UserDetailsService{
 
 	}
 	
+	public int deleteUser(String username){
+		return userRepository.deleteUserByUsername(username);
+	}
 	
-
 
 }

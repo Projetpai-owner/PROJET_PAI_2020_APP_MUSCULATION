@@ -1,4 +1,5 @@
 package fr.univ.lille.fil.mbprestservice.controller;
+import java.util.List;
 
 import java.util.List;
 
@@ -46,6 +47,36 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+
+	// a redefinir peut etre dans une couche business ou converter
+	private User mapFromDto(CreateUserBody body) {
+		User user = new User();
+		user.setAdresse(body.getAdresse());
+		user.setBornDate(body.getBornDate());
+		user.setUsername(body.getUsername());
+		user.setNom(body.getNom());
+		user.setPassword(body.getPassword());
+		user.setPrenom(body.getPrenom());
+		user.setSexe(body.getSexe());
+		user.setRole(body.getRole());
+		Salle salle = salleService.findById(body.getSid()).orElse(null);
+		user.setSid(salle);
+
+		return user;
+	}
+
+	private void sendMail(CreateUserBody user) {
+		String object = "Confirmation Inscription MyBodyPartner";
+		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
+				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
+		new Thread(new MailService(user.getUsername(), object, message)).start();
+	}
+	
+	@GetMapping("/getAllUsers")
+	public List<User> getAllUsers(){
+		return this.userService.findAll();
+	}
+
 	@PostMapping("/login")
 	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
 		authenticationManager
@@ -73,7 +104,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("/revoke/{token}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
 		userService.logoutUser(token);
 	}
@@ -89,6 +120,8 @@ public class UserController {
 		return userService.save(user);
 
 	}	
+
+	
 	//update user information
 	@Transactional
 	@PutMapping("/updateUser")
@@ -104,28 +137,5 @@ public class UserController {
 		return userService.cancelUserAccount(username);
 	}
 
-	// a redefinir peut etre dans une couche business ou converter
-	private User mapFromDto(CreateUserBody body) {
-		User user = new User();
-		user.setAdresse(body.getAdresse());
-		user.setBornDate(body.getBornDate());
-		user.setUsername(body.getUsername());
-		user.setNom(body.getNom());
-		user.setPassword(body.getPassword());
-		user.setPrenom(body.getPrenom());
-		user.setSexe(body.getSexe());
-		user.setRole(body.getRole());
-		Salle salle = salleService.findById(body.getSid()).orElse(null);
-		user.setSid(salle);
-
-		return user;
-	}
-
-	private void sendMail(CreateUserBody user) {
-		String object = "Confirmation Inscription MyBodyPartner";
-		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
-				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
-		new Thread(new MailService(user.getUsername(), object, message)).start();
-	}
-
 }
+
