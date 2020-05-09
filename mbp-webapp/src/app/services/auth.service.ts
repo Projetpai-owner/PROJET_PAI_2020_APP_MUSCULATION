@@ -34,7 +34,7 @@ export class AuthService {
 
 		return this.http.post<CurrentUser>('http://localhost:8080/login', { username, password }, this.httpOptions)
 			.pipe(map(user => {
-				if (user && user.jwt) {
+				if (user && user.accessToken&&user.refreshToken) {
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);
 				}
@@ -44,11 +44,20 @@ export class AuthService {
 
 
 	}
+	
+	refresh(){
+		let url='http://localhost:8080/refresh/'+this.currentUserValue.refreshToken
+		return this.http.post<string>(url,this.httpOptions)
+	}
 
 
 	logout() {
-		localStorage.removeItem('currentUser');
-		this.currentUserSubject.next(null);
+		let url='http://localhost:8080/revoke/'+this.currentUserValue.refreshToken
+		this.http.delete(url,this.httpOptions).subscribe(response=>{
+			localStorage.removeItem('currentUser');
+			this.currentUserSubject.next(null);
+		});
+	
 	}
 
 
