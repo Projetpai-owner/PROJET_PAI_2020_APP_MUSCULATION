@@ -11,12 +11,14 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HashService } from '../services/hash.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  styleUrls: ['./profil.component.scss'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class ProfilComponent implements OnInit {
 
@@ -27,13 +29,22 @@ export class ProfilComponent implements OnInit {
   myUser: UserBody;
   salles: Salle[];
   currentSalle: number;
+  _success: boolean = false;
+  password: string;
+  adresse: string;
+  sid: number;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-    		  private salleService: SalleService,
+              private salleService: SalleService,
               private userService: UserService,
               private hashService: HashService,
-              private router: Router) { }
+              private router: Router,
+              public config: NgbModalConfig,
+              public modal: NgbModal) { 
+                config.backdrop = 'static';
+                config.keyboard = false;
+              }
 
   ngOnInit(): void {
     this.initForm();
@@ -43,17 +54,23 @@ export class ProfilComponent implements OnInit {
   initForm(){
     this.getAllSalles();
     this.profilForm = this.formBuilder.group({
-      prenom: ['', Validators.required],
-			nom: ['', Validators.required],
-			bornDate: ['', Validators.required],
+      prenom: [{value : '', disabled: true},  Validators.required],
+			nom: [{value : '', disabled: true}, Validators.required],
+      bornDate: [{value : '', disabled: true}, Validators.required],
+      sexe: [{value : '', disabled: true}, Validators.required],
 			adresse: [''],
-			sid: [''],
-			username: ['', [Validators.required, Validators.email]],
+      sid: [{value : '', disabled: true}],
+      sidList: [''],
+			username: [{value : '', disabled: true}, [Validators.required, Validators.email]],
 			password: ['', [Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$")]],
 			confirmpassword: ['']
 		}, {
 			validator: this.mustMatch('password', 'confirmpassword')
     });
+  }
+
+  open(content){
+    this.modal.open(content);
   }
 
   getAllSalles() {
@@ -63,6 +80,25 @@ export class ProfilComponent implements OnInit {
     })
   }
 
+  getSexe(sexe: string){
+    return sexe === 'H' ? 'Homme' : sexe === 'F' ? 'Femme' : 'Autre';
+  }
+
+  getPassword(pwd: string){
+    this.password = pwd;
+    return '';
+  }
+
+  getAdresse(adresse: string){
+    this.adresse = adresse;
+    return adresse;
+  }
+
+  getSid(sid: number){
+    this.sid = sid;
+    return sid;
+  }
+
   getUserInfos(){
     this.currentUser = this.authService.currentUserValue;
     this.userService.getUser(this.currentUser.userId).pipe(
@@ -70,8 +106,12 @@ export class ProfilComponent implements OnInit {
         prenom: user.prenom,
         nom: user.nom,
         bornDate: user.bornDate.substring(0, 10),
-        adresse: user.adresse,
-        username: user.username
+        adresse: this.getAdresse(user.adresse),
+        username: user.username,
+        sid: user.sid.nom,
+        sidList: this.getSid(user.sid.sid),
+        password: this.getPassword(user.password),
+        sexe: this.getSexe(user.sexe)
       }))).subscribe(res => {
         this.myUser = res;
       });
@@ -80,27 +120,28 @@ export class ProfilComponent implements OnInit {
   onSubmitForm(){
     const formValue = this.profilForm.value;
     let hashedPassword = this.myUser.password;
-    let finalSid = +formValue['sid'];
+    let finalSid = +formValue['sidList'];
     if (formValue['password'] !== ''){
 		  hashedPassword = this.hashService.hashPassword(formValue['password'])
     } 
-    if (+formValue['sid'] === 0){
+    if (+formValue['sidList'] === 0){
       finalSid = +this.myUser.sid.sid;
     }
 		const newUser = new User(
-			formValue['nom'],
-			formValue['prenom'],
-			formValue['bornDate'],
+			this.myUser.nom,
+			this.myUser.prenom,
+			this.myUser.bornDate,
 			this.myUser.sexe,
-			formValue['username'],
+			this.myUser.username,
 			hashedPassword,
 			finalSid,
 			formValue['adresse'],
-			'USER'
+			this.myUser.role
     )
     this.userService.updateUser(newUser).subscribe(res => {
       this.authService.refresh();
-      this.router.navigate(['myAccount']);
+      this._success = true;
+      setTimeout(() => this._success = false, 5000);
       this.ngOnInit();
 		},
 			(err: HttpErrorResponse) => {
@@ -111,6 +152,16 @@ export class ProfilComponent implements OnInit {
 
   getHashedPassword(password: string){
     return this.hashService.hashPassword(password);
+  }
+
+  cancelAccount(){
+    this.userService.cancelUserAccount(this.myUser.username).subscribe(res => {
+            console.log("Résiliation confirmée");
+        });
+    this.modal.dismissAll('Cross click');
+    this.authService.logout();
+    const navigationExtras: NavigationExtras = {state: [{data: 'La resiliation est prise en compte. A bientot !'}, {from: 'cancel'}]};
+		this.router.navigate(['/'], navigationExtras);
   }
 
   mustMatch(controlName: string, matchingControlName: string){

@@ -5,38 +5,47 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univ.lille.fil.mbprestservice.dto.BanniDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
+import fr.univ.lille.fil.mbprestservice.requestbody.BannirUserBody;
 import fr.univ.lille.fil.mbprestservice.service.BanniService;
+import fr.univ.lille.fil.mbprestservice.service.MailService;
+import fr.univ.lille.fil.mbprestservice.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @Secured(value = "ROLE_ADMIN")
 public class BanniController {
 	@Autowired
 	private BanniService banniService;
-	private ModelMapper modelMapper;
-
-	public BanniController() {
-		// TODO Auto-generated constructor stub
-		modelMapper=new ModelMapper();
-	}
+	@Autowired
+	private UserService userService;
+	
 		
 	//save a banni
-	@PostMapping("/banni")
-	public Banni createBanni(@Valid @RequestBody BanniDTO banniDTO) {
-		Banni banni=modelMapper.map(banniDTO, Banni.class);
-		return banniService.save(banni);
+	@Transactional
+	@PostMapping("/addBanni")
+	public Banni createBanni(@Valid @RequestBody BannirUserBody bannirUserBody) {
+		System.out.println("AO");
+		Banni banni= this.mapFromDTO(bannirUserBody);
+		//Supprime le user en base
+		this.userService.logoutUserByUsername(banni.getEmail());
+		this.userService.deleteUser(banni.getEmail());
 		
+		String object = "Votre compte MyBodyPartner a été banni";
+		String message = "Bonjour,\n\nL'équipe MyBodyPartner vous informe que votre compte lié à l'adresse " + banni.getEmail() + 
+				" a été banni.\n" + "Si vous souhaitez plus d'informations contacter le support.";
+		this.sendMail(banni,object,message);
+		return banniService.save(banni);
 	}
 	
 	//list all banni
@@ -51,5 +60,15 @@ public class BanniController {
 		return banniService.findById(email);
 	}
 	
+	private Banni mapFromDTO(BannirUserBody bannirUserBody){
+		Banni banni = new Banni();
+		banni.setEmail(bannirUserBody.getUsername());
+		return banni;
+	}
+	
+
+	private void sendMail(Banni banni, String object, String message) {
+		new Thread(new MailService(banni.getEmail(), object, message)).start();
+	}
 	
 }

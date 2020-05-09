@@ -1,4 +1,5 @@
 package fr.univ.lille.fil.mbprestservice.controller;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
+import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.entity.UserPasswordReset;
@@ -29,6 +31,7 @@ import fr.univ.lille.fil.mbprestservice.exceptions.NoAccountFoundException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
 import fr.univ.lille.fil.mbprestservice.requestbody.ResetPasswordBody;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
@@ -42,7 +45,18 @@ public class UserController {
 	@Autowired
 	private SalleService salleService;
 	@Autowired
+	private BanniService banniService;
+	@Autowired
 	private AuthenticationManager authenticationManager;
+
+
+
+
+	
+	@GetMapping("/getAllUsers")
+	public List<User> getAllUsers(){
+		return this.userService.findAll();
+	}
 
 	@PostMapping("/login")
 	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request) {
@@ -50,6 +64,14 @@ public class UserController {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		return userService.login(request.getUsername());
+	}
+
+
+	
+	//list all banni
+	@GetMapping("/getBannedUsers")
+	public List<Banni> getAllBanni(){
+		return banniService.findAll();
 	}
 
 	@PostMapping("/refresh/{token}")
@@ -61,8 +83,8 @@ public class UserController {
 	}
 
 	@DeleteMapping("/revoke/{token}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void tokenDeleteLogout(@PathVariable(value = "token") final String token) {
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
 		userService.logoutUser(token);
 	}
 
@@ -131,7 +153,8 @@ public class UserController {
 
 	}
 
-	// update user information
+	
+	//update user information
 	@Transactional
 	@PutMapping("/updateUser")
 	public int updateUser(@Valid @RequestBody CreateUserBody body) {
@@ -155,5 +178,13 @@ public class UserController {
 
 		return user;
 	}
+	
+	//cancel user account by deleting this user
+	@Transactional
+	@DeleteMapping("/cancelUserAccount")
+	public int cancelUserAccount(String username) {
+		return userService.cancelUserAccount(username);
+	}
 
 }
+

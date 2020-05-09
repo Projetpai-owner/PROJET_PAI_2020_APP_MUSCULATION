@@ -4,6 +4,7 @@ import { UserService } from '../services/User.service';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HashService } from '../services/hash.service';
+import { ClassicAlertService } from '../services/classic-alert.service';
 
 @Component({
 	selector: 'app-reset-password',
@@ -15,7 +16,7 @@ export class ResetPasswordComponent implements OnInit {
 	createTokenForm: FormGroup
 	errorMessage: string;
 	goodToken: boolean
-	constructor(private formBuilder: FormBuilder, private userService: UserService, private routeActive: ActivatedRoute, private hashService: HashService,
+	constructor(private formBuilder: FormBuilder, private userService: UserService, private classicAlertService:ClassicAlertService,private routeActive: ActivatedRoute, private hashService: HashService,
 	private router: Router) { }
 
 	ngOnInit(): void {
@@ -65,10 +66,10 @@ export class ResetPasswordComponent implements OnInit {
 				data => {
 					console.log("reset password token crée")
 					this.router.navigate(['/']);
-					window.alert("Vous allez recevoir un mail contenant les instructions pour réinitialiser votre mot de passe")
+					this.classicAlertService.alert("Réinitialisation de mot de passe","Vous allez recevoir un mail contenant les instructions pour réinitialiser votre mot de passe","OK","lg")
 				},
 				error => {
-					window.alert(error.error.message)
+					this.errorMessage=error.error.message
 					console.log("email non valide");
 				});
 
@@ -85,11 +86,11 @@ export class ResetPasswordComponent implements OnInit {
 		.subscribe(
 				data => {
 					console.log("mot de passe changé")
-					window.alert("votre mot de passe a bien été changé")
+					this.classicAlertService.alert("Réinitialisation de mot de passe","votre mot de passe a bien été changé","OK","lg")
 					this.router.navigate(['/']);
 				},
 				error => {
-					window.alert(error.error.message)
+					this.classicAlertService.alert("Réinitialisation de mot de passe",error.error.message,"OK","lg")
 					console.log("token expiré ou non valide");
 		});
 

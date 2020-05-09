@@ -43,6 +43,10 @@ public class UserService implements UserDetailsService{
 		return userRepository.updateUser(user.getPassword(), user.getSid(), user.getAdresse(), user.getUsername());
 	}
 	
+	public int cancelUserAccount(String username) {
+		return userRepository.cancelUserAccount(username);
+	}
+	
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
@@ -67,6 +71,11 @@ public class UserService implements UserDetailsService{
 	public void logoutUser(String refreshToken) {
 		userRefreshTokenRepository.findByToken(refreshToken)
         .ifPresent(userRefreshTokenRepository::delete);		
+	}
+	
+	public void logoutUserByUsername(String username){
+		userRefreshTokenRepository.findById(username)
+		.ifPresent(userRefreshTokenRepository::delete);
 	}
 
 	public AuthenticationResponseDTO login(String username) {
@@ -114,7 +123,9 @@ public class UserService implements UserDetailsService{
 	}
 	
 	
+	public int deleteUser(String username){
+		return userRepository.deleteUserByUsername(username);
+	}
 	
-
 
 }

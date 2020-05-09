@@ -18,7 +18,13 @@ import {TypeSeanceService} from './services/TypeSeance.service';
 import {AdvertService} from './services/Advert.service';
 import { AdvertListComponent } from './advert-list/advert-list.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UserListeComponent } from './user-liste/user-liste.component';
 import { ProfilComponent } from './profil/profil.component';
+import { BanniService } from './services/Banni.service';
+import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
+import { ConfirmAlertService } from './services/confirm-alert.service';
+import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
+import { ClassicAlertService } from './services/classic-alert.service';
 
 @NgModule({
 	declarations: [
@@ -31,8 +37,13 @@ import { ProfilComponent } from './profil/profil.component';
 		UserAccueilComponent,
 		AdvertListComponent,
 		ResetPasswordComponent,
+		UserAccueilComponent,
+		AdvertListComponent,
+		UserListeComponent,
 		ProfilComponent,
-		AdvertListComponent
+		AdvertListComponent,
+		ConfirmAlertComponent,
+		ClassicAlertComponent
 	],
 	imports: [
 		BrowserModule,
@@ -46,8 +57,11 @@ import { ProfilComponent } from './profil/profil.component';
 	providers: [
 		UserService,
 		SalleService,
-    TypeSeanceService,
-    AdvertService,
+    	TypeSeanceService,
+		AdvertService,
+		BanniService,
+		ConfirmAlertService,
+		ClassicAlertService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],

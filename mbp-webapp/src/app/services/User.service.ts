@@ -33,6 +33,10 @@ export class UserService {
 		return this.http.put<string>('http://localhost:8080/resetPasswordWithToken/'+token, {password},this.httpOptions);
 
 	}
+    getAllUsers(): Observable<User[]> {
+        return this.http.get<User[]>('http://localhost:8080/getAllUsers');
+    }
+
     getUser(userId: string): Observable<UserBody> {
         return this.http.get<UserBody>('http://localhost:8080/getUser' + '?userId=' + userId);
     }
@@ -40,6 +44,11 @@ export class UserService {
     updateUser(user: User): Observable<User>{
         return this.http.put<User>('http://localhost:8080/updateUser', user, this.httpOptions);
     }
+
+    cancelUserAccount(username: string): Observable<User> {
+        return this.http.delete<User>('http://localhost:8080/cancelUserAccount' + '?username=' + username);
+    }
+
 
 
 }

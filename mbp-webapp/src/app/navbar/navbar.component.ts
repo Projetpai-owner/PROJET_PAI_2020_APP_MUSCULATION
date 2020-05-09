@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   currentUser:CurrentUser;
-
+  isAdmin: boolean;
   constructor(private authService:AuthService,private route:Router) { 
-	authService.currentUser.subscribe(user=>this.currentUser=user);
+    authService.currentUser.subscribe(user=>{this.currentUser=user;if(user!= null){this.isAdmin = (user.role == "ROLE_ADMIN")}});
   }
 
   ngOnInit(): void {
@@ -23,6 +23,5 @@ export class NavbarComponent implements OnInit {
 	this.authService.logout();
 	this.route.navigate(['/'])
   }
-  
 
 }
