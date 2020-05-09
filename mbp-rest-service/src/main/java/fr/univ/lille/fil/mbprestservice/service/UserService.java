@@ -35,6 +35,10 @@ public class UserService implements UserDetailsService{
 		return userRepository.updateUser(user.getPassword(), user.getSid(), user.getAdresse(), user.getUsername());
 	}
 	
+	public int cancelUserAccount(String username) {
+		return userRepository.cancelUserAccount(username);
+	}
+	
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}

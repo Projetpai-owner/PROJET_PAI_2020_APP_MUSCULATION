@@ -46,7 +46,7 @@ export class UserListeComponent implements OnInit {
 
   public gereRetourDelete(banni: Banni){
     this.ngOnInit();
-    this.classicAlertService.alert("Utilisateur banni","L'utilisateur "+banni.username+" a été banni","OK","sm")
+    this.classicAlertService.alert("Utilisateur banni","L'utilisateur "+banni.email+" a été banni","OK","sm")
   }
 
   public actionAnnule(user: User){

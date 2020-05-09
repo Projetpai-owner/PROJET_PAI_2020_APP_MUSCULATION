@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/getAllSalles", "/user", "/login","/refresh/{token}","/revoke/{token}")
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/getAllSalles", "/getBannedUsers", "/user", "/login","/refresh/{token}","/revoke/{token}")
 				.permitAll().anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

@@ -1,6 +1,8 @@
 package fr.univ.lille.fil.mbprestservice.controller;
 import java.util.List;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
+import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
 import fr.univ.lille.fil.mbprestservice.exceptions.InvalidRefreshTokenException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
@@ -38,6 +42,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SalleService salleService;
+	@Autowired
+	private BanniService banniService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -71,8 +77,6 @@ public class UserController {
 		return this.userService.findAll();
 	}
 
-
-
 	@PostMapping("/login")
 	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
 		authenticationManager
@@ -83,6 +87,12 @@ public class UserController {
 	@GetMapping("/getUser")
 	public User getUser(String userId) {
 		return userService.findUserById(userId);
+	}
+	
+	//list all banni
+	@GetMapping("/getBannedUsers")
+	public List<Banni> getAllBanni(){
+		return banniService.findAll();
 	}
 
 	@PostMapping("/refresh/{token}")
@@ -118,6 +128,13 @@ public class UserController {
 	public int updateUser(@Valid @RequestBody CreateUserBody body) {
 		User user = mapFromDto(body);
 		return userService.updateUser(user);
+	}
+	
+	//cancel user account by deleting this user
+	@Transactional
+	@DeleteMapping("/cancelUserAccount")
+	public int cancelUserAccount(String username) {
+		return userService.cancelUserAccount(username);
 	}
 
 }

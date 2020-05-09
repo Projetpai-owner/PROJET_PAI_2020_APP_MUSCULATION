@@ -1,6 +1,6 @@
 export class Banni {
+	
+	constructor(public email: string) {}
 
-    constructor(public username: string) {
-    }
-  }
-  
+}
+
