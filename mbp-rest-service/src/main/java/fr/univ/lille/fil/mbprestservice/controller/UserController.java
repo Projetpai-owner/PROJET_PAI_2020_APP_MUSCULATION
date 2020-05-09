@@ -1,5 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,50 +42,6 @@ public class UserController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@PostMapping("/login")
-	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
-		authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		return userService.login(request.getUsername());
-	}
-	
-	@GetMapping("/getUser")
-	public User getUser(String userId) {
-		return userService.findUserById(userId);
-	}
-
-	@PostMapping("/refresh/{token}")
-	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
-		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
-		if(dto==null)
-			throw new InvalidRefreshTokenException();
-		return dto;
-	}
-
-	@DeleteMapping("/revoke/{token}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
-		userService.logoutUser(token);
-	}
-
-	// save a user
-	@PostMapping("/user")
-	public User createUser(@Valid @RequestBody CreateUserBody body) {
-		User user = mapFromDto(body);
-		if (userService.loadUserByUsername(user.getUsername()) != null) {
-			throw new EmailAlreadyExistException();
-		}
-		this.sendMail(body);
-		return userService.save(user);
-
-	}	
-	//update user information
-	@Transactional
-	@PutMapping("/updateUser")
-	public int updateUser(@Valid @RequestBody CreateUserBody body) {
-		User user = mapFromDto(body);
-		return userService.updateUser(user);
-	}
 
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {
@@ -108,5 +66,60 @@ public class UserController {
 				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
 		new Thread(new MailService(user.getUsername(), object, message)).start();
 	}
+	
+	@GetMapping("/getAllUsers")
+	public List<User> getAllUsers(){
+		return this.userService.findAll();
+	}
+
+
+
+	@PostMapping("/login")
+	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		return userService.login(request.getUsername());
+	}
+	
+	@GetMapping("/getUser")
+	public User getUser(String userId) {
+		return userService.findUserById(userId);
+	}
+
+	@PostMapping("/refresh/{token}")
+	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
+		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
+		if(dto==null)
+			throw new InvalidRefreshTokenException();
+		return dto;
+	}
+
+	@DeleteMapping("/revoke/{token}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
+		userService.logoutUser(token);
+	}
+
+	// save a user
+	@PostMapping("/user")
+	public User createUser(@Valid @RequestBody CreateUserBody body) {
+		User user = mapFromDto(body);
+		if (userService.loadUserByUsername(user.getUsername()) != null) {
+			throw new EmailAlreadyExistException();
+		}
+		this.sendMail(body);
+		return userService.save(user);
+
+	}	
+
+	
+	//update user information
+	@Transactional
+	@PutMapping("/updateUser")
+	public int updateUser(@Valid @RequestBody CreateUserBody body) {
+		User user = mapFromDto(body);
+		return userService.updateUser(user);
+	}
 
 }
+
