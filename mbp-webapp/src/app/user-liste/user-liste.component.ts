@@ -56,5 +56,7 @@ export class UserListeComponent implements OnInit {
     (this.userService.getUser(currentuser.userId)).subscribe(user => {this.myUsername = user.username});
     console.log("test" + this.myUsername);
   }
+
+
   
 }

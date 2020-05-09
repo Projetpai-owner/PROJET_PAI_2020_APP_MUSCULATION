@@ -22,6 +22,7 @@ export class UserService {
     getAllUsers(): Observable<User[]> {
         return this.http.get<User[]>('http://localhost:8080/getAllUsers');
     }
+
     getUser(userId: string): Observable<UserBody> {
         return this.http.get<UserBody>('http://localhost:8080/getUser' + '?userId=' + userId);
     }

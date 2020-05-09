@@ -14,7 +14,8 @@ export const routes: Routes = [
   {path: 'signIn', component: LoginComponent,canActivate:[AuthGuard],data:{expectedRole:'NONE'}},
   {path: 'createAdvert', component: FormCreationAnnonceComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}},
   {path: 'listeUser', component: UserListeComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_ADMIN'}},
-  {path: 'myAccount', component: ProfilComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_BOTH'}}
+  {path: 'myAccount', component: ProfilComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_BOTH'}},
+  {path: 'createAdvert', component: FormCreationAnnonceComponent,canActivate:[AuthGuard],data:{expectedRole:'ROLE_USER'}}
 ];
 
 @NgModule({

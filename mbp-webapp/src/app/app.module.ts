@@ -14,11 +14,11 @@ import { SalleService } from './services/Salle.service';
 import { LoginComponent } from './login/login.component';
 import { UserAccueilComponent } from './user-accueil/user-accueil.component';
 import { JwtInterceptor } from './helpers/jwt-interceptor.interceptor';
+import {TypeSeanceService} from './services/TypeSeance.service';
+import {AdvertService} from './services/Advert.service';
+import { AdvertListComponent } from './advert-list/advert-list.component';
 import { UserListeComponent } from './user-liste/user-liste.component';
 import { ProfilComponent } from './profil/profil.component';
-import { TypeSeanceService } from './services/TypeSeance.service';
-import { AdvertService } from './services/Advert.service';
-import { AdvertListComponent } from './advert-list/advert-list.component';
 import { BanniService } from './services/Banni.service';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ConfirmAlertService } from './services/confirm-alert.service';
@@ -34,6 +34,7 @@ import { ClassicAlertService } from './services/classic-alert.service';
 		FormCreationAnnonceComponent,
 		LoginComponent,
 		UserAccueilComponent,
+		AdvertListComponent,
 		UserListeComponent,
 		ProfilComponent,
 		AdvertListComponent,
