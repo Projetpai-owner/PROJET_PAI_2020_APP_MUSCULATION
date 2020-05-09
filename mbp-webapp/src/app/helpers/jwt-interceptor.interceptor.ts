@@ -14,7 +14,9 @@ export class JwtInterceptor implements HttpInterceptor {
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		// add authorization header with jwt token if available
-		if (!request.url.includes("/refresh") && !request.url.includes("/login")&& !request.url.includes("/getAllSalles")){
+		console.log(request.url)
+		if (!request.url.includes("/resetPasswordWithToken")&&!request.url.includes("/isValidPasswordToken")&&!request.url.includes("/resetPassword")
+		&&!request.url.includes("/refresh") && !request.url.includes("/login")&&!request.url.includes("/user")&&!request.url.includes("/getBannedUsers")&& !request.url.includes("/getAllSalles")){
 			let currentUser = this.authService.currentUserValue;
 			if (currentUser && currentUser.accessToken) {
 				request = this.addToken(request, currentUser.accessToken);
@@ -28,6 +30,7 @@ export class JwtInterceptor implements HttpInterceptor {
 				}
 			}));
 		}else{
+			console.log("ok")
 			return next.handle(request);
 		}
 	}

@@ -1,10 +1,12 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Service;
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
 import fr.univ.lille.fil.mbprestservice.entity.User;
+import fr.univ.lille.fil.mbprestservice.entity.UserPasswordReset;
+import fr.univ.lille.fil.mbprestservice.exceptions.ResetPasswordTokenExpiratedException;
+import fr.univ.lille.fil.mbprestservice.exceptions.ResetPasswordTokenInvalidException;
+import fr.univ.lille.fil.mbprestservice.repository.UserPasswordResetRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRefreshTokenRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRepository;
 import fr.univ.lille.fil.mbprestservice.security.JwtUtil;
@@ -26,6 +32,8 @@ public class UserService implements UserDetailsService{
 	private UserRepository userRepository;
 	@Autowired
 	private UserRefreshTokenRepository userRefreshTokenRepository;
+	@Autowired
+	private UserPasswordResetRepository userPasswordResetRepository;
 	
 	public User save(@Valid User user) {
 		return userRepository.save(user);
@@ -79,6 +87,41 @@ public class UserService implements UserDetailsService{
 				((User)userDetails).getPrenom(),userDetails.getAuthorities());
 
 	}
+
+	public String createResetPasswordToken(String username) {
+		//On supprime le précédent token
+        userPasswordResetRepository.findByUsername(username).ifPresent(userPasswordResetRepository::delete);
+		
+		String token = RandomStringUtils.randomAlphanumeric(128);
+        UserPasswordReset passwordReset=new UserPasswordReset();
+        passwordReset.setToken(token);
+        passwordReset.setUsername(username);
+        //valable 24h
+        Date expiration =new Date(System.currentTimeMillis()+1000*60*60*24);
+        passwordReset.setExpiration(expiration);
+        userPasswordResetRepository.save(passwordReset);
+        return token;
+
+	}
+
+	public UserPasswordReset loadUserWithPasswordResetToken(String token){
+		UserPasswordReset passwordReset= userPasswordResetRepository.findByToken(token).orElse(null);
+		if(passwordReset==null) {
+			throw new ResetPasswordTokenInvalidException();
+		}
+		if(passwordReset.getExpiration().before(new Date())) {
+			throw new ResetPasswordTokenExpiratedException();
+		}
+		return passwordReset;
+	}
+
+	public void resetPassword(User user, String password) {
+		user.setPassword(password);
+		userRepository.changePassword(password, user.getUsername());
+        userPasswordResetRepository.findByUsername(user.getUsername()).ifPresent(userPasswordResetRepository::delete);
+		
+	}
+	
 	
 	public int deleteUser(String username){
 		return userRepository.deleteUserByUsername(username);

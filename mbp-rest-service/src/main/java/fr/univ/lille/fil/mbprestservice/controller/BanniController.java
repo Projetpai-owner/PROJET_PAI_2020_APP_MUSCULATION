@@ -5,10 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.univ.lille.fil.mbprestservice.dto.BanniDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.requestbody.BannirUserBody;
 import fr.univ.lille.fil.mbprestservice.service.BanniService;
@@ -43,7 +40,11 @@ public class BanniController {
 		//Supprime le user en base
 		this.userService.logoutUserByUsername(banni.getEmail());
 		this.userService.deleteUser(banni.getEmail());
-		this.sendMail(banni);
+		
+		String object = "Votre compte MyBodyPartner a été banni";
+		String message = "Bonjour,\n\nL'équipe MyBodyPartner vous informe que votre compte lié à l'adresse " + banni.getEmail() + 
+				" a été banni.\n" + "Si vous souhaitez plus d'informations contacter le support.";
+		this.sendMail(banni,object,message);
 		return banniService.save(banni);
 	}
 	
@@ -65,12 +66,9 @@ public class BanniController {
 		return banni;
 	}
 	
-	private void sendMail(Banni banni){
-		String object = "Votre compte MyBodyPartner a été banni";
-		String message = "Bonjour,\n\nL'équipe MyBodyPartner vous informe que votre compte lié à l'adresse " + banni.getEmail() + 
-				" a été banni.\n" + "Si vous souhaitez plus d'informations contacter le support.";
-		new Thread(new MailService(banni.getEmail(),object, message)).start();
+
+	private void sendMail(Banni banni, String object, String message) {
+		new Thread(new MailService(banni.getEmail(), object, message)).start();
 	}
-	
 	
 }
