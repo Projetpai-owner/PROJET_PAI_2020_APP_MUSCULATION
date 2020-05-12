@@ -1,58 +1,22 @@
-package fr.univ.lille.fil.mbprestservice.entity;
+package fr.univ.lille.fil.mbprestservice.requestbody;
 
-import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
 
 import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
 
-@Entity
-@Table(name = "annonce")
-public class Advert implements Serializable {
-
-	private static final long serialVersionUID = 5878622546354363464L;
-
-	@Id
-	@GeneratedValue
-	private int aid;
+public class EditAdvertBody {
 
 	private String description;
-
-	@Column(name = "niveau_pratique")
-    @Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private Niveau niveauPratique;
-
-	@Column(name = "duree_seance")
 	private int dureeSeance;
-
 	private String nom;
-
-	@Column(name = "date_seance")
 	private Date dateSeance;
-
-	@ManyToOne
-	@JoinColumn(name = "id_seance")
-	private TypeSeance idSeance;
-
-	public int getAid() {
-		return aid;
-	}
-
-	public void setAid(int aid) {
-		this.aid = aid;
-	}
+	private int idSeance;
+	private int aid;
 
 	public String getDescription() {
 		return description;
@@ -61,7 +25,6 @@ public class Advert implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
 	public Niveau getNiveauPratique() {
 		return niveauPratique;
@@ -95,12 +58,20 @@ public class Advert implements Serializable {
 		this.dateSeance = dateSeance;
 	}
 
-	public TypeSeance getIdSeance() {
+	public int getIdSeance() {
 		return idSeance;
 	}
 
-	public void setIdSeance(TypeSeance idSeance) {
+	public void setIdSeance(int idSeance) {
 		this.idSeance = idSeance;
+	}
+
+	public int getAid() {
+		return aid;
+	}
+
+	public void setAid(int aid) {
+		this.aid = aid;
 	}
 
 }

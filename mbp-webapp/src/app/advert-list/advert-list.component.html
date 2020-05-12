@@ -18,7 +18,7 @@
       <td>{{item.duree}}</td>
       <td>
         <button type="button" routerLink="/editAdvert/{{item.aid}}">Edit</button>
-        <button type="button" (click)="deleteAdvertById(item.aid)">Delete</button>
+        <button type="button" class="close" (click)="deleteAdvertById(item.aid)">Delete</button>
       </td>
     </tr>
   </tbody>

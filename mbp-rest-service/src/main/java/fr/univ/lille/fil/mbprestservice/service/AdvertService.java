@@ -37,9 +37,9 @@ public class AdvertService {
 		 advertRepository.deleteById(id);
 	}
 	
-	public Advert updateAdvert(@Valid Advert advert) {
-		advertRepository.updateAdvert();
-		return advert;
+	public int updateAdvert(@Valid Advert advert, int aid) {
+		return advertRepository.updateAdvert(advert.getDescription(), advert.getNiveauPratique(),advert.getDureeSeance(),advert.getNom() , advert.getDateSeance(), aid);
+		 
 	}
 	
 	public List<ListAdvertItemDTO> findAllAdverts(){

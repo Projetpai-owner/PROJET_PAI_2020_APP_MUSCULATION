@@ -9,6 +9,8 @@ import {Observable} from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
 import {CurrentUser} from '../models/CurrentUser.model';
 import {tap} from 'rxjs/operators';
+import {AdvertEntity} from '../models/AdvertEntity.model';
+import {AdvertEdit} from '../models/AdvertEdit.model';
 
 @Component({
   selector: 'app-edit-advert',
@@ -23,7 +25,7 @@ export class EditAdvertComponent implements OnInit {
   isWait: boolean;
   currentUser: CurrentUser;
   preAid: string;
-  currentAdvert: Advert;
+  currentAdvert: AdvertEntity;
 
   constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private route: ActivatedRoute) { }
 
@@ -31,6 +33,7 @@ export class EditAdvertComponent implements OnInit {
   ngOnInit(): void {
     this.preAid = this.router.url.split('/').pop();
     this.initForm();
+    this.getAdvertInfos();
   }
 
   initForm() {
@@ -43,19 +46,31 @@ export class EditAdvertComponent implements OnInit {
       typeSeanceCreaAnnonce: ['', Validators.required]
     });
     this.getAllTypeSeances();
-    this.getAdvertInfos();
+  }
+
+  pad(num: number, size: number): string {
+    let s = num + '';
+    while (s.length < size) {
+      s = '0' + s;
+    }
+    return s;
+  }
+
+  transformTimeIntoNumber(value: number) {
+    const hours = Math.floor(value / 60);
+    const minutes = value % 60;
+    return this.pad(hours, 2) + ':' + this.pad(minutes, 2);
   }
 
   getAdvertInfos(){
-    this.advertService.getAdvertById(+this.preAid).pipe(
-      tap(advert => this.loginForm.patchValue({
-        description: advert.description,
-        niveauPratique: advert.niveauPratique,
-        dureeSeance: advert.dureeSeance,
-        nom: advert.nom,
-        dateSeance: advert.dateSeance
-      }))).subscribe(res => {
+    this.advertService.getAdvertById(+this.preAid).subscribe(res => {
       this.currentAdvert = res;
+      this.loginForm.controls['DescriptionCreaAnnonce'].setValue(this.currentAdvert.description);
+      this.loginForm.controls['NomCreaAnnonce'].setValue(this.currentAdvert.nom);
+      this.loginForm.controls['NiveauCreaAnnonce'].setValue(this.currentAdvert.niveauPratique);
+      this.loginForm.controls['DureeSeanceCreaAnnonce'].setValue(this.transformTimeIntoNumber(this.currentAdvert.dureeSeance));
+      this.loginForm.controls['DateSeanceCreaAnnonce'].setValue(this.currentAdvert.dateSeance);
+      this.loginForm.controls['typeSeanceCreaAnnonce'].setValue(this.currentAdvert.idSeance.idSeance);
     });
   }
 
@@ -73,17 +88,18 @@ export class EditAdvertComponent implements OnInit {
       return tmp1 + tmp2;
     }
 
-    const newAdvert = new Advert(
+    const newAdvert = new AdvertEdit(
       formValue.DescriptionCreaAnnonce,
       formValue.NiveauCreaAnnonce,
       transformTimeIntoNumber(formValue.DureeSeanceCreaAnnonce),
       formValue.NomCreaAnnonce,
       formValue.DateSeanceCreaAnnonce,
-      +formValue.typeSeanceCreaAnnonce
+      +formValue.typeSeanceCreaAnnonce,
+      +this.preAid
     );
     this.errorMessage = '';
-    console.log(newAdvert);
-    this.advertService.updateAdvert(newAdvert);
+    this.advertService.updateAdvert(newAdvert).subscribe(response =>{
+      this.router.navigate(['./listAdverts']);});
   }
 
 }

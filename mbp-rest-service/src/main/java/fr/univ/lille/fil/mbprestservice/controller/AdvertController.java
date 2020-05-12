@@ -22,6 +22,7 @@ import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
+import fr.univ.lille.fil.mbprestservice.requestbody.EditAdvertBody;
 import fr.univ.lille.fil.mbprestservice.service.AdvertService;
 import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
 
@@ -42,6 +43,7 @@ public class AdvertController {
 	
 	@DeleteMapping("/deleteAdvert/{aid}")
 	public void deleteAdvert(@PathVariable("aid") int advertId) {
+		System.out.println(advertId);
 		this.advertService.delete(advertId);
 	}
 	
@@ -57,9 +59,11 @@ public class AdvertController {
 	
 	@Transactional
 	@PutMapping("/updateAdvert")
-	public Advert updateUser(@Valid @RequestBody CreateAdvertBody body) {
-		Advert advert = mapFromDto(body);
-		return advertService.updateAdvert(advert);
+	public int updateAdvert(@Valid @RequestBody EditAdvertBody body) {
+		Advert advert = mapFromDtoEdit(body);
+		System.out.println(body.getAid());
+		System.out.println(body.getNom());
+		return advertService.updateAdvert(advert, body.getAid());
 	}
 
 	
@@ -73,6 +77,30 @@ public class AdvertController {
 		adv.setNiveauPratique(body.getNiveauPratique());
 		TypeSeance advertTypeSeance = typeSeanceService.findById(body.getIdSeance()).orElse(null);
 		adv.setIdSeance(advertTypeSeance);
+		return adv;
+	}
+	
+	private Advert mapFromDtoEdit(EditAdvertBody body) {
+		Advert adv = new Advert();
+		adv.setDescription(body.getDescription());
+		adv.setDateSeance(body.getDateSeance());
+		adv.setDureeSeance(body.getDureeSeance());
+		adv.setNom(body.getNom());
+		adv.setNiveauPratique(body.getNiveauPratique());
+		TypeSeance advertTypeSeance = typeSeanceService.findById(body.getIdSeance()).orElse(null);
+		adv.setIdSeance(advertTypeSeance);
+		adv.setAid(body.getAid());
+		return adv;
+	}
+	
+	private CreateAdvertBody mapToDto(Advert body) {
+		CreateAdvertBody adv = new CreateAdvertBody();
+		adv.setDescription(body.getDescription());
+		adv.setDateSeance(body.getDateSeance());
+		adv.setDureeSeance(body.getDureeSeance());
+		adv.setNom(body.getNom());
+		adv.setNiveauPratique(body.getNiveauPratique());
+		adv.setIdSeance(body.getIdSeance().getIdSeance());
 		return adv;
 	}
 	
