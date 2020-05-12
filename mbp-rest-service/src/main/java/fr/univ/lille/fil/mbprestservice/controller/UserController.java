@@ -1,9 +1,11 @@
 package fr.univ.lille.fil.mbprestservice.controller;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,17 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
+import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
+import fr.univ.lille.fil.mbprestservice.entity.UserPasswordReset;
 import fr.univ.lille.fil.mbprestservice.exceptions.EmailAlreadyExistException;
 import fr.univ.lille.fil.mbprestservice.exceptions.InvalidRefreshTokenException;
+import fr.univ.lille.fil.mbprestservice.exceptions.NoAccountFoundException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
+import fr.univ.lille.fil.mbprestservice.requestbody.ResetPasswordBody;
+import fr.univ.lille.fil.mbprestservice.service.BanniService;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -38,32 +45,96 @@ public class UserController {
 	@Autowired
 	private SalleService salleService;
 	@Autowired
+	private BanniService banniService;
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
+
+
+
+	
+	@GetMapping("/getAllUsers")
+	public List<User> getAllUsers(){
+		return this.userService.findAll();
+	}
+
 	@PostMapping("/login")
-	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request){
+	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request) {
+
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 		return userService.login(request.getUsername());
 	}
+
+
 	
-	@GetMapping("/getUser")
-	public User getUser(String userId) {
-		return userService.findUserById(userId);
+	//list all banni
+	@GetMapping("/getBannedUsers")
+	public List<Banni> getAllBanni(){
+		return banniService.findAll();
 	}
 
 	@PostMapping("/refresh/{token}")
-	public AccessTokenDTO tokenPostRefresh(@PathVariable(value="token") final String token){
-		AccessTokenDTO dto= userService.refreshAccessToken(token).orElse(null);
-		if(dto==null)
+	public AccessTokenDTO tokenPostRefresh(@PathVariable(value = "token") final String token) {
+		AccessTokenDTO dto = userService.refreshAccessToken(token).orElse(null);
+		if (dto == null)
 			throw new InvalidRefreshTokenException();
 		return dto;
 	}
 
 	@DeleteMapping("/revoke/{token}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
 		userService.logoutUser(token);
+	}
+
+
+
+	@PostMapping("/createPasswordToken/{email}")
+	public ResponseEntity<String> createPasswordToken(@PathVariable(value = "email") final String email) {
+		User user = (User) userService.loadUserByUsername(email);
+		if (user == null) {
+			throw new NoAccountFoundException();
+		}
+		String token = userService.createResetPasswordToken(user.getUsername());
+		String object = "Réinitialisation de votre mot de passe";
+		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
+				+ "Le lien ci-dessous vous permet de réinitialiser votre mot de passe : " + "\n\n"
+				+ "http://localhost:4200/resetPassword?token=" + token;
+		sendMail(user, object, message);
+
+		return new ResponseEntity<>("{ \"message\": \"password reset token created successfull\" }", HttpStatus.OK);
+
+	}
+
+	@GetMapping("/isValidPasswordToken/{token}")
+	public ResponseEntity<String> isValidPasswordToken(@PathVariable(value = "token") final String token) {
+		userService.loadUserWithPasswordResetToken(token);
+		return new ResponseEntity<>("{ \"message\": \"valid token\" }", HttpStatus.OK);
+
+	}
+
+	@PutMapping("/resetPasswordWithToken/{token}")
+	public ResponseEntity<String> resetPasswordWithToken(@PathVariable(value = "token") final String token,
+			@RequestBody ResetPasswordBody reset) {
+		UserPasswordReset userPassword = userService.loadUserWithPasswordResetToken(token);
+		User user = (User) userService.loadUserByUsername(userPassword.getUsername());
+		userService.resetPassword(user, reset.getPassword());
+		String object = "Mot de passe réinitialisé";
+		String message = "Votre mot de passe a été correctement réinitialisé ";
+		sendMail(user, object, message);
+
+		return new ResponseEntity<>("{ \"message\": \"password reset successfull\" }", HttpStatus.OK);
+
+	}
+
+	private void sendMail(User user, String object, String message) {
+		new Thread(new MailService(user.getUsername(), object, message)).start();
+	}
+
+	@GetMapping("/getUser")
+	public User getUser(String userId) {
+		return userService.findUserById(userId);
 	}
 
 	// save a user
@@ -73,10 +144,16 @@ public class UserController {
 		if (userService.loadUserByUsername(user.getUsername()) != null) {
 			throw new EmailAlreadyExistException();
 		}
-		this.sendMail(body);
+
+		String object = "Confirmation Inscription MyBodyPartner";
+		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
+				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
+		this.sendMail(user, object, message);
 		return userService.save(user);
 
-	}	
+	}
+
+	
 	//update user information
 	@Transactional
 	@PutMapping("/updateUser")
@@ -101,12 +178,13 @@ public class UserController {
 
 		return user;
 	}
-
-	private void sendMail(CreateUserBody user) {
-		String object = "Confirmation Inscription MyBodyPartner";
-		String message = "Bonjour " + user.getPrenom() + " " + user.getNom() + ", \n\n"
-				+ "Nous vous confirmons votre inscription à l'application MyBodyPartner.";
-		new Thread(new MailService(user.getUsername(), object, message)).start();
+	
+	//cancel user account by deleting this user
+	@Transactional
+	@DeleteMapping("/cancelUserAccount")
+	public int cancelUserAccount(String username) {
+		return userService.cancelUserAccount(username);
 	}
 
 }
+
