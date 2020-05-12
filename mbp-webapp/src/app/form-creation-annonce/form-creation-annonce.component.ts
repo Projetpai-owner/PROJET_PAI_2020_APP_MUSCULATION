@@ -7,6 +7,7 @@ import {TypeSeance} from '../models/TypeSeance.model';
 import {TypeSeanceService} from '../services/TypeSeance.service';
 import {Advert} from '../models/Advert.model';
 import {AdvertService} from '../services/Advert.service';
+import {CurrentUser} from '../models/CurrentUser.model';
 
 @Component({
   selector: 'app-form-creation-annonce',
@@ -18,6 +19,7 @@ export class FormCreationAnnonceComponent implements OnInit {
   errorMessage: string;
   obsTypeSeance: Observable<TypeSeance[]>;
   isWait: boolean;
+  currentUser: CurrentUser;
 
 
   constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router) { }
@@ -38,7 +40,7 @@ export class FormCreationAnnonceComponent implements OnInit {
     this.getAllTypeSeances();
   }
 
-  getAllTypeSeances(){
+  getAllTypeSeances() {
     this.obsTypeSeance = this.typeSeanceService.getTypeSeance();
   }
 
@@ -53,13 +55,13 @@ export class FormCreationAnnonceComponent implements OnInit {
     }
 
     const newAdvert = new Advert(
-      formValue['DescriptionCreaAnnonce'],
-      formValue['NiveauCreaAnnonce'],
-      transformTimeIntoNumber(formValue['DureeSeanceCreaAnnonce']),
-      formValue['NomCreaAnnonce'],
-      formValue['DateSeanceCreaAnnonce'],
-      +formValue['typeSeanceCreaAnnonce']
-    )
+      formValue.DescriptionCreaAnnonce,
+      formValue.NiveauCreaAnnonce,
+      transformTimeIntoNumber(formValue.DureeSeanceCreaAnnonce),
+      formValue.NomCreaAnnonce,
+      formValue.DateSeanceCreaAnnonce,
+      +formValue.typeSeanceCreaAnnonce
+    );
     this.errorMessage = '';
     console.log(newAdvert);
     this.advertService.createAdvert(newAdvert).subscribe(res => {
