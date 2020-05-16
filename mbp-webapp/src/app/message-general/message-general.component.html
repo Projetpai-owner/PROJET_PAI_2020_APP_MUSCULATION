@@ -1,0 +1,43 @@
+<div class="MBP_CORPS">
+    <div class="MBP_CORPS_TITRE">
+        <div class="h2 text-center">Envoyer un message à tous les utilisateurs</div>
+    </div>
+    <div class="MBP_CORPS_CONTENU">
+        <form [formGroup]="messageGeneralForm" (ngSubmit)="submitForm()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="inputObjet"  class="font-weight-bold">Objet : </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="text" id="inputObjet" formControlName="objet" class="form-control form-control-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="inputMessage"  class="font-weight-bold">Message :  </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <textarea id="inputMessage" formControlName="message" class="form-control form-control-sm" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn float-right MBP_BTN_SUBMIT" *ngIf="!enAttente" type="submit" [disabled]="messageGeneralForm.invalid">Envoyer</button>
+                    <div class="float-right" *ngIf="enAttente">
+                        <div class="spinner-border MBP_SPINNER" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </form>
+    </div>       
+</div>
