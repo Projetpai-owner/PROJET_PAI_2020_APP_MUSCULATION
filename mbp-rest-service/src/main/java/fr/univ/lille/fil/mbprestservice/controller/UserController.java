@@ -185,6 +185,18 @@ public class UserController {
 	public int cancelUserAccount(String username) {
 		return userService.cancelUserAccount(username);
 	}
+	
+	/**
+	 * Retourne la liste des Users en fonctions des filtres passé en paramètres
+	 * Les filtres sont appliqués à la recherche en mode "MatchMode.start"
+	 * @return la liste des users qui correspondent aux filtres
+	 */
+	@Transactional
+	@GetMapping("/usersWithFilters")
+	public List<User> getUsersWithsFilters(@PathVariable(value = "nom") String nom,@PathVariable(value = "prenom") String prenom,
+			@PathVariable(value = "username") String username){
+		return this.userService.findUsersByUsernameNomPrenom(username, nom, prenom);
+	}
 
 }
 

@@ -1,5 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +15,9 @@ import fr.univ.lille.fil.mbprestservice.entity.User;
 public interface UserRepository extends JpaRepository<User, String> {
 
 	public User findByUsername(String username);
+	
+	@Query("SELECT u FROM User u WHERE u.username LIKE ':username%' AND u.nom LIKE ':nom%' AND u.prenom LIKE ':prenom%' ")
+	public List<User> findByUserNameNomPrenom(@Param("username") String username,@Param("nom") String nom,@Param("prenom") String prenom);
 	
 	@Modifying(clearAutomatically=true)
     @Transactional

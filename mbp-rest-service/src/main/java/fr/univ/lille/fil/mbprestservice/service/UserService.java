@@ -122,10 +122,15 @@ public class UserService implements UserDetailsService{
 		
 	}
 	
-	
 	public int deleteUser(String username){
 		return userRepository.deleteUserByUsername(username);
 	}
 	
-
+	/**
+	 * Retourne la liste des users avec dont le nom correspond aux critères passés en paramètres (MatchMode.Start)
+	 * @return la liste des users qui correpsondent aux critères
+	 */
+	public List<User> findUsersByUsernameNomPrenom(String username, String nom, String prenom){
+		return this.userRepository.findByUserNameNomPrenom(username, nom, prenom);
+	}
 }

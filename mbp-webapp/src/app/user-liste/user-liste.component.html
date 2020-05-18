@@ -3,7 +3,39 @@
         <div class="h2 text-center">Liste des utilisateurs</div>
     </div>
     <div class="MBP_CORPS_CONTENU">
-        <div class="row ROW_USER" *ngFor="let user of obsListUser | async">
+        <div id="filtre-utilisateur" class="filtre-utilisateur">
+            <div class="row">
+                <div class="col-3">
+                    <div class="col-4">
+                        <label for="input-username">Username : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="input-username" >
+                    </div>       
+                </div>
+                <div class="col-3">
+                    <div class="col-4">
+                        <label for="input-nom">Nom : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="input-nom" >
+                    </div>   
+                </div>
+                <div class="col-3">
+                    <div class="col-4">
+                        <label for="input-username">Prénom : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="input-prenom" >
+                    </div>   
+                </div>
+                <div class="col-3">
+                    <button class="btn float-right MBP_BTN_SUBMIT">Appliquer les filtres</button>
+                </div>
+            </div>
+        </div>
+        <div id="liste-utilisateur" class="liste-utilisateur">
+            <div class="row ROW_USER" *ngFor="let user of obsListUser | async">
                 <div class="col-10 INFO_USER">
                     <div class="row">
                         <div class="col-3">
@@ -28,5 +60,6 @@
                     <button type="button" class="btn btn-danger BOUTON_SUPPRIMER" (click)="confirmDeleteUser(user)">Bannir</button>
                 </div>
             </div>
-        </div> 
+        </div>
+    </div> 
 </div>
