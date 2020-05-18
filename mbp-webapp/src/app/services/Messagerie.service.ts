@@ -14,8 +14,7 @@ export class MessagerieService {
         })
     };
 
-    sendMessageGeneral(messageGeneral : MessageGeneral) : Observable<MessageGeneral>{
-        console.log("envoie du message");
-        return this.http.post<MessageGeneral>('http://localhost:8080/sendMessageGeneral',messageGeneral,this.httpOptions);
+    sendMessageGeneral(messageGeneral : MessageGeneral) {
+        this.http.post('http://localhost:8080/sendMessageGeneral',messageGeneral,this.httpOptions);
     }
 }

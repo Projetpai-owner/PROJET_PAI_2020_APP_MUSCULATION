@@ -29,13 +29,10 @@ export class MessageGeneralComponent implements OnInit {
   }
 
   submitForm(){
-    console.log("ON SUBMIT");
     this.enAttente = true;
     let formValue = this.messageGeneralForm.value;
-    console.log(" objet : "+formValue['objet']);
-    console.log(" message : "+formValue['message']);
     let messageGeneral = new MessageGeneral(formValue['objet'],formValue['message']);
-    this.messagerieService.sendMessageGeneral(messageGeneral).subscribe(response => {console.log("response : " + response)});
+    this.messagerieService.sendMessageGeneral(messageGeneral);
     this.enAttente = false;
   }
 
