@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageGeneral } from '../models/MessageGeneral.model';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class MessagerieService {
