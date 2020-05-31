@@ -30,6 +30,7 @@ export class UserListeComponent implements OnInit {
 
   public getAllUsers(){
     this.obsListUser = this.userService.getAllUsers();
+    this.obsListUser = this.userService.getUsersByUsernameNomPrenom('sa','cl','c');
   }
 
   public confirmDeleteUser(user: User){

@@ -49,6 +49,9 @@ export class UserService {
         return this.http.delete<User>('http://localhost:8080/cancelUserAccount' + '?username=' + username);
     }
 
+    getUsersByUsernameNomPrenom(nom : String, prenom : String, username : String) : Observable<User[]> {
+        return this.http.get<User[]>('http://localhost:8080/usersWithFilters'+'?nom='+nom+'&prenom='+prenom+'&username='+username);
+    }
 
 
 }

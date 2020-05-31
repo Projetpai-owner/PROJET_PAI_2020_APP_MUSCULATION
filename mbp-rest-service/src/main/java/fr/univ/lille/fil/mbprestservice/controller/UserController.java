@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.transaction.annotation.Transactional;
@@ -193,9 +194,11 @@ public class UserController {
 	 */
 	@Transactional
 	@GetMapping("/usersWithFilters")
-	public List<User> getUsersWithsFilters(@PathVariable(value = "nom") String nom,@PathVariable(value = "prenom") String prenom,
-			@PathVariable(value = "username") String username){
-		return this.userService.findUsersByUsernameNomPrenom(username, nom, prenom);
+	public List<User> getUsersWithsFilters(String nom, String prenom, String username){
+		System.out.println("nom : " + nom);
+		System.out.println("prenom : " + prenom);
+		System.out.println("username : " + username);
+		return this.userService.findUsersByUsernameNomPrenom(nom, prenom, username);
 	}
 
 }
