@@ -1,0 +1,32 @@
+.MBP_CORPS {
+  background-image: url('../../assets/img/photo_accueil/photo_accueil_6.jpg');
+  width: 100%;
+  height: 92vh;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.MBP_CORPS_CONTENU {
+  background-color: white;
+  height: 90%;
+}
+
+@media screen and (max-height: 600px) {
+	.h2 {
+		font-size: 3vh;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.h2 {
+		font-size: 5vw;
+	}
+}
+
+.MBP_CORPS_TITRE {
+  background-color: white;
+  height: 10vh;
+}
