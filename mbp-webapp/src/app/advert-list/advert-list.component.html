@@ -1,25 +1,94 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">Prénom</th>
-    <th scope="col">Nom de l'annonce</th>
-    <th scope="col">Description</th>
-    <th scope="col">Date</th>
-    <th scope="col">Durée</th>
-    <th scope="col">Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of ItemsArray">
-      <td>{{item.nomAnnonce}}</td>
-      <td>{{item.prenom}}</td>
-      <td>{{item.description}}</td>
-      <td>{{item.dateSeance}}</td>
-      <td>{{item.duree}}</td>
-      <td>
-        <button type="button" routerLink="/editAdvert/{{item.aid}}">Edit</button>
-        <button type="button" class="close" (click)="deleteAdvertById(item.aid)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="MBP_CORPS">
+  <div class="MBP_CORPS_TITRE">
+    <div class="h2 text-center">Les annonces</div>
+  </div>
+  <div class="MBP_CORPS_CONTENU">
+    <div class="FILTRE_ANNONCE">
+      <div class="EN_TETE_FILTRE_ANNONCE">
+        <div class="h5 font-weight-bold" (click)="showZoneFiltre();">Filtrer les annonces </div>
+      </div>
+      <div *ngIf="zoneFiltreVisible" class="ZONE_FILTRE_ANNONCE">
+        <form [formGroup]="filtreAnnonceForm" id="form-filtre-annonce" name="form-filtre-annonce">
+          <div class="row form-group">
+            <div class="col">
+              <label for="input-date">date : </label>
+              <input type="date" name="date" id="input-date" class="form-control">
+            </div>
+            <div class="col">
+              <label for="input-duree-min">durée minimum : </label>
+              <input type="time" name="dureeMin" id="input-duree-min" class="form-control">
+            </div>
+            <div class="col">
+              <label for="input-duree-max">durée maximum : </label>
+              <input type="time" name="dureeMax" id="input-duree-max" class="form-control">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label for="select-niveau">niveau : </label>
+              <select name="niveau" id="select-niveau" class="form-control">
+                <option value=""></option>
+                <option value="DEBUTANT">Débutant</option>
+                <option value="AMATEUR">Amateur</option>
+                <option value="AVANCE">Avancé</option>
+                <option value="PROFESSIONEL">Professionnel</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="select-type-seance">Type de séance : </label>
+              <select name="typeSeance" id="select-type-seance" class="form-control">
+                <option value=""></option>
+                <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label for="select-salle">Salle de sport : </label>
+              <select name="salle" id="select-salle" class="form-control">
+                <option value=""></option>
+                <option *ngFor="let salle of obsSalles | async" value="{{salle.sid}}">{{salle.nom}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="select-sex">Partenaire : </label>
+              <select name="sex" id="select-sex" class="form-control">
+                <option value=""></option>
+                <option value="H">HOMME</option>
+                <option value="F">FEMME</option>
+              </select>
+            </div>
+          </div> 
+        </form>
+      </div>
+    </div>
+    
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Prénom</th>
+        <th scope="col">Nom de l'annonce</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Durée</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of ItemsArray">
+          <td>{{item.nomAnnonce}}</td>
+          <td>{{item.prenom}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.dateSeance}}</td>
+          <td>{{item.duree}}</td>
+          <td>
+            <button type="button" routerLink="/editAdvert/{{item.aid}}">Edit</button>
+            <button type="button" class="close" (click)="deleteAdvertById(item.aid)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
