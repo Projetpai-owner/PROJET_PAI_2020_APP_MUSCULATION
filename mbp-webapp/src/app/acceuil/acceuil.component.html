@@ -30,3 +30,6 @@
 <div class="MBP-alert">
 	<ngb-alert *ngIf="cancel" [dismissible]="false" type="info" (close)="cancel = false">{{cancel_success}}</ngb-alert>
 </div>
+<div class="MBP-alert">
+	<ngb-alert *ngIf="support" [dismissible]="false" type="success" (close)="support = false">{{support_success}}</ngb-alert>
+</div>

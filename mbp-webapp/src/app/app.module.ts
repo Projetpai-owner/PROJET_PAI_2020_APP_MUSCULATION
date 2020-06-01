@@ -26,6 +26,8 @@ import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ConfirmAlertService } from './services/confirm-alert.service';
 import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
 import { ClassicAlertService } from './services/classic-alert.service';
+import { SupportComponent } from './support/support.component';
+import { SupportService } from './services/SupportUser.service';
 
 @NgModule({
 	declarations: [
@@ -46,6 +48,7 @@ import { ClassicAlertService } from './services/classic-alert.service';
 		EditAdvertComponent,
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
+		SupportComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -64,6 +67,7 @@ import { ClassicAlertService } from './services/classic-alert.service';
 		BanniService,
 		ConfirmAlertService,
 		ClassicAlertService,
+		SupportService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],

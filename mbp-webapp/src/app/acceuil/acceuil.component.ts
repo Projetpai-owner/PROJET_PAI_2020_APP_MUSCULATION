@@ -13,8 +13,11 @@ export class AcceuilComponent implements OnInit {
 
   cancel_success: string;
   cancel: boolean = false;
- 
-  constructor(private router: Router) { 
+
+  support_success: string;
+  support: boolean = false;
+
+  constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     if(navigation !== null){
       const state = navigation.extras.state as [{data: string}, {from: string}];
@@ -29,12 +32,17 @@ export class AcceuilComponent implements OnInit {
           this.cancel_success = state[0].data;
           setTimeout(() => this.cancel = false, 6000);
         }
+		if(state[1].from === 'support'){
+		  this.support = true;
+		  this.support_success = state[0].data;
+		  setTimeout(() => this.support = false, 6000);
+		}
       }
     }
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }
