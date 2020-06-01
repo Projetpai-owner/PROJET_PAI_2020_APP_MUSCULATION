@@ -7,7 +7,7 @@ import { TypeSeance } from '../models/TypeSeance.model';
 import { TypeSeanceService } from '../services/TypeSeance.service';
 import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-advert-list',
@@ -43,19 +43,36 @@ export class AdvertListComponent implements OnInit {
   }
 
   initForm(): void{
-    this.filtreAnnonceForm = this.formBuilder.group({
-      date: ['',null],
-      dureeMin: ['',null],
-      dureeMax: ['',null],
-      niveau: ['',null],
-      typeSeance: ['',null],
-      salle: ['',null],
-      sex: ['',null]
+    this.filtreAnnonceForm = new FormGroup({
+      date : new FormControl(''),
+      dureeMin : new FormControl(''),
+      dureeMax : new FormControl(''),
+      niveau : new FormControl(''),
+      typeSeance : new FormControl(''),
+      salle : new FormControl(''),
+      sex : new FormControl('')
     });
   }
 
   showZoneFiltre(): void{
     this.zoneFiltreVisible = !this.zoneFiltreVisible;
+  }
+
+  submitForm(): void{
+    console.log("la on submit le formulaire et on aplique les filtres");
+  }
+
+  clearForm(): void{
+    console.log("eh oh");
+    this.filtreAnnonceForm.setValue({
+      date : '',
+      dureeMin: '',
+      dureeMax : '',
+      niveau : '',
+      typeSeance : '',
+      salle : '',
+      sex : ''
+    });
   }
 
   deleteAdvertById(aid: number){

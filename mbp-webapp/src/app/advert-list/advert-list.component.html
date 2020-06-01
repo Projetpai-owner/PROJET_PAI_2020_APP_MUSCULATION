@@ -8,7 +8,7 @@
         <div class="h5 font-weight-bold" (click)="showZoneFiltre();">Filtrer les annonces </div>
       </div>
       <div *ngIf="zoneFiltreVisible" class="ZONE_FILTRE_ANNONCE">
-        <form [formGroup]="filtreAnnonceForm" id="form-filtre-annonce" name="form-filtre-annonce">
+        <form [formGroup]="filtreAnnonceForm" (ngSubmit)="submitForm();" id="form-filtre-annonce" name="form-filtre-annonce">
           <div class="row form-group">
             <div class="col">
               <label for="input-date">date : </label>
@@ -57,6 +57,14 @@
                 <option value="H">HOMME</option>
                 <option value="F">FEMME</option>
               </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-3">
+              <button class="btn MBP_BTN_SUBMIT" type="submit">Appliquer les filtres</button>
+            </div>
+            <div class="col-3">
+              <button class="btn MBP_BTN_SUBMIT" type="button" (click)="clearForm()">Réinitialiser les filtres</button>
             </div>
           </div> 
         </form>
