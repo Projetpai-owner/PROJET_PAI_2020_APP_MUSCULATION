@@ -29,6 +29,8 @@ import { ClassicAlertService } from './services/classic-alert.service';
 import { SupportComponent } from './support/support.component';
 import { SupportService } from './services/SupportUser.service';
 import { SupportAdminComponent } from './support-admin/support-admin.component';
+import { MessageGeneralComponent } from './message-general/message-general.component';
+import { MessagerieService } from './services/Messagerie.service';
 
 @NgModule({
 	declarations: [
@@ -51,6 +53,7 @@ import { SupportAdminComponent } from './support-admin/support-admin.component';
 		ClassicAlertComponent,
 		SupportComponent,
 		SupportAdminComponent,
+		MessageGeneralComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -70,6 +73,7 @@ import { SupportAdminComponent } from './support-admin/support-admin.component';
 		ConfirmAlertService,
 		ClassicAlertService,
 		SupportService,
+		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],

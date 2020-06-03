@@ -12,6 +12,7 @@ import {EditAdvertComponent} from './edit-advert/edit-advert.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SupportComponent } from './support/support.component';
 import {SupportAdminComponent} from './support-admin/support-admin.component';
+import { MessageGeneralComponent } from './message-general/message-general.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
@@ -25,7 +26,8 @@ export const routes: Routes = [
   {path: 'adminSupport', component: SupportAdminComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
   {path: 'createAdvert', component: FormCreationAnnonceComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
-  {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
+  {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}}
 ];
 
 @NgModule({
