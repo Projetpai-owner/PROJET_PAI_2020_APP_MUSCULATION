@@ -28,6 +28,7 @@ import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
 import { ClassicAlertService } from './services/classic-alert.service';
 import { SupportComponent } from './support/support.component';
 import { SupportService } from './services/SupportUser.service';
+import { SupportAdminComponent } from './support-admin/support-admin.component';
 
 @NgModule({
 	declarations: [
@@ -49,6 +50,7 @@ import { SupportService } from './services/SupportUser.service';
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
 		SupportComponent,
+		SupportAdminComponent,
 	],
 	imports: [
 		BrowserModule,

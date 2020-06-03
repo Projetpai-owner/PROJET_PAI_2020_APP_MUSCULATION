@@ -12,7 +12,8 @@ public class Support {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int sid;
+	private int suid;
+	private String username;
 	private String object;
 	private String description;
 	
@@ -27,6 +28,18 @@ public class Support {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public int getSuid() {
+		return suid;
+	}
+	public void setSuid(int suid) {
+		this.suid = suid;
 	}
 	
 }

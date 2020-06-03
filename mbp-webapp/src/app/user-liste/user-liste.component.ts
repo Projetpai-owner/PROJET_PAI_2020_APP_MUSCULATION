@@ -33,14 +33,14 @@ export class UserListeComponent implements OnInit {
   }
 
   public confirmDeleteUser(user: User){
-    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment bannir l'utilisateur "+user.username+" ?","Confimer","Annuler","lg")
+    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment bannir l'utilisateur "+user.username+" ?","Confirmer","Annuler","lg")
      .then((confirmed) => {if(confirmed){this.deleteUser(user);}else{this.actionAnnule(user);}})
       .catch(() => this.actionAnnule(user));
   }
 
   public deleteUser(user: User){
     this.banniService.addBanni(new Banni(user.username)).subscribe(banni =>{
-      this.gereRetourDelete(banni);  
+      this.gereRetourDelete(banni);
     });
   }
 
@@ -58,5 +58,5 @@ export class UserListeComponent implements OnInit {
   }
 
 
-  
+
 }

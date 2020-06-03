@@ -1,6 +1,7 @@
 export class Support {
-	
-	constructor(public object: string,
+
+	constructor(public username: string,
+	      public object: string,
 				public description: string,
 				) {}
 

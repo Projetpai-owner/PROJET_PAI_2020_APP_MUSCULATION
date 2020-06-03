@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Support } from '../models/Support.model';
+import {SupportBody} from '../models/SupportBody.model';
 
 
 @Injectable()
@@ -15,8 +16,18 @@ export class SupportService {
 
   constructor(private http: HttpClient) { }
 
-  addTicket(support : Support): Observable<Support> {
+  addTicket(support: Support): Observable<Support> {
 	  return this.http.post<Support>('http://localhost:8080/createTicket', support, this.httpOptions);
+  }
+
+  getAllTickets(): Observable<SupportBody[]> {
+    return this.http.get<SupportBody[]>('http://localhost:8080/getAllTickets');
+  }
+
+  deleteTicket(suid: number): void {
+    this.http.delete('http://localhost:8080/deleteTicket/' + suid).subscribe((s) => {
+      console.log(s);
+    });
   }
 
 }

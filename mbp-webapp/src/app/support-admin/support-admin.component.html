@@ -1,0 +1,30 @@
+<div class="MBP_CORPS">
+  <div class="MBP_CORPS_TITRE">
+    <div class="h2 text-center">Liste des tickets de support</div>
+  </div>
+  <div class="MBP_CORPS_CONTENU">
+    <div class="row ROW_USER" *ngFor="let ticket of obsListTickets | async">
+      <div class="col-10 INFO_USER">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <label class="ROW_LABEL">Username : &nbsp;</label>
+              <span> {{ticket.username}} </span>
+            </div>
+            <div class="row">
+              <label class="ROW_LABEL">Objet : &nbsp;</label>
+              <span> {{ticket.object}} </span>
+            </div>
+            <div class="row">
+              <label class="ROW_LABEL">Description : &nbsp;</label>
+              <span> {{ticket.description}} </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 ">
+        <button type="button" class="btn btn-danger BOUTON_SUPPRIMER" (click)="confirmDeleteTicket(ticket)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,7 @@ package fr.univ.lille.fil.mbprestservice.requestbody;
 
 public class SupportBody {
 	
+	private String username;
 	private String object;
 	private String description;
 	
@@ -16,6 +17,12 @@ public class SupportBody {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 
