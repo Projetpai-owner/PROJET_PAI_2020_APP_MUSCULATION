@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {AdvertService} from '../services/Advert.service';
 import {AdvertItemList} from '../models/AdvertItemList.model';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { TypeSeance } from '../models/TypeSeance.model';
 import { TypeSeanceService } from '../services/TypeSeance.service';
 import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, Form, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-advert-list',
@@ -16,6 +16,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class AdvertListComponent implements OnInit {
 
+  @ViewChild('formFiltre') formFiltre:ElementRef;
   ItemsArray = [];
   obsTypeSeance: Observable<TypeSeance[]>;
   obsSalles: Observable<Salle[]>;
@@ -29,12 +30,16 @@ export class AdvertListComponent implements OnInit {
               private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.initAnnonces();
+    this.initSelect();
+    this.initForm();
+    this.initVisibility();
+  }
+
+  initAnnonces(): void{
     this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {
       this.ItemsArray = res;
     });
-    this.initSelect();
-    this.initForm();
-    this.zoneFiltreVisible = false;
   }
 
   initSelect(): void {
@@ -44,7 +49,7 @@ export class AdvertListComponent implements OnInit {
 
   initForm(): void{
     this.filtreAnnonceForm = new FormGroup({
-      date : new FormControl(''),
+      date : new FormControl('test'),
       dureeMin : new FormControl(''),
       dureeMax : new FormControl(''),
       niveau : new FormControl(''),
@@ -52,6 +57,10 @@ export class AdvertListComponent implements OnInit {
       salle : new FormControl(''),
       sex : new FormControl('')
     });
+  }
+
+  initVisibility(): void{
+    this.zoneFiltreVisible = false;
   }
 
   showZoneFiltre(): void{
@@ -63,16 +72,9 @@ export class AdvertListComponent implements OnInit {
   }
 
   clearForm(): void{
-    console.log("eh oh");
-    this.filtreAnnonceForm.setValue({
-      date : '',
-      dureeMin: '',
-      dureeMax : '',
-      niveau : '',
-      typeSeance : '',
-      salle : '',
-      sex : ''
-    });
+    for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
+      this.formFiltre.nativeElement.elements[i].value = '';
+    }
   }
 
   deleteAdvertById(aid: number){

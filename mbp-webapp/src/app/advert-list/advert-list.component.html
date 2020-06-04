@@ -7,12 +7,12 @@
       <div class="EN_TETE_FILTRE_ANNONCE">
         <div class="h5 font-weight-bold" (click)="showZoneFiltre();">Filtrer les annonces </div>
       </div>
-      <div *ngIf="zoneFiltreVisible" class="ZONE_FILTRE_ANNONCE">
-        <form [formGroup]="filtreAnnonceForm" (ngSubmit)="submitForm();" id="form-filtre-annonce" name="form-filtre-annonce">
+      <div class="ZONE_FILTRE_ANNONCE" >
+        <form #formFiltre *ngIf="zoneFiltreVisible" [formGroup]="filtreAnnonceForm" (ngSubmit)="submitForm();" id="form-filtre-annonce" name="form-filtre-annonce">
           <div class="row form-group">
             <div class="col">
               <label for="input-date">date : </label>
-              <input type="date" name="date" id="input-date" class="form-control">
+              <input type="text" name="date" id="input-date" class="form-control">
             </div>
             <div class="col">
               <label for="input-duree-min">durée minimum : </label>
