@@ -36,7 +36,6 @@ public class MessagerieControler {
 	 */
 	@PostMapping("/sendMessageGeneral")
 	public void sendMessageGeneral(@Valid @RequestBody MessageGeneralBody messageGeneralBody){
-		System.out.println("message : " + messageGeneralBody.getMessage());
 		String objet = messageGeneralBody.getObjet();
 		String message = messageGeneralBody.getMessage();
 		
