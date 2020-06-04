@@ -7,7 +7,7 @@ import { TypeSeance } from '../models/TypeSeance.model';
 import { TypeSeanceService } from '../services/TypeSeance.service';
 import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
-import { FormGroup, FormBuilder, Validators, FormControl, Form, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-advert-list',
