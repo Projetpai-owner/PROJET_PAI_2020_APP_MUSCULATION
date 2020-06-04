@@ -22,7 +22,7 @@ import fr.univ.lille.fil.mbprestservice.service.UserService;
  * @author Clément
  *
  */
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 public class MessagerieControler {
 	
@@ -34,9 +34,9 @@ public class MessagerieControler {
 	 * L'objet et le contenu du mail sont contenu dans le @RequestBody 
 	 * @param messageGeneralBody @RequestBody contenant les informations du mail
 	 */
-	@Secured(value = "ROLE_ADMIN")
 	@PostMapping("/sendMessageGeneral")
 	public void sendMessageGeneral(@Valid @RequestBody MessageGeneralBody messageGeneralBody){
+		System.out.println("message : " + messageGeneralBody.getMessage());
 		String objet = messageGeneralBody.getObjet();
 		String message = messageGeneralBody.getMessage();
 		
