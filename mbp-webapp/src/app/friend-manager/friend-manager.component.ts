@@ -12,20 +12,24 @@ import { UserService } from '../services/User.service';
 	templateUrl: './friend-manager.component.html',
 	styleUrls: ['./friend-manager.component.scss']
 })
+
+
 export class FriendManagerComponent implements OnInit {
 	friends: Observable<Ami[]>;
 	obsListUser: Observable<User[]>;
-
+	term:string;
+	
+	
 	constructor(public userService: UserService, public friendService: FriendService, public authService: AuthService, public classicAlertService: ClassicAlertService) { }
 
 	ngOnInit(): void {
 		this.friends = this.friendService.getMyFriends();
-		this.getAllUsers();
+		this.getAllUsersExceptFriendsAndMe();
 	}
 
 
-	public getAllUsers() {
-		this.obsListUser = this.userService.getAllUsers();
+	public getAllUsersExceptFriendsAndMe() {
+		this.obsListUser = this.userService.getAllUsersExceptFriendsAndMe(this.authService.currentUserValue.userId);
 	}
 
 	delete(pid): void {
@@ -37,8 +41,13 @@ export class FriendManagerComponent implements OnInit {
 	}
 
 
-	public addUser(user){
-		console.log(user);
+	public addFriend(user:User){
+		this.friendService.addFriend(user.pid).subscribe(message =>{
+			console.log(message)
+			this.ngOnInit();
+		});
 	}
 
 }
+
+

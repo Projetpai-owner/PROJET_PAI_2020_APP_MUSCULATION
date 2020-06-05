@@ -17,12 +17,12 @@
 	<div class="RECHERCHE_CONTACT">
 		<h1>Rechercher un contact</h1>
 		<div class="input-group flex-nowrap" style="width: 30%; margin-bottom: 2%;">
-			<input type="text" class="form-control" placeholder="Username"
+			<input type="text" class="form-control" [(ngModel)]="term"  placeholder="email, prenom ou nom"
 				aria-label="Username" aria-describedby="addon-wrapping">
 		</div>
 		
 		<div class="ROW_CONTAINER">
-			<div class="row ROW_USER" *ngFor="let user of obsListUser | async">
+			<div class="row ROW_USER" *ngFor="let user of obsListUser | async | userFilter:term ">
 			<div class="col-10 INFO_USER">
 				<div class="row">
 					<div class="col-3">
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="col-2 ">
-				<button mat-mini-fab color="warn" (click)="addUser(user)">
+				<button mat-mini-fab color="warn" (click)="addFriend(user)">
 					<mat-icon>add</mat-icon>
 				</button>
 			</div>

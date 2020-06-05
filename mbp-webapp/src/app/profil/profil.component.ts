@@ -129,6 +129,7 @@ export class ProfilComponent implements OnInit {
       finalSid = +this.myUser.sid.sid;
     }
 		const newUser = new User(
+			null,
 			this.myUser.nom,
 			this.myUser.prenom,
 			this.myUser.bornDate,

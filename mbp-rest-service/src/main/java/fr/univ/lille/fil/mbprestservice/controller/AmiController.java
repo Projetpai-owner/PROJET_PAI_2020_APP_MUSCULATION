@@ -27,17 +27,17 @@ public class AmiController {
 		return amiService.getAllAmi(pid);
 	}
 	
-/*	@PostMapping("/addFriend/{pidun}")
+	@PostMapping("/addFriend/{pidun}")
 	public ResponseEntity<String> addAmi(@PathVariable(value="pidun")int pidun,@RequestBody int piddeux){
+		System.out.println("COUCOU");
 		amiService.addAmi(pidun,piddeux);
 		return new ResponseEntity<>("{ \"message\": \"friend added successfully\" }", HttpStatus.OK);
 
 	}
-	*/
+	
 	
 	@DeleteMapping("/deleteFriend/{userId}/{pid}")
 	public ResponseEntity<String> deleteFriend(@PathVariable("userId") int userId ,@PathVariable("pid") int pid) {
-		System.out.println("coucou");
 		System.out.println(pid);
 		this.amiService.delete(userId,pid);
 		

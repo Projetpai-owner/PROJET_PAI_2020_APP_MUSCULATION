@@ -42,6 +42,14 @@ public class Ami {
 	public User getPiddeux() {
 		return piddeux;
 	}
+
+	public void setPidun(User pidun) {
+		this.pidun = pidun;
+	}
+
+	public void setPiddeux(User piddeux) {
+		this.piddeux = piddeux;
+	}
 	 
 	 
 	 

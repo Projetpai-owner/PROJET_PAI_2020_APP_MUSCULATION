@@ -43,7 +43,7 @@ public class AmiService {
 	}
 
 
-	/*public void addAmi(int pidun,int piddeux) {
+	public void addAmi(int pidun,int piddeux) {
 		User userun=userRepository.findByPid(pidun);
 		User userdeux=userRepository.findByPid(piddeux);
 		Ami ami=new Ami();
@@ -52,7 +52,7 @@ public class AmiService {
 		amiRepository.save(ami);
 		
 	}
-	*/
+	
 	
 	public void delete(int pidun,int piddeux) {
 		User userun=userRepository.findByPid(pidun);

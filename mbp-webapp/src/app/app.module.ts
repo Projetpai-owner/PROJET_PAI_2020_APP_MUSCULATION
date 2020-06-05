@@ -33,6 +33,8 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list'; 
 import {FriendService} from './services/Friend.service';
 import {MatButtonModule} from '@angular/material/button';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UserPipe } from './userPipe/user.pipe';
 
 @NgModule({
 	declarations: [
@@ -54,6 +56,7 @@ import {MatButtonModule} from '@angular/material/button';
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
 		FriendManagerComponent,
+		UserPipe,
 	],
 	imports: [
 		BrowserModule,
@@ -67,7 +70,8 @@ import {MatButtonModule} from '@angular/material/button';
 		MatBadgeModule,
 		MatIconModule,
 		MatListModule,
-		MatButtonModule
+		MatButtonModule,
+		Ng2SearchPipeModule,
 	],
 	providers: [
 		UserService,

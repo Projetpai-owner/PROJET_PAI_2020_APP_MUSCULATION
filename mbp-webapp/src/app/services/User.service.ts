@@ -48,6 +48,10 @@ export class UserService {
     cancelUserAccount(username: string): Observable<User> {
         return this.http.delete<User>('http://localhost:8080/cancelUserAccount' + '?username=' + username);
     }
+	
+	getAllUsersExceptFriendsAndMe(pid): Observable<User[]>{
+		return this.http.get<User[]>('http://localhost:8080/getAllUsersExceptFriendsAndMe/'+pid);
+	}
 
 
 
