@@ -26,6 +26,13 @@ import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ConfirmAlertService } from './services/confirm-alert.service';
 import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
 import { ClassicAlertService } from './services/classic-alert.service';
+import { FriendManagerComponent } from './friend-manager/friend-manager.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list'; 
+import {FriendService} from './services/Friend.service';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
 	declarations: [
@@ -46,6 +53,7 @@ import { ClassicAlertService } from './services/classic-alert.service';
 		EditAdvertComponent,
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
+		FriendManagerComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -55,15 +63,21 @@ import { ClassicAlertService } from './services/classic-alert.service';
 		HttpClientModule,
 		AppRoutingModule,
 		NgbModule,
+		BrowserAnimationsModule,
+		MatBadgeModule,
+		MatIconModule,
+		MatListModule,
+		MatButtonModule
 	],
 	providers: [
 		UserService,
 		SalleService,
-    	TypeSeanceService,
+		TypeSeanceService,
 		AdvertService,
 		BanniService,
 		ConfirmAlertService,
 		ClassicAlertService,
+		FriendService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],

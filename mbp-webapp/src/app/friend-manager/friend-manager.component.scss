@@ -1,0 +1,38 @@
+.CONTACTS{
+	height: 100%;
+	width: 20%;
+	overflow:scroll;
+	float:left;
+
+}
+
+.RECHERCHE_CONTACT{
+	float:right;
+	height: 100%;
+	width: 60%;
+
+}
+
+.FRIEND_CONTAINER{
+	height: 100%;
+	width: 100%;
+}
+
+.ROW_USER{
+	width:99%;
+    margin: 0.5% 0.25% 0.5% 0.25%;
+    background-color: #eee;
+    padding : 0.5% 0.5% 0.5% 0.5%;
+    border-left: solid 4px #6d0000;
+
+}
+
+.ROW_CONTAINER{
+	overflow-y:scroll;
+	width:60%;
+	height:80%;
+}
+
+.USER_LABEL{
+    font-weight: bold;
+}
