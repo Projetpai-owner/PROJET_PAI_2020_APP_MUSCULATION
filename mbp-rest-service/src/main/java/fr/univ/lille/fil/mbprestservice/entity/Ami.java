@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,14 +14,14 @@ import javax.persistence.Table;
 public class Ami {
 	
 	 @Id
-	 @OneToOne
-	 @JoinColumn(name = "pidun")
+	 @ManyToOne
+	 @JoinColumn(unique=false,name = "pidun")
 	 private User pidun;
 	 
 
 	 @Id
-	 @OneToOne
-	 @JoinColumn(name = "piddeux")
+	 @ManyToOne	
+	 @JoinColumn(unique=false,name = "piddeux")
 	 private User piddeux;
 
 

@@ -25,7 +25,6 @@ import { BanniService } from './services/Banni.service';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ConfirmAlertService } from './services/confirm-alert.service';
 import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
-import { ClassicAlertService } from './services/classic-alert.service';
 import { FriendManagerComponent } from './friend-manager/friend-manager.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -35,6 +34,9 @@ import {FriendService} from './services/Friend.service';
 import {MatButtonModule} from '@angular/material/button';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UserPipe } from './userPipe/user.pipe';
+import { ClassicAlertService } from './services/classic-alert.service';
+import { MessageGeneralComponent } from './message-general/message-general.component';
+import { MessagerieService } from './services/Messagerie.service';
 
 @NgModule({
 	declarations: [
@@ -57,6 +59,7 @@ import { UserPipe } from './userPipe/user.pipe';
 		ClassicAlertComponent,
 		FriendManagerComponent,
 		UserPipe,
+		MessageGeneralComponent
 	],
 	imports: [
 		BrowserModule,
@@ -82,6 +85,7 @@ import { UserPipe } from './userPipe/user.pipe';
 		ConfirmAlertService,
 		ClassicAlertService,
 		FriendService,
+		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
 	],
