@@ -19,5 +19,5 @@ public interface AdvertRepository extends JpaRepository<Advert, Integer>{
 			@Param("dureeSeance") int dureeSeance, @Param("nom") String nom, @Param("dateSeance") Date dateSeance, @Param("aid") int aid);
 	
 	public Advert findByAid(int aid);
-
+	
 }

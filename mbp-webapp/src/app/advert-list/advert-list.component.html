@@ -12,21 +12,21 @@
           <div class="row form-group">
             <div class="col">
               <label for="input-date">date : </label>
-              <input type="date" name="date" id="input-date" class="form-control">
+              <input type="date" name="date" formControlName="date" id="input-date" class="form-control">
             </div>
             <div class="col">
               <label for="input-duree-min">durée minimum : </label>
-              <input type="time" name="dureeMin" id="input-duree-min" class="form-control">
+              <input type="time" name="dureeMin" formControlName="dureeMin" id="input-duree-min" class="form-control">
             </div>
             <div class="col">
               <label for="input-duree-max">durée maximum : </label>
-              <input type="time" name="dureeMax" id="input-duree-max" class="form-control">
+              <input type="time" name="dureeMax" formControlName="dureeMax" id="input-duree-max" class="form-control">
             </div>
           </div>
           <div class="row form-group">
             <div class="col">
               <label for="select-niveau">niveau : </label>
-              <select name="niveau" id="select-niveau" class="form-control">
+              <select name="niveau" formControlName="niveau" id="select-niveau" class="form-control">
                 <option value=""></option>
                 <option value="DEBUTANT">Débutant</option>
                 <option value="AMATEUR">Amateur</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="col">
               <label for="select-type-seance">Type de séance : </label>
-              <select name="typeSeance" id="select-type-seance" class="form-control">
+              <select name="typeSeance" formControlName="typeSeance" id="select-type-seance" class="form-control">
                 <option value=""></option>
                 <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
               </select>
@@ -45,14 +45,14 @@
           <div class="row form-group">
             <div class="col">
               <label for="select-salle">Salle de sport : </label>
-              <select name="salle" id="select-salle" class="form-control">
+              <select name="salle" formControlName="salle" id="select-salle" class="form-control">
                 <option value=""></option>
                 <option *ngFor="let salle of obsSalles | async" value="{{salle.sid}}">{{salle.nom}}</option>
               </select>
             </div>
             <div class="col">
               <label for="select-sex">Partenaire : </label>
-              <select name="sex" id="select-sex" class="form-control">
+              <select name="sex" formControlName="sex" id="select-sex" class="form-control">
                 <option value=""></option>
                 <option value="H">HOMME</option>
                 <option value="F">FEMME</option>

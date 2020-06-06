@@ -49,7 +49,7 @@ public class AdvertController {
 	
 	@GetMapping("/getAllAdvertsItems")
 	public List<ListAdvertItemDTO> getAllAdvertsItems(){
-		return this.advertService.findAllAdverts();
+		return this.advertService.findAllAdvertsWithInfos();
 	}
 	
 	@GetMapping("/getAdvertById/{id}")

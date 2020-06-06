@@ -8,6 +8,7 @@ import { TypeSeanceService } from '../services/TypeSeance.service';
 import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
 import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
+import { Advert } from '../models/Advert.model';
 
 @Component({
   selector: 'app-advert-list',
@@ -18,6 +19,7 @@ export class AdvertListComponent implements OnInit {
 
   @ViewChild('formFiltre') formFiltre:ElementRef;
   ItemsArray = [];
+  toutesLesannonces = [];
   obsTypeSeance: Observable<TypeSeance[]>;
   obsSalles: Observable<Salle[]>;
   filtreAnnonceForm: FormGroup;
@@ -38,7 +40,11 @@ export class AdvertListComponent implements OnInit {
 
   initAnnonces(): void{
     this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {
+      console.log("recuperatino des annonces ");
+      
       this.ItemsArray = res;
+      console.log(this.ItemsArray[0]);
+      this.toutesLesannonces = res;
     });
   }
 
@@ -49,7 +55,7 @@ export class AdvertListComponent implements OnInit {
 
   initForm(): void{
     this.filtreAnnonceForm = new FormGroup({
-      date : new FormControl('test'),
+      date : new FormControl(''),
       dureeMin : new FormControl(''),
       dureeMax : new FormControl(''),
       niveau : new FormControl(''),
@@ -68,13 +74,34 @@ export class AdvertListComponent implements OnInit {
   }
 
   submitForm(): void{
-    console.log("la on submit le formulaire et on aplique les filtres");
+    this.ItemsArray = this.ItemsArray.filter(annonce => this.filtreAnnonce(annonce));
+  }
+
+  filtreAnnonce(advert : any) : boolean{
+    const formFiltreValue = this.filtreAnnonceForm.value;
+    if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.date){
+      return false;
+    }
+    if(formFiltreValue['dureeMin'] != "" && formFiltreValue['dureeMin'] > advert.duree){
+      return false;
+    }
+    if(formFiltreValue['dureeMax'] != "" && formFiltreValue['dureeMax'] < advert.duree){
+      return false;
+    }
+    if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveauSeance){
+      return false;
+    }
+    if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.typeSeance){
+      return false;
+    }
+    return true;
   }
 
   clearForm(): void{
     for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
       this.formFiltre.nativeElement.elements[i].value = '';
     }
+    this.ItemsArray = this.toutesLesannonces;
   }
 
   deleteAdvertById(aid: number){

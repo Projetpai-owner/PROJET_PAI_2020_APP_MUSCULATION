@@ -8,6 +8,24 @@ public class ListAdvertItemDTO {
 	private String description;
 	private String date;
 	private String duree;
+	private String typeSeance;
+	private String niveauSeance;
+
+	public String getTypeSeance() {
+		return typeSeance;
+	}
+
+	public void setTypeSeance(String typeSeance) {
+		this.typeSeance = typeSeance;
+	}
+
+	public String getNiveauSeance() {
+		return niveauSeance;
+	}
+
+	public void setNiveauSeance(String niveauSeance) {
+		this.niveauSeance = niveauSeance;
+	}
 
 	public int getAid() {
 		return aid;
