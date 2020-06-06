@@ -10,6 +10,7 @@ import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creat
 import { AdvertListComponent } from './advert-list/advert-list.component';
 import {EditAdvertComponent} from './edit-advert/edit-advert.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FriendManagerComponent } from './friend-manager/friend-manager.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   {path: 'createAdvert', component: FormCreationAnnonceComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'friendManager', component: FriendManagerComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}}
 ];
 
