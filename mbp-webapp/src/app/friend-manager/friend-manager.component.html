@@ -1,0 +1,57 @@
+<div class="FRIEND_CONTAINER">
+	<div class="CONTACTS">
+		<mat-list> <mat-list-item
+			*ngFor="let friend of friends | async"> <mat-icon
+			matListIcon>perm_contact_calendar</mat-icon>
+		<h3 matLine>{{friend.nom}} {{friend.prenom}}</h3>
+		<button mat-mini-fab color="warn" (click)="delete(friend.pid)">
+			<mat-icon>delete</mat-icon>
+		</button>
+		<p matLine>
+			<span class="demo-2"> {{friend.username}} </span>
+		</p>
+		</mat-list-item> </mat-list>
+
+	</div>
+
+	<div class="RECHERCHE_CONTACT">
+		<h1>Rechercher un contact</h1>
+		<div class="input-group flex-nowrap" style="width: 30%; margin-bottom: 2%;">
+			<input type="text" class="form-control" [(ngModel)]="term"  placeholder="email, prenom ou nom"
+				aria-label="Username" aria-describedby="addon-wrapping">
+		</div>
+		
+		<div class="ROW_CONTAINER">
+			<div class="row ROW_USER" *ngFor="let user of obsListUser | async | userFilter:term ">
+			<div class="col-10 INFO_USER">
+				<div class="row">
+					<div class="col-3">
+						<div class="row">
+							<label class="USER_LABEL">Prénom</label>&nbsp;:&nbsp; <span>
+								{{ user.prenom}} </span>
+						</div>
+						<div class="row">
+							<label class="USER_LABEL">Nom</label>&nbsp;:&nbsp; <span>
+								{{ user.nom}} </span>
+						</div>
+					</div>
+					<div class="col">
+						<div class="row">
+							<label class="USER_LABEL">Username</label>&nbsp;:&nbsp; <span>
+								{{ user.username}} </span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-2 ">
+				<button mat-mini-fab color="warn" (click)="addFriend(user)">
+					<mat-icon>add</mat-icon>
+				</button>
+			</div>
+		</div>
+		</div>
+	
+	</div>
+
+</div>
+

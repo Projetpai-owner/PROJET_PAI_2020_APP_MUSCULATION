@@ -1,5 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +36,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 	@Modifying(clearAutomatically=true)
 	@Query("DELETE FROM User u WHERE u.username = :username")
 	public int cancelUserAccount(@Param("username") String username);
+
+	@Query("SELECT u FROM User u where pid <> :pid and pid not in ((select distinct piddeux from Ami a where a.pidun= :pid ))")
+	public List<User> findByPidNotInList(@Param("pid")int pid);
 }
