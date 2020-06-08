@@ -8,6 +8,7 @@ import {TypeSeanceService} from '../services/TypeSeance.service';
 import {Advert} from '../models/Advert.model';
 import {AdvertService} from '../services/Advert.service';
 import {CurrentUser} from '../models/CurrentUser.model';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-form-creation-annonce',
@@ -22,7 +23,8 @@ export class FormCreationAnnonceComponent implements OnInit {
   currentUser: CurrentUser;
 
 
-  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private authService: AuthService) { }
+
 
   ngOnInit(): void {
     this.initForm();
@@ -48,6 +50,8 @@ export class FormCreationAnnonceComponent implements OnInit {
     this.isWait = true;
     const formValue = this.loginForm.value;
 
+    this.currentUser = this.authService.currentUserValue;
+
     function transformTimeIntoNumber(value: number) {
       const tmp1 = +(value.toString().split(':')[0]) * 60;
       const tmp2 = +(value.toString().split(':')[1]);
@@ -60,7 +64,8 @@ export class FormCreationAnnonceComponent implements OnInit {
       transformTimeIntoNumber(formValue.DureeSeanceCreaAnnonce),
       formValue.NomCreaAnnonce,
       formValue.DateSeanceCreaAnnonce,
-      +formValue.typeSeanceCreaAnnonce
+      +formValue.typeSeanceCreaAnnonce,
+      +this.currentUser.userId
     );
     this.errorMessage = '';
     console.log(newAdvert);
