@@ -16,9 +16,12 @@
           <li class="nav-item">
             <a class="nav-link d-inline-block" routerLinkActive="active" routerLink="listAdverts">Liste des annonces</a>     
           </li>
-		  <li class="nav-item">
-			<a class="nav-link d-inline-block" routerLinkActive="active" routerLink="technicalSupport">Support technique</a>
-		  </li>
+          <li class="nav-item">
+            <a class="nav-link d-inline-block" routerLinkActive="active" routerLink="friendManager">Mes contacts</a>
+          </li>
+		      <li class="nav-item">
+			      <a class="nav-link d-inline-block" routerLinkActive="active" routerLink="technicalSupport">Support technique</a>
+		      </li>
         </ul>
         <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>    
         <button type="button" class="btn btn-outline-light"  color ="black" (click)="logout()">Logout</button>
@@ -38,4 +41,16 @@
         <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>    
         <button type="button" class="btn btn-outline-light"  color ="black" (click)="logout()">Logout</button>
     </div>
+	  <div id="navbar-admin" class="collapse navbar-collapse" *ngIf="currentUser && isAdmin">
+		  <ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+          <a class="nav-link d-inline-block" routerLinkActive="active" routerLink="listeUser">Utilisateurs</a>
+        </li>
+			  <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="messageGeneral">Message Général</a>
+        </li>
+      </ul>
+		  <button type="button" class="btn btn-outline-light" routerLinkActive="active" routerLink="myAccount">Mon Compte</button>
+		  <button type="button" class="btn btn-outline-light" color="black" (click)="logout()">Logout</button>
+	  </div>
 </nav>

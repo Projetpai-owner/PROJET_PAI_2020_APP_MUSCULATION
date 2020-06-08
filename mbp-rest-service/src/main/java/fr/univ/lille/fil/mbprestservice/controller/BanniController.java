@@ -62,7 +62,7 @@ public class BanniController {
 	
 	private Banni mapFromDTO(BannirUserBody bannirUserBody){
 		Banni banni = new Banni();
-		banni.setEmail(bannirUserBody.getUsername());
+		banni.setEmail(bannirUserBody.getEmail());
 		return banni;
 	}
 	

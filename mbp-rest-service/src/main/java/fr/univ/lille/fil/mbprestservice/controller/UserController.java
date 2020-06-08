@@ -185,6 +185,11 @@ public class UserController {
 	public int cancelUserAccount(String username) {
 		return userService.cancelUserAccount(username);
 	}
+	
+	@GetMapping("/getAllUsersExceptFriendsAndMe/{pid}")
+	public List<User> getAllUsersExceptFriendsAndMe(@PathVariable(name = "pid") int pid){
+		return this.userService.getUserNotInFriendList(pid);
+	}
 
 }
 

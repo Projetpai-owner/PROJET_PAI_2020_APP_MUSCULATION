@@ -25,6 +25,15 @@ import { BanniService } from './services/Banni.service';
 import { ConfirmAlertComponent } from './confirm-alert/confirm-alert.component';
 import { ConfirmAlertService } from './services/confirm-alert.service';
 import { ClassicAlertComponent } from './classic-alert/classic-alert.component';
+import { FriendManagerComponent } from './friend-manager/friend-manager.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list'; 
+import {FriendService} from './services/Friend.service';
+import {MatButtonModule} from '@angular/material/button';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UserPipe } from './userPipe/user.pipe';
 import { ClassicAlertService } from './services/classic-alert.service';
 import { SupportComponent } from './support/support.component';
 import { SupportService } from './services/SupportUser.service';
@@ -51,6 +60,8 @@ import { MessagerieService } from './services/Messagerie.service';
 		EditAdvertComponent,
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
+    FriendManagerComponent,
+		UserPipe,
 		SupportComponent,
 		SupportAdminComponent,
 		MessageGeneralComponent,
@@ -63,15 +74,22 @@ import { MessagerieService } from './services/Messagerie.service';
 		HttpClientModule,
 		AppRoutingModule,
 		NgbModule,
+    BrowserAnimationsModule,
+		MatBadgeModule,
+		MatIconModule,
+		MatListModule,
+		MatButtonModule,
+		Ng2SearchPipeModule,
 	],
 	providers: [
 		UserService,
 		SalleService,
-    	TypeSeanceService,
+    TypeSeanceService,
 		AdvertService,
 		BanniService,
 		ConfirmAlertService,
 		ClassicAlertService,
+    FriendService,
 		SupportService,
 		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
@@ -80,4 +98,3 @@ import { MessagerieService } from './services/Messagerie.service';
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
-

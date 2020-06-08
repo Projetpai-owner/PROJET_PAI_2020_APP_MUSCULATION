@@ -47,7 +47,7 @@ public class User implements UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne
 	@JoinColumn(name = "sid")
 	private Salle sid;
 

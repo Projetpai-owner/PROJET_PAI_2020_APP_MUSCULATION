@@ -49,6 +49,7 @@ export class ProfilComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getUserInfos();
+
   }
 
   initForm(){
@@ -128,6 +129,7 @@ export class ProfilComponent implements OnInit {
       finalSid = +this.myUser.sid.sid;
     }
 		const newUser = new User(
+			null,
 			this.myUser.nom,
 			this.myUser.prenom,
 			this.myUser.bornDate,
@@ -156,7 +158,7 @@ export class ProfilComponent implements OnInit {
 
   cancelAccount(){
     this.userService.cancelUserAccount(this.myUser.username).subscribe(res => {
-            console.log("Résiliation confirmée");
+            console.log("Rï¿½siliation confirmï¿½e");
         });
     this.modal.dismissAll('Cross click');
     this.authService.logout();
