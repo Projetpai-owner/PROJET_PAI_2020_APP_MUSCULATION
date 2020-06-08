@@ -20,7 +20,7 @@ export class UserListeComponent implements OnInit {
   myUsername: string;
 
   constructor(private userService: UserService, private banniService: BanniService,private authService:AuthService,private confirmAlertService:  ConfirmAlertService
-    ,private classicAlertService: ClassicAlertService) { 
+    ,private classicAlertService: ClassicAlertService) {
     authService.currentUser.subscribe(user=>{this.initMyUserName(user)});
   }
 

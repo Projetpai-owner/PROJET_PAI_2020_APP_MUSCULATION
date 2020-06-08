@@ -42,11 +42,9 @@ public class SupportController {
 		Support support = supportService.getTicketById(suid);
 		supportService.deleteTicket(suid);
 		String objectMail = "My Body Partner - Résolution du ticket #" + support.getSuid();
-		String messageMail = "Bonjour " + support.getUsername() + ",\n\nNous vous informons que suite au support "
-				+ "d'un administrateur MyBodyPartner, le ticket de support #" + support.getSuid() + " a été"
-						+ " résolu et donc supprimé des tickets en cours.\n\nNos équipes restent à votre disposition"
-						+ " pour toute demande supplémentaire.\n\nEn vous souhaitant une bonne journée et un bon "
-						+ "entrainement !\n\nL'équipe My Body Partner.";
+		String messageMail = "Bonjour " + support.getUsername() + ",\n\nNous vous informons que le ticket de support #" + support.getSuid() + " a été"
+						+ " traité et est donc considéré comme résolu.\n\nNos équipes restent à votre disposition"
+						+ " pour toute demande supplémentaire.\n\nL'équipe My Body Partner.";
 		this.sendMail(support.getUsername(), objectMail, messageMail);
 		
 	}
