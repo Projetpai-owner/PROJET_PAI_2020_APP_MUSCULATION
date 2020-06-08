@@ -60,6 +60,7 @@ export class InscriptionComponent implements OnInit {
 		const formValue = this.inscriptionForm.value;
 		const hashedPassword = this.hashService.hashPassword(formValue['password'])
 		const newUser = new User(
+			null,
 			formValue['nom'],
 			formValue['prenom'],
 			formValue['bornDate'],
