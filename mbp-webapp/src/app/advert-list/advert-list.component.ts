@@ -45,9 +45,7 @@ export class AdvertListComponent implements OnInit {
   }
 
   initAnnonces(): void{
-    this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {
-      console.log("recuperatino des annonces ");
-      
+    this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {      
       this.ItemsArray = res;
       console.log(this.ItemsArray[0]);
       this.toutesLesannonces = res;
@@ -88,11 +86,23 @@ export class AdvertListComponent implements OnInit {
     if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.date){
       return false;
     }
-    if(formFiltreValue['dureeMin'] != "" && formFiltreValue['dureeMin'] > advert.duree){
-      return false;
+    if(formFiltreValue['dureeMin'] != ""){
+      var duremin = formFiltreValue['dureeMin'];
+      var heur = parseInt(duremin.substring(0,2));
+      var min = parseInt(duremin.substring(3,5));
+      duremin = heur*60 + min;
+      if(duremin > parseInt(advert.duree)){
+        return false;
+      }
     }
-    if(formFiltreValue['dureeMax'] != "" && formFiltreValue['dureeMax'] < advert.duree){
-      return false;
+    if(formFiltreValue['dureeMax'] != "" ){
+      var duremax = formFiltreValue['dureeMin'];
+      var heure = parseInt(duremax.substring(0,2));
+      var mine = parseInt(duremax.substring(3,5));
+      duremax = heure*60 + mine;
+      if(duremax < parseInt(advert.duree)){
+        return false;
+      }
     }
     if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveauSeance){
       return false;
@@ -100,6 +110,13 @@ export class AdvertListComponent implements OnInit {
     if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.typeSeance){
       return false;
     }
+    if(formFiltreValue['sex'] != "" && formFiltreValue['sex'] != advert.sexAnnonceur){
+      return false;
+    }
+    if(formFiltreValue['salle'] != "" && formFiltreValue['salle'] != advert.salleAnnonceur ){
+      return false;
+    }
+    
     return true;
   }
 

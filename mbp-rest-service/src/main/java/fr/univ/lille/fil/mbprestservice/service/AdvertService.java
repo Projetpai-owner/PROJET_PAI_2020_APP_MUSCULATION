@@ -64,8 +64,8 @@ public class AdvertService {
 	 */
 	public List<ListAdvertItemDTO> findAllAdvertsWithInfos(){
 		List<Advert> ads = advertRepository.findAll();
-		List<ListAdvertItemDTO> res = new ArrayList<>();
-		for(Advert ad : ads) {
+		List<ListAdvertItemDTO> res = advertRepository.getAdvertsWithInfo();
+		/*for(Advert ad : ads) {
 			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
 			tmp.setAid(ad.getAid());
 			tmp.setDate(ad.getDateSeance().toString());
@@ -75,7 +75,7 @@ public class AdvertService {
 			tmp.setNiveauSeance(ad.getNiveauPratique().toString());
 			tmp.setTypeSeance(ad.getIdSeance().getLibelle());
 			res.add(tmp);
-		}
+		}*/
 		return res;
 	}
 }
