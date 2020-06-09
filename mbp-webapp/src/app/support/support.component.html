@@ -1,0 +1,39 @@
+<div class="MBP_CORPS">
+    <div class="MBP_CORPS_TITRE">
+        <div class="h2 text-center">Support technique</div>
+    </div>
+    <div class="MBP_CORPS_CONTENU">
+        <form [formGroup]="supportForm" (ngSubmit)="onSubmitForm()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="object"  class="font-weight-bold">Objet : </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="text" id="object" formControlName="object" class="form-control form-control-sm"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="description"  class="font-weight-bold">Description :</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <textarea id="description" formControlName="description" class="form-control form-control-sm" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn float-right MBP_BTN_SUBMIT" type="submit" [disabled]="supportForm.invalid">Envoyer</button>
+                </div>
+            </div>  
+        </form>      
+        <p class="text-danger">{{errorMessage}}</p>
+    </div>
+</div>

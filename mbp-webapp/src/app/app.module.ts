@@ -35,6 +35,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UserPipe } from './userPipe/user.pipe';
 import { ClassicAlertService } from './services/classic-alert.service';
+import { SupportComponent } from './support/support.component';
+import { SupportService } from './services/SupportUser.service';
+import { SupportAdminComponent } from './support-admin/support-admin.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 import { MessagerieService } from './services/Messagerie.service';
 
@@ -57,9 +60,11 @@ import { MessagerieService } from './services/Messagerie.service';
 		EditAdvertComponent,
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
-		FriendManagerComponent,
+    FriendManagerComponent,
 		UserPipe,
-		MessageGeneralComponent
+		SupportComponent,
+		SupportAdminComponent,
+		MessageGeneralComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -69,7 +74,7 @@ import { MessagerieService } from './services/Messagerie.service';
 		HttpClientModule,
 		AppRoutingModule,
 		NgbModule,
-		BrowserAnimationsModule,
+    BrowserAnimationsModule,
 		MatBadgeModule,
 		MatIconModule,
 		MatListModule,
@@ -79,12 +84,13 @@ import { MessagerieService } from './services/Messagerie.service';
 	providers: [
 		UserService,
 		SalleService,
-		TypeSeanceService,
+    TypeSeanceService,
 		AdvertService,
 		BanniService,
 		ConfirmAlertService,
 		ClassicAlertService,
-		FriendService,
+    FriendService,
+		SupportService,
 		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
@@ -92,4 +98,3 @@ import { MessagerieService } from './services/Messagerie.service';
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
-

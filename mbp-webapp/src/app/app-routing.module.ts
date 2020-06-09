@@ -10,6 +10,8 @@ import { FormCreationAnnonceComponent } from './form-creation-annonce/form-creat
 import { AdvertListComponent } from './advert-list/advert-list.component';
 import {EditAdvertComponent} from './edit-advert/edit-advert.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SupportComponent } from './support/support.component';
+import {SupportAdminComponent} from './support-admin/support-admin.component';
 import { FriendManagerComponent } from './friend-manager/friend-manager.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 
@@ -21,6 +23,8 @@ export const routes: Routes = [
   {path: 'resetPassword', component: ResetPasswordComponent, canActivate: [AuthGuard], data: {expectedRole: 'NONE'}},
   {path: 'listeUser', component: UserListeComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
   {path: 'myAccount', component: ProfilComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
+  {path: 'technicalSupport', component: SupportComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'adminSupport', component: SupportAdminComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
   {path: 'createAdvert', component: FormCreationAnnonceComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
