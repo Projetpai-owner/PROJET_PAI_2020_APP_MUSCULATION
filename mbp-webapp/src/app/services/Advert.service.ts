@@ -8,6 +8,8 @@ import {User} from '../models/User.model';
 import { AdvertEntity } from '../models/AdvertEntity.model';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import {catchError} from 'rxjs/operators';
+import { AddParticipant } from '../models/AddParticipant.model';
+import { ProprietaireAnnonce } from '../models/ProprietaireAnnonce.model';
 
 @Injectable()
 export class AdvertService {
@@ -39,8 +41,25 @@ export class AdvertService {
   }
 
   updateAdvert(advert: AdvertEdit): Observable<AdvertEdit> {
-    console.log(advert);
     return this.http.put<AdvertEdit>('http://localhost:8080/updateAdvert', advert, this.httpOptions);
+  }
+
+  addParticipant(body: AddParticipant): Observable<AddParticipant> {
+    console.log(body.aid);
+    console.log(body.uid);
+    return this.http.post<AddParticipant>('http://localhost:8080/addParticipant', body, this.httpOptions);
+  }
+
+  getProprietaireByAid(aid: number): Observable<ProprietaireAnnonce> {
+      return this.http.get<ProprietaireAnnonce>('http://localhost:8080/getProprioByAid/' + aid, this.httpOptions);
+  }
+
+  isProprietaireAnnonce(uid: number, aid: number): boolean {
+    let userProp;
+    const proprioAnnonce = this.getProprietaireByAid(aid).subscribe( proprio => {
+      userProp  = proprio.pidProprietaire;
+    });
+    return userProp === uid;
   }
 
 }

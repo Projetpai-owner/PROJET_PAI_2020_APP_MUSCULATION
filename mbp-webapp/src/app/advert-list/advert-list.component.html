@@ -70,7 +70,6 @@
         </form>
       </div>
     </div>
-    
     <table class="table">
       <thead>
       <tr>
@@ -90,6 +89,7 @@
           <td>{{item.dateSeance}}</td>
           <td>{{item.duree}}</td>
           <td>
+            <button type="button" (click)="addParticipation(item.aid)">Participer</button>
             <button type="button" routerLink="/editAdvert/{{item.aid}}">Edit</button>
             <button type="button" class="close" (click)="deleteAdvertById(item.aid)">Delete</button>
           </td>
@@ -98,5 +98,3 @@
     </table>
   </div>
 </div>
-
-

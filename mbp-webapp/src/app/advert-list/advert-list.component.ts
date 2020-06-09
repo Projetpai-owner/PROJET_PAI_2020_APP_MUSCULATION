@@ -9,6 +9,10 @@ import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
 import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
 import { Advert } from '../models/Advert.model';
+import {CurrentUser} from '../models/CurrentUser.model';
+import {UserService} from '../services/User.service';
+import {AuthService} from '../services/auth.service';
+import {AddParticipant} from '../models/AddParticipant.model';
 
 @Component({
   selector: 'app-advert-list',
@@ -24,12 +28,14 @@ export class AdvertListComponent implements OnInit {
   obsSalles: Observable<Salle[]>;
   filtreAnnonceForm: FormGroup;
   zoneFiltreVisible: boolean;
+  currentUser: CurrentUser;
   
   constructor(public advertService: AdvertService, 
               private typeSeanceService: TypeSeanceService,
               private salleService: SalleService,
               private router: Router,
-              private formBuilder: FormBuilder,) { }
+              private formBuilder: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initAnnonces();
@@ -107,5 +113,16 @@ export class AdvertListComponent implements OnInit {
   deleteAdvertById(aid: number){
     this.advertService.deleteAdvertById(aid);
     this.router.navigate(['/']);
+  }
+
+  addParticipation(aid: number){
+    this.currentUser = this.authService.currentUserValue;
+    const newParticipation = new AddParticipant(+this.currentUser.userId, aid);
+    this.advertService.addParticipant(newParticipation).subscribe();
+  }
+
+  isProprioAnnonce(aid: number){
+    this.currentUser = this.authService.currentUserValue;
+    return this.advertService.isProprietaireAnnonce(+this.currentUser.userId,aid);
   }
 }
