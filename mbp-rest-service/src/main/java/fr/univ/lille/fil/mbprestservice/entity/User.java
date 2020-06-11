@@ -23,7 +23,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import fr.univ.lille.fil.mbprestservice.enumeration.Role;
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
-
+/**
+ * Classe permettant d'intéragir avec la table utilisateur
+ * @author Anthony Bliecq
+ *
+ */
 @Entity
 @Table(name = "user")
 public class User implements UserDetails{

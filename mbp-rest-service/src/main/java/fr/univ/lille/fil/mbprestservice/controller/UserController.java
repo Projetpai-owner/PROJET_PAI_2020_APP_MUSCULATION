@@ -36,6 +36,11 @@ import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
 
+/**
+ * Classe controller qui reçoit les requêtes REST liées à l'utilisateur 
+ * @author Anthony Bliecq
+ *
+ */
 @CrossOrigin
 @RestController
 public class UserController {
@@ -44,20 +49,25 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private SalleService salleService;
-	@Autowired
-	private BanniService banniService;
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 
-
-
-	
+	/**
+	 * Récupère tous les utilisateurs enregistrés
+	 * @return
+	 */
 	@GetMapping("/getAllUsers")
 	public List<User> getAllUsers(){
 		return this.userService.findAll();
 	}
 
+	/**
+	 * Authentifie un utilisateur en contrôlant le mot de passe et l'identifiant
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/login")
 	public AuthenticationResponseDTO createAuthenticationToken(@RequestBody AuthenticationRequest request) {
 
@@ -67,13 +77,12 @@ public class UserController {
 	}
 
 
-	
-	//list all banni
-	@GetMapping("/getBannedUsers")
-	public List<Banni> getAllBanni(){
-		return banniService.findAll();
-	}
 
+	/**
+	 * Génère un nouveau access-token pour l'utilisateur grâce au refresh-token
+	 * @param token
+	 * @return
+	 */
 	@PostMapping("/refresh/{token}")
 	public AccessTokenDTO tokenPostRefresh(@PathVariable(value = "token") final String token) {
 		AccessTokenDTO dto = userService.refreshAccessToken(token).orElse(null);
@@ -82,6 +91,11 @@ public class UserController {
 		return dto;
 	}
 
+	
+	/**
+	 * Supprime l'access token ainsi que le refresh-token d'un utilisateur (logout)
+	 * @param token
+	 */
 	@DeleteMapping("/revoke/{token}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void tokenDeleteLogout(@PathVariable(value="token") final String token) {
@@ -89,7 +103,11 @@ public class UserController {
 	}
 
 
-
+	/**
+	 * Génère un token pour le mot de passe oublié afin de pouvoir saisir un nouveau mot de passe
+	 * @param email
+	 * @return
+	 */
 	@PostMapping("/createPasswordToken/{email}")
 	public ResponseEntity<String> createPasswordToken(@PathVariable(value = "email") final String email) {
 		User user = (User) userService.loadUserByUsername(email);
@@ -107,6 +125,11 @@ public class UserController {
 
 	}
 
+	/**
+	 * verfifie que le token lié au mot de passe est valide
+	 * @param token
+	 * @return
+	 */
 	@GetMapping("/isValidPasswordToken/{token}")
 	public ResponseEntity<String> isValidPasswordToken(@PathVariable(value = "token") final String token) {
 		userService.loadUserWithPasswordResetToken(token);
@@ -114,6 +137,12 @@ public class UserController {
 
 	}
 
+	/**
+	 * Permet d'attribuer un nouveau mot de passe à un utilisateur qui a perdu le sien 
+	 * @param token
+	 * @param reset
+	 * @return
+	 */
 	@PutMapping("/resetPasswordWithToken/{token}")
 	public ResponseEntity<String> resetPasswordWithToken(@PathVariable(value = "token") final String token,
 			@RequestBody ResetPasswordBody reset) {
@@ -128,15 +157,31 @@ public class UserController {
 
 	}
 
+	/**
+	 * Fonction envoyant un mail
+	 * @param user le destinataire
+	 * @param object l'objet du message
+	 * @param message le message
+	 */
 	private void sendMail(User user, String object, String message) {
 		new Thread(new MailService(user.getUsername(), object, message)).start();
 	}
 
+	/**
+	 * récupère un utilisateur grâce à son identifiant
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("/getUser")
 	public User getUser(String userId) {
 		return userService.findUserById(userId);
 	}
 
+	/**
+	 * enregistre un utilisateur lors de l'inscription
+	 * @param body
+	 * @return
+	 */
 	// save a user
 	@PostMapping("/user")
 	public User createUser(@Valid @RequestBody CreateUserBody body) {
@@ -153,7 +198,11 @@ public class UserController {
 
 	}
 
-	
+	/**
+	 * Mets à jour les informations d'un utilisateur
+	 * @param body
+	 * @return
+	 */
 	//update user information
 	@Transactional
 	@PutMapping("/updateUser")
@@ -162,6 +211,11 @@ public class UserController {
 		return userService.updateUser(user);
 	}
 
+	/**
+	 * Permet d'associer le contenu d'un body d'une requête à une entite
+	 * @param body
+	 * @return
+	 */
 	// a redefinir peut etre dans une couche business ou converter
 	private User mapFromDto(CreateUserBody body) {
 		User user = new User();
@@ -179,6 +233,11 @@ public class UserController {
 		return user;
 	}
 	
+	/**
+	 * Supprime un utilisateur 
+	 * @param username
+	 * @return
+	 */
 	//cancel user account by deleting this user
 	@Transactional
 	@DeleteMapping("/cancelUserAccount")
@@ -186,6 +245,11 @@ public class UserController {
 		return userService.cancelUserAccount(username);
 	}
 	
+	/**
+	 * Récupère tous les utilisateurs ne figurant pas parmi la liste de contacts de l'utilisateur donné (utilisateur lui-même non renvoyé)
+	 * @param pid
+	 * @return
+	 */
 	@GetMapping("/getAllUsersExceptFriendsAndMe/{pid}")
 	public List<User> getAllUsersExceptFriendsAndMe(@PathVariable(name = "pid") int pid){
 		return this.userService.getUserNotInFriendList(pid);

@@ -4,7 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * Classe permettant d'intéragir avec la table contenant le refresh-token d'un utilisateur
+ * @author Anthony Bliecq
+ *
+ */
 @Entity
 @Table(name = "user_refresh_token")
 public class UserRefreshToken {

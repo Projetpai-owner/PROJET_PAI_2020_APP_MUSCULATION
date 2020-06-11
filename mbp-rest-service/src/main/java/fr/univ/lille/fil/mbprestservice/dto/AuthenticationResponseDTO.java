@@ -4,6 +4,11 @@ import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * Classe de mapping pour les informations sur l'authentification entière
+ * @author Anthony Bliecq
+ *
+ */
 public class AuthenticationResponseDTO {
 	private final String accessToken;
 	private final String refreshToken;

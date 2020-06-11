@@ -11,6 +11,11 @@ import fr.univ.lille.fil.mbprestservice.entity.Ami;
 import fr.univ.lille.fil.mbprestservice.entity.AmiPk;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 
+/**
+ * Classe lié à la table de l'association contact-utilisateur
+ * @author Anthony Bliecq
+ *
+ */
 public interface AmiRepository extends JpaRepository<Ami, AmiPk>{
 	
 	public List<Ami> findByPidun(User pidun);

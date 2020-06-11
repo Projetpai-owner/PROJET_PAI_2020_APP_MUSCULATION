@@ -12,7 +12,11 @@ import fr.univ.lille.fil.mbprestservice.entity.AmiPk;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.repository.AmiRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRepository;
-
+/**
+ * Classe service intéragissant avec les repository pour récupérer des données liés aux contacts.
+ * @author Anthony Bliecq
+ *
+ */
 @Service
 public class AmiService {
 
@@ -22,7 +26,11 @@ public class AmiService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
+	/**
+	 * récupère tous les contacts d'un identifiant donné
+	 * @param pid
+	 * @return
+	 */
 	public List<AmiDTO> getAllAmi(int pid){
 		User me=userRepository.findByPid(pid);
 		List<AmiDTO> amis=new ArrayList<>();
@@ -43,6 +51,11 @@ public class AmiService {
 	}
 
 
+	/**
+	 * ajoute une relation contact utilisateur entre pidun et piddeux
+	 * @param pidun
+	 * @param piddeux
+	 */
 	public void addAmi(int pidun,int piddeux) {
 		User userun=userRepository.findByPid(pidun);
 		User userdeux=userRepository.findByPid(piddeux);
@@ -53,7 +66,11 @@ public class AmiService {
 		
 	}
 	
-	
+	/**
+	 * supprime une relation contact utilisateur entre pidun et piddeux
+	 * @param pidun
+	 * @param piddeux
+	 */
 	public void delete(int pidun,int piddeux) {
 		User userun=userRepository.findByPid(pidun);
 		User userdeux=userRepository.findByPid(piddeux);
