@@ -24,10 +24,8 @@ export class SupportService {
     return this.http.get<SupportBody[]>('http://localhost:8080/getAllTickets');
   }
 
-  deleteTicket(suid: number): void {
-    this.http.delete('http://localhost:8080/deleteTicket/' + suid).subscribe((s) => {
-      console.log(s);
-    });
+  deleteTicket(suid: number): Observable<Support> {
+    return this.http.delete<Support>('http://localhost:8080/deleteTicket/' + suid);
   }
 
 }

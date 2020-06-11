@@ -36,13 +36,13 @@ export class SupportAdminComponent implements OnInit {
   }
 
   public deleteUser(support: SupportBody) {
-    this.supportService.deleteTicket(support.suid);
-    this.router.navigate(['/']);
+    this.supportService.deleteTicket(support.suid).subscribe(res => {
+      this.ngOnInit();
+    });
     this.gereRetourDelete();
   }
 
   public gereRetourDelete() {
-    this.ngOnInit();
     this.classicAlertService.alert('Ticket supprimé', 'Le ticket a été supprimé de la liste des tickets en cours', 'OK', 'sm');
   }
 
