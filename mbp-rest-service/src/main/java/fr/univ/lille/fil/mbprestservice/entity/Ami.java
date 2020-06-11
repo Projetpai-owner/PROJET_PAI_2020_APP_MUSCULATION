@@ -8,6 +8,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Classe permettant d'intéragir avec la table contenant une relation contact et utilisateur
+ * @author Anthony Bliecq
+ *
+ */
 @Entity
 @Table(name = "ami")
 @IdClass(value=AmiPk.class)

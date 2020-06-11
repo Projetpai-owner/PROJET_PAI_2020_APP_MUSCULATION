@@ -17,7 +17,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.security.JwtUtil;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
-
+/**
+ * Classe interceptant les requêtes REST afin de contrôler l'authentification si besoin
+ * @author Anthony Bliecq
+ *
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -26,6 +30,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtUtil jwtUtil;
 
+	/**
+	 * Vérifie que le token passé est correct
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

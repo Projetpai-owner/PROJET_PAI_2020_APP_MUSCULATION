@@ -29,46 +29,44 @@ public class BanniController {
 	private BanniService banniService;
 	@Autowired
 	private UserService userService;
-	
-		
-	//save a banni
+
+	// save a banni
 	@Transactional
 	@PostMapping("/addBanni")
 	public Banni createBanni(@Valid @RequestBody BannirUserBody bannirUserBody) {
 		System.out.println("AO");
-		Banni banni= this.mapFromDTO(bannirUserBody);
-		//Supprime le user en base
+		Banni banni = this.mapFromDTO(bannirUserBody);
+		// Supprime le user en base
 		this.userService.logoutUserByUsername(banni.getEmail());
 		this.userService.deleteUser(banni.getEmail());
-		
+
 		String object = "Votre compte MyBodyPartner a été banni";
-		String message = "Bonjour,\n\nL'équipe MyBodyPartner vous informe que votre compte lié à l'adresse " + banni.getEmail() + 
-				" a été banni.\n" + "Si vous souhaitez plus d'informations contacter le support.";
-		this.sendMail(banni,object,message);
+		String message = "Bonjour,\n\nL'équipe MyBodyPartner vous informe que votre compte lié à l'adresse "
+				+ banni.getEmail() + " a été banni.\n" + "Si vous souhaitez plus d'informations contacter le support.";
+		this.sendMail(banni, object, message);
 		return banniService.save(banni);
 	}
-	
-	//list all banni
-	@GetMapping("/banni")
-	public List<Banni> getAllBanni(){
+
+	// list all banni
+	@GetMapping("/getBannedUsers")
+	public List<Banni> getAllBanni() {
 		return banniService.findAll();
 	}
-	
-	//find a specific banni
+
+	// find a specific banni
 	@GetMapping("/banni/{email}")
 	public Optional<Banni> findById(@PathVariable String email) {
 		return banniService.findById(email);
 	}
-	
-	private Banni mapFromDTO(BannirUserBody bannirUserBody){
+
+	private Banni mapFromDTO(BannirUserBody bannirUserBody) {
 		Banni banni = new Banni();
 		banni.setEmail(bannirUserBody.getEmail());
 		return banni;
 	}
-	
 
 	private void sendMail(Banni banni, String object, String message) {
 		new Thread(new MailService(banni.getEmail(), object, message)).start();
 	}
-	
+
 }

@@ -1,5 +1,10 @@
 package fr.univ.lille.fil.mbprestservice.requestbody;
 
+/**
+ * Classe représentant le mapping d'un body d'une requête post pour l'authentification
+ * @author Anthony Bliecq
+ *
+ */
 public class AuthenticationRequest {
 	private String username;
 	private String password;

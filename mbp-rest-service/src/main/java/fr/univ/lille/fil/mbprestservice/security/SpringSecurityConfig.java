@@ -20,7 +20,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import fr.univ.lille.fil.mbprestservice.security.filters.JwtRequestFilter;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
-
+/**
+ * Classe de configuration de la sécurite lié à l'api REST
+ * @author Anthony Bliecq
+ *
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -63,6 +67,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		return super.authenticationManager();
 	}
+
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
