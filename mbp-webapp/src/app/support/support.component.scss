@@ -21,16 +21,16 @@ body {
   height: 90%;
 }
 
-@media screen and (max-height: 1900px) {
-  .h2 {
-    font-size: 3vh;
-  }
+@media screen and (max-height: 600px) {
+	.h2 {
+		font-size: 3vh;
+	}
 }
 
-@media screen and (max-width: 1200px) {
-  .h2 {
-    font-size: 5vw;
-  }
+@media screen and (max-width: 500px) {
+	.h2 {
+		font-size: 5vw;
+	}
 }
 
 .MBP_CORPS_TITRE {

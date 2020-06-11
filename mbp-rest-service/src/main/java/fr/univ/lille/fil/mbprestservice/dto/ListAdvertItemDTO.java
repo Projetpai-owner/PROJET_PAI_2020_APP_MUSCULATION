@@ -24,17 +24,6 @@ public class ListAdvertItemDTO {
 		super();
 	}
 	
-	/*public ListAdvertItemDTO(String aid, String nomAnnonce, String description, String date, String duree,String typeSeance,String niveauSeance){
-		super();
-		this.aid = Integer.parseInt(aid);
-		this.nomAnnonce = nomAnnonce;
-		this.description = description;
-		this.date = date;
-		this.duree = duree;
-		this.typeSeance = typeSeance;
-		this.niveauSeance = niveauSeance;
-	}*/
-	
 	public ListAdvertItemDTO(int aid, String nomAnnonce,String description, Date date, int duree, TypeSeance typeSeance, Niveau niveau,Sexe sex,Salle salle){
 		super();
 		this.aid = aid;

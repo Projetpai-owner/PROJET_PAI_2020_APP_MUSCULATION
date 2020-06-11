@@ -14,6 +14,9 @@ export class AcceuilComponent implements OnInit {
   cancel_success: string;
   cancel: boolean = false;
 
+  support_success: string;
+  support: boolean = false;
+
   messageGeneral_success: string;
   messageGeneral: boolean = false;
  
@@ -32,6 +35,11 @@ export class AcceuilComponent implements OnInit {
           this.cancel_success = state[0].data;
           setTimeout(() => this.cancel = false, 6000);
         }
+		    if(state[1].from === 'support'){
+		      this.support = true;
+		      this.support_success = state[0].data;
+		      setTimeout(() => this.support = false, 6000);
+		    }
         if(state[1].from === 'messageGeneral'){
           this.messageGeneral = true;
           this.messageGeneral_success = state[0].data;
@@ -42,7 +50,7 @@ export class AcceuilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }
