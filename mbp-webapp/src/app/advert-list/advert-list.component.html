@@ -38,7 +38,7 @@
               <label for="select-type-seance">Type de séance : </label>
               <select name="typeSeance" formControlName="typeSeance" id="select-type-seance" class="form-control">
                 <option value=""></option>
-                <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
+                <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.libelle}}">{{typeSeance.libelle}}</option>
               </select>
             </div>
           </div>

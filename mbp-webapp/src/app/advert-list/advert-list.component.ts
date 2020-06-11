@@ -8,9 +8,7 @@ import { TypeSeanceService } from '../services/TypeSeance.service';
 import { SalleService } from '../services/Salle.service';
 import { Salle } from '../models/Salle.model';
 import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
-import { Advert } from '../models/Advert.model';
 import {CurrentUser} from '../models/CurrentUser.model';
-import {UserService} from '../services/User.service';
 import {AuthService} from '../services/auth.service';
 import {AddParticipant} from '../models/AddParticipant.model';
 
@@ -47,7 +45,6 @@ export class AdvertListComponent implements OnInit {
   initAnnonces(): void{
     this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {      
       this.ItemsArray = res;
-      console.log(this.ItemsArray[0]);
       this.toutesLesannonces = res;
     });
   }
@@ -78,6 +75,7 @@ export class AdvertListComponent implements OnInit {
   }
 
   submitForm(): void{
+    this.ItemsArray = this.toutesLesannonces;
     this.ItemsArray = this.ItemsArray.filter(annonce => this.filtreAnnonce(annonce));
   }
 
@@ -96,11 +94,12 @@ export class AdvertListComponent implements OnInit {
       }
     }
     if(formFiltreValue['dureeMax'] != "" ){
-      var duremax = formFiltreValue['dureeMin'];
+      var duremax = formFiltreValue['dureeMax'];
       var heure = parseInt(duremax.substring(0,2));
       var mine = parseInt(duremax.substring(3,5));
       duremax = heure*60 + mine;
       if(duremax < parseInt(advert.duree)){
+        console.log("3");
         return false;
       }
     }
