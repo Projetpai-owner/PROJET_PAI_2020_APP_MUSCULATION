@@ -28,10 +28,8 @@ export class AdvertService {
     return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllAdvertsItems');
   }
 
-  deleteAdvertById( aid: number): void {
-    this.http.delete('http://localhost:8080/deleteAdvert/' + aid).subscribe((s) => {
-        console.log(s);
-      });
+  deleteAdvertById( aid: number): Observable<Advert> {
+    return this.http.delete<Advert>('http://localhost:8080/deleteAdvert/' + aid);
   }
 
   getAdvertById( aid: number): Observable<AdvertEntity>  {

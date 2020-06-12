@@ -3,11 +3,12 @@ package fr.univ.lille.fil.mbprestservice.dto;
 public class ListAdvertItemDTO {
 
 	private int aid;
-	private String prenom;
-	private String nomAnnonce;
+	private String nom;
+	private String niveau;
 	private String description;
-	private String date;
 	private String duree;
+	private String date;
+	private String type;
 
 	public int getAid() {
 		return aid;
@@ -17,20 +18,20 @@ public class ListAdvertItemDTO {
 		this.aid = aid;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getNom() {
+		return nom;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
-	public String getNomAnnonce() {
-		return nomAnnonce;
+	public String getNiveau() {
+		return niveau;
 	}
 
-	public void setNomAnnonce(String nomAnnonce) {
-		this.nomAnnonce = nomAnnonce;
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
 	}
 
 	public String getDescription() {
@@ -49,6 +50,14 @@ public class ListAdvertItemDTO {
 		this.date = date;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getDuree() {
 		return duree;
 	}
@@ -56,5 +65,7 @@ public class ListAdvertItemDTO {
 	public void setDuree(String duree) {
 		this.duree = duree;
 	}
+
+	
 
 }

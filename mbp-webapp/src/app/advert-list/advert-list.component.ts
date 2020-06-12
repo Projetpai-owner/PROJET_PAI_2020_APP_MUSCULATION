@@ -20,8 +20,9 @@ export class AdvertListComponent implements OnInit {
     });
   }
 
-  deleteAdvertById(aid: number){
-    this.advertService.deleteAdvertById(aid);
-    this.router.navigate(['/']);
+  deleteAdvertById(aid: number) {
+    this.advertService.deleteAdvertById(aid).subscribe(res => {
+      this.ngOnInit();
+    });
   }
 }
