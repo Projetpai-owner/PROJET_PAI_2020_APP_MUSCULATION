@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
-
+/**
+ * Service pour l'envoie des email.
+ * 
+ *
+ */
 public class MailService implements Runnable{
 	
 	private String username = "projetpai2020fa@gmail.com";
