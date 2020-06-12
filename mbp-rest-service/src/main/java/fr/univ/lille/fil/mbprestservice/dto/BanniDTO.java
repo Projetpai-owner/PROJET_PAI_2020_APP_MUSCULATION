@@ -1,5 +1,8 @@
 package fr.univ.lille.fil.mbprestservice.dto;
-
+/**
+ * Objet de transfert pour les bannis
+ *
+ */
 public class BanniDTO {
 	
 	private String email;
