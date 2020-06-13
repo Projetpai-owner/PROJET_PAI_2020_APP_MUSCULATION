@@ -30,8 +30,8 @@ export class SupportComponent implements OnInit {
 
 	initForm() {
 		this.supportForm = this.formBuilder.group({
-			object: ['', Validators.required],
-			description: ['', Validators.required]
+			object: ['', [Validators.required, Validators.maxLength(50)]],
+			description: ['', [Validators.required, Validators.maxLength(500)]]
 		});
 	}
 
