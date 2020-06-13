@@ -36,3 +36,6 @@
 <div class="MBP-alert">
 	<ngb-alert *ngIf="messageGeneral" [dismissible]="false" type="info" (close)="messageGeneral = false">{{messageGeneral_success}}</ngb-alert>
 </div>
+<div class="MBP-alert">
+  <ngb-alert *ngIf="advert" [dismissible]="false" type="success" (close)="advert = false">{{advert_success}}</ngb-alert>
+</div>

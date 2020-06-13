@@ -28,11 +28,11 @@ export class ProfilComponent implements OnInit {
   profilForm: FormGroup;
   myUser: UserBody;
   salles: Salle[];
-  currentSalle: number;
   _success: boolean = false;
   password: string;
   adresse: string;
   sid: number;
+  isWait: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -41,7 +41,7 @@ export class ProfilComponent implements OnInit {
               private hashService: HashService,
               private router: Router,
               public config: NgbModalConfig,
-              public modal: NgbModal) { 
+              public modal: NgbModal) {
                 config.backdrop = 'static';
                 config.keyboard = false;
               }
@@ -119,12 +119,13 @@ export class ProfilComponent implements OnInit {
   }
 
   onSubmitForm(){
+    this.isWait = true;
     const formValue = this.profilForm.value;
     let hashedPassword = this.myUser.password;
     let finalSid = +formValue['sidList'];
     if (formValue['password'] !== ''){
 		  hashedPassword = this.hashService.hashPassword(formValue['password'])
-    } 
+    }
     if (+formValue['sidList'] === 0){
       finalSid = +this.myUser.sid.sid;
     }
@@ -141,12 +142,14 @@ export class ProfilComponent implements OnInit {
 			this.myUser.role
     )
     this.userService.updateUser(newUser).subscribe(res => {
+      this.isWait = false;
       this.authService.refresh();
       this._success = true;
       setTimeout(() => this._success = false, 5000);
       this.ngOnInit();
 		},
 			(err: HttpErrorResponse) => {
+        this.isWait = false;
 				console.log(err.message);
 			}
 		);

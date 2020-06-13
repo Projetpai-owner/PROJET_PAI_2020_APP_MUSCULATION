@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="bornDate">Date de naissance : </label>
-                    <input type="date" class="form-control form-control-sm" id="bornDate" formControlName="bornDate">
+                    <input type="date" class="form-control form-control-sm" id="bornDate" max="{{toDate | date:'yyyy-MM-dd'}}"formControlName="bornDate">
                 </div>
                 <div class="form-group col">
                     <label for="sexe">Sexe : </label>

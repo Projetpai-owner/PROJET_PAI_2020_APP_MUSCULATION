@@ -20,7 +20,7 @@
         <button mat-mini-fab color="primary" routerLink="/editAdvert/{{item.aid}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab color="warn" (click)="deleteAdvertById(item.aid)">
+        <button mat-mini-fab color="warn" (click)="confirmDeleteAdvert(item)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

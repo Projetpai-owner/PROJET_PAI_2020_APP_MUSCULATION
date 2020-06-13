@@ -19,8 +19,11 @@ export class AcceuilComponent implements OnInit {
 
   messageGeneral_success: string;
   messageGeneral: boolean = false;
- 
-  constructor(private router: Router) { 
+
+  advert_success: string;
+  advert: boolean = false;
+
+  constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     if(navigation !== null){
       const state = navigation.extras.state as [{data: string}, {from: string}];
@@ -44,6 +47,11 @@ export class AcceuilComponent implements OnInit {
           this.messageGeneral = true;
           this.messageGeneral_success = state[0].data;
           setTimeout(() => this.messageGeneral = false, 6000);
+        }
+        if(state[1].from === 'advert'){
+          this.advert = true;
+          this.advert_success = state[0].data;
+          setTimeout(() => this.advert = false, 6000);
         }
       }
     }

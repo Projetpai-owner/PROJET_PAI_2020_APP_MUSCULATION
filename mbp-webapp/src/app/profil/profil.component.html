@@ -2,15 +2,15 @@
     <div class="MBP_CORPS_TITRE">
         <div class="h2 text-center">Mon Profil</div>
     </div>
-    <div class="MBP_CORPS_CONTENU"> 
+    <div class="MBP_CORPS_CONTENU">
 		<form [formGroup]="profilForm" (ngSubmit)="onSubmitForm()">
         	<div class="row MBP-top5">
             	<div class="col-6 MBP-padding-left-10">
 					<label>Prénom : </label>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control form-control-sm" 
-					 id="prenom" formControlName="prenom">		
+					<input type="text" class="form-control form-control-sm"
+					 id="prenom" formControlName="prenom">
 				</div>
         	</div>
         	<div class="row MBP-top5">
@@ -18,18 +18,18 @@
 					<label>Nom : </label>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control form-control-sm" 
-					id="nom" formControlName="nom">			
+					<input type="text" class="form-control form-control-sm"
+					id="nom" formControlName="nom">
 				</div>
         	</div>
-			<div class="MBP_LINE_1PX MBP-top5"></div>  
+			<div class="MBP_LINE_1PX MBP-top5"></div>
         	<div class="row MBP-top5">
             	<div class="col-6 MBP-padding-left-10">
 					<label>Date de naissance : </label>
 				</div>
 				<div class="col-6">
 					<input type="text" class="form-control form-control-sm" formControlName="bornDate"
-					id="bornDate">			
+					id="bornDate">
 				</div>
         	</div>
         	<div class="row MBP-top5">
@@ -38,17 +38,17 @@
 				</div>
 				<div class="col-6">
 					<input type="text" class="form-control form-control-sm"
-					id="sexe" formControlName="sexe">		
+					id="sexe" formControlName="sexe">
 				</div>
         	</div>
-			<div class="MBP_LINE_1PX MBP-top5"></div>  
+			<div class="MBP_LINE_1PX MBP-top5"></div>
         	<div class="row MBP-top5">
         	    <div class="col-6 MBP-padding-left-10">
 					<label>Adresse : </label>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control form-control-sm" 
-					id="adresse" formControlName="adresse">			
+					<input type="text" class="form-control form-control-sm"
+					id="adresse" formControlName="adresse">
 				</div>
 			</div>
 			<div class="row MBP-top5">
@@ -56,7 +56,7 @@
 					<label>Salle de musculation actuelle : </label>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control form-control-sm" 
+					<input type="text" class="form-control form-control-sm"
 					formControlName="sid">
 				</div>
 			</div>
@@ -70,14 +70,14 @@
             	    </select>
            	 	</div>
 			</div>
-			<div class="MBP_LINE_1PX MBP-top5"></div>  
+			<div class="MBP_LINE_1PX MBP-top5"></div>
         	<div class="row MBP-top5">
         	    <div class="col-6 MBP-padding-left-10">
 					<label>E-mail : </label>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control form-control-sm" 
-					id="username" formControlName="username">			
+					<input type="text" class="form-control form-control-sm"
+					id="username" formControlName="username">
 				</div>
 			</div>
 			<div class="row MBP-top5">
@@ -85,7 +85,7 @@
 					<label>Changer de mot passe : </label>
 				</div>
 				<div class="col-6">
-					<input type="password" value="" class="form-control form-control-sm" formControlName="password">		
+					<input type="password" value="" class="form-control form-control-sm" formControlName="password">
 					<p class="text-info">Au moins 7 caractères avec 1 majuscule, 1 miniscule et 1 chiffre</p>
 					<p class="text-danger" *ngIf="this.getHashedPassword(this.profilForm.value['password']) === this.password">Ce mot de passe est identique au mot de passe actuel !</p>
 				</div>
@@ -95,28 +95,36 @@
 					<label>Confirmer nouveau mot de passe : </label>
 				</div>
 				<div class="col-6">
-					<input type="password" class="form-control form-control-sm" 
-					id="confirmpassword" formControlName="confirmpassword">			
+					<input type="password" class="form-control form-control-sm"
+					id="confirmpassword" formControlName="confirmpassword">
 					<p class="text-danger" *ngIf="this.profilForm.value['password'] !== this.profilForm.value['confirmpassword']">Les mots de passe ne sont pas identiques</p>
 				</div>
 			</div>
-			<div class="MBP_LINE_1PX MBP-top5"></div>  
+			<div class="MBP_LINE_1PX MBP-top5"></div>
         	<div class="row MBP-top5">
             	<div class="col-6 MBP-padding-left-10">
 					<button type="button" class="btn btn-danger" (click)="open(content)">Résilier mon compte</button>
 				</div>
 				<div class="col-6">
-					<button class="btn float-right MBP_BTN_SUBMIT" type="submit" 
-					*ngIf="this.profilForm.value['adresse'] !== this.adresse || 
-					(+this.profilForm.value['sidList'] !== this.sid && +this.profilForm.value['sidList'] !==0) || 
-					(this.profilForm.value['password'] !== '' &&
-					this.getHashedPassword(this.profilForm.value['password']) !== myUser.password)"
-					[disabled]="profilForm.invalid">Enregistrer mes informations</button>
+          <div *ngIf="!isWait">
+					  <button class="btn float-right MBP_BTN_SUBMIT" type="submit"
+					    *ngIf="this.profilForm.value['adresse'] !== this.adresse ||
+					    (+this.profilForm.value['sidList'] !== this.sid && +this.profilForm.value['sidList'] !==0) ||
+					    (this.profilForm.value['password'] !== '' &&
+					    this.getHashedPassword(this.profilForm.value['password']) !== myUser.password)"
+					    [disabled]="profilForm.invalid">Enregistrer mes informations
+            </button>
+          </div>
+          <div class="float-right" *ngIf="isWait">
+            <div class="spinner-border MBP_SPINNER" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
 				</div>
 			</div>
 			<div class="MBP-alert">
 				<ngb-alert *ngIf="_success" type="success" (close)="_success = false">Votre compte a bien été mis à jour</ngb-alert>
-			</div>	
+			</div>
 		</form>
     </div>
 </div>

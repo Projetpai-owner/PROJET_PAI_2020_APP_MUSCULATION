@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
@@ -15,12 +15,12 @@ import {CurrentUser} from '../models/CurrentUser.model';
   styleUrls: ['./form-creation-annonce.component.scss']
 })
 export class FormCreationAnnonceComponent implements OnInit {
-  loginForm: FormGroup;
+  advertForm: FormGroup;
   errorMessage: string;
   obsTypeSeance: Observable<TypeSeance[]>;
   isWait: boolean;
   currentUser: CurrentUser;
-
+  toDate = new Date();
 
   constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router) { }
 
@@ -29,7 +29,7 @@ export class FormCreationAnnonceComponent implements OnInit {
   }
 
   initForm() {
-    this.loginForm = this.formBuilder.group({
+    this.advertForm = this.formBuilder.group({
       NomCreaAnnonce: ['', [Validators.required, Validators.maxLength(50)]],
       NiveauCreaAnnonce : ['', Validators.required],
       DescriptionCreaAnnonce: ['', [Validators.required, Validators.maxLength(500)]],
@@ -46,7 +46,7 @@ export class FormCreationAnnonceComponent implements OnInit {
 
   onSubmitForm() {
     this.isWait = true;
-    const formValue = this.loginForm.value;
+    const formValue = this.advertForm.value;
 
     function transformTimeIntoNumber(value: number) {
       const tmp1 = +(value.toString().split(':')[0]) * 60;
@@ -66,9 +66,11 @@ export class FormCreationAnnonceComponent implements OnInit {
     console.log(newAdvert);
     this.advertService.createAdvert(newAdvert).subscribe(res => {
         this.isWait = false;
-        this.router.navigate(['/']);
+        const navigationExtras: NavigationExtras = {state: [{data: 'Votre annonce a été créé avec succès'}, {from: 'advert'}]};
+        this.router.navigate(['/'], navigationExtras);
       },
       (err: HttpErrorResponse) => {
+        this.isWait = false;
         this.errorMessage = err.error.message;
       }
     );

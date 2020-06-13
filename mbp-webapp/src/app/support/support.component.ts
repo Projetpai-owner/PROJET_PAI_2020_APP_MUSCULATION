@@ -17,6 +17,7 @@ export class SupportComponent implements OnInit {
 	supportForm: FormGroup;
 	errorMessage: string;
   myUsername: string;
+  isWait: boolean;
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private supportService: SupportService,
@@ -43,7 +44,10 @@ export class SupportComponent implements OnInit {
 		 if (this.supportForm.invalid) {
             return;
         }
-		 const formValue = this.supportForm.value;
+
+    this.isWait = true;
+
+    const formValue = this.supportForm.value;
 
 		 const ticket = new Support(
 		   this.myUsername,
@@ -53,10 +57,12 @@ export class SupportComponent implements OnInit {
 
 		 this.errorMessage = '';
 		 this.supportService.addTicket(ticket).subscribe(res => {
-				const navigationExtras: NavigationExtras = {state: [{data: 'Votre demande de support est prise en compte'}, {from: 'support'}]};
-				this.router.navigate(['/'], navigationExtras);
+         this.isWait = false;
+         const navigationExtras: NavigationExtras = {state: [{data: 'Votre demande de support est prise en compte'}, {from: 'support'}]};
+         this.router.navigate(['/'], navigationExtras);
 			},
 			(err: HttpErrorResponse) => {
+		    this.isWait = false;
 				this.errorMessage = err.error.message;
 			}
 		);

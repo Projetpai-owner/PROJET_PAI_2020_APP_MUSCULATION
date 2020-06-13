@@ -19,13 +19,14 @@ import {AdvertEdit} from '../models/AdvertEdit.model';
 })
 export class EditAdvertComponent implements OnInit {
 
-  loginForm: FormGroup;
+  editForm: FormGroup;
   errorMessage: string;
   obsTypeSeance: Observable<TypeSeance[]>;
   isWait: boolean;
   currentUser: CurrentUser;
   preAid: string;
   currentAdvert: AdvertEntity;
+  toDate = new Date();
 
   constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private route: ActivatedRoute) { }
 
@@ -37,7 +38,7 @@ export class EditAdvertComponent implements OnInit {
   }
 
   initForm() {
-    this.loginForm = this.formBuilder.group({
+    this.editForm = this.formBuilder.group({
       NomCreaAnnonce: ['', [Validators.required, Validators.maxLength(50)]],
       NiveauCreaAnnonce : ['', Validators.required],
       DescriptionCreaAnnonce: ['', [Validators.required, Validators.maxLength(500)]],
@@ -65,12 +66,12 @@ export class EditAdvertComponent implements OnInit {
   getAdvertInfos(){
     this.advertService.getAdvertById(+this.preAid).subscribe(res => {
       this.currentAdvert = res;
-      this.loginForm.controls['DescriptionCreaAnnonce'].setValue(this.currentAdvert.description);
-      this.loginForm.controls['NomCreaAnnonce'].setValue(this.currentAdvert.nom);
-      this.loginForm.controls['NiveauCreaAnnonce'].setValue(this.currentAdvert.niveauPratique);
-      this.loginForm.controls['DureeSeanceCreaAnnonce'].setValue(this.transformTimeIntoNumber(this.currentAdvert.dureeSeance));
-      this.loginForm.controls['DateSeanceCreaAnnonce'].setValue(this.currentAdvert.dateSeance);
-      this.loginForm.controls['typeSeanceCreaAnnonce'].setValue(this.currentAdvert.idSeance.idSeance);
+      this.editForm.controls['DescriptionCreaAnnonce'].setValue(this.currentAdvert.description);
+      this.editForm.controls['NomCreaAnnonce'].setValue(this.currentAdvert.nom);
+      this.editForm.controls['NiveauCreaAnnonce'].setValue(this.currentAdvert.niveauPratique);
+      this.editForm.controls['DureeSeanceCreaAnnonce'].setValue(this.transformTimeIntoNumber(this.currentAdvert.dureeSeance));
+      this.editForm.controls['DateSeanceCreaAnnonce'].setValue(this.currentAdvert.dateSeance);
+      this.editForm.controls['typeSeanceCreaAnnonce'].setValue(this.currentAdvert.idSeance.idSeance);
     });
   }
 
@@ -80,7 +81,7 @@ export class EditAdvertComponent implements OnInit {
 
   onSubmitForm() {
     this.isWait = true;
-    const formValue = this.loginForm.value;
+    const formValue = this.editForm.value;
 
     function transformTimeIntoNumber(value: number) {
       const tmp1 = +(value.toString().split(':')[0]) * 60;
