@@ -3,16 +3,16 @@
         <div class="h2 text-center">Inscription</div>
     </div>
     <div class="MBP_CORPS_CONTENU">
-        <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">  
+        <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmitForm()">
             <div class="row">
                 <div class="form-group col">
                     <label for="prenom">Prénom : </label>
-                    <input type="text" class="form-control form-control-sm" id="prenom" formControlName="prenom">
+                    <input type="text" class="form-control form-control-sm" id="prenom" formControlName="prenom" maxlength="30">
                     <p class="text-info">30 caractères maximum</p>
                 </div>
                 <div class="form-group col">
                     <label for="nom">Nom : </label>
-                    <input type="text" class="form-control form-control-sm" id="nom" formControlName="nom">
+                    <input type="text" class="form-control form-control-sm" id="nom" formControlName="nom" maxlength="25">
                     <p class="text-info">25 caractères maximum</p>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="adresse">Adresse</label>
-                    <input type="text" class="form-control form-control-sm" id="adresse" formControlName="adresse">
+                    <input type="text" class="form-control form-control-sm" id="adresse" formControlName="adresse" maxlength="200">
                     <p class="text-info">200 caractères maximum</p>
                 </div>
                 <div class="form-group col">
@@ -48,16 +48,16 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="email">E-mail</label>
-                    <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
+                    <input type="text" class="form-control form-control-sm" id="email" formControlName="email" maxlength="50">
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col">            
+                <div class="form-group col">
                     <label for="password">Mot de passe</label>
-                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
+                    <input type="password" class="form-control form-control-sm" id="password" formControlName="password" maxlength="50">
                     <p class="text-info">Au moins 7 caractères avec 1 majuscule, 1 miniscule et 1 chiffre</p>
                 </div>
-                <div class="form-group col">            
+                <div class="form-group col">
                     <label for="confirmpassword">Confirmer mot de passe</label>
                     <input type="password" class="form-control form-control-sm" id="confirmpassword" formControlName="confirmpassword">
                     <p class="text-danger" *ngIf="this.inscriptionForm.value['password'] !== this.inscriptionForm.value['confirmpassword']">Les mots de passe ne sont pas identiques</p>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </form>
         <p class="text-danger">{{errorMessage}}</p>
     </div>
