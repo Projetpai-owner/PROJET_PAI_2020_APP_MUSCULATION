@@ -26,7 +26,6 @@ import fr.univ.lille.fil.mbprestservice.service.UserService;
  */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@Secured(value = "ROLE_ADMIN")
 public class BanniController {
 	@Autowired
 	private BanniService banniService;

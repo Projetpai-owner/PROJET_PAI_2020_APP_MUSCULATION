@@ -4,7 +4,11 @@
 		<div class="h2 text-center">Liste des utilisateurs</div>
 	</div>
 	<div class="MBP_CORPS_CONTENU">
-    <div *ngFor="let user of obsListUser | async">
+    <div class="input-group flex-nowrap" style="text-align: center; width: 30%; margin-bottom: 2%; margin-left: 35%">
+      <input type="text" class="form-control" [(ngModel)]="term"  placeholder="email, prenom ou nom"
+             aria-label="Username" aria-describedby="addon-wrapping">
+    </div>
+    <div *ngFor="let user of obsListUser | async | userFilter:term">
 		  <div class="row ROW_USER" *ngIf="myUsername != user.username">
 			  <div class="col-10 INFO_USER">
 				  <div class="row">
