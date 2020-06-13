@@ -38,9 +38,9 @@ export class EditAdvertComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      NomCreaAnnonce: ['', Validators.required],
+      NomCreaAnnonce: ['', [Validators.required, Validators.maxLength(50)]],
       NiveauCreaAnnonce : ['', Validators.required],
-      DescriptionCreaAnnonce: ['', Validators.required],
+      DescriptionCreaAnnonce: ['', [Validators.required, Validators.maxLength(500)]],
       DureeSeanceCreaAnnonce: ['', Validators.required],
       DateSeanceCreaAnnonce: ['', Validators.required],
       typeSeanceCreaAnnonce: ['', Validators.required]
