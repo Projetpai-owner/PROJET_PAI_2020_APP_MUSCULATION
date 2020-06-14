@@ -31,6 +31,14 @@ export class AdvertService {
     return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllAdvertsItems');
   }
 
+  getAdvertsWhereNotProprietaire(pid: number): Observable<AdvertItemList[]> {
+    return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllWhereNotProprietaire/' + pid, this.httpOptions);
+  }
+
+  getAdvertsWhereProprietaire(pid: number): Observable<AdvertItemList[]> {
+    return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllWhereProprietaire/' + pid, this.httpOptions);
+  }
+
   deleteAdvertById( aid: number): void {
     this.http.delete('http://localhost:8080/deleteAdvert/' + aid).subscribe((s) => {
         console.log(s);

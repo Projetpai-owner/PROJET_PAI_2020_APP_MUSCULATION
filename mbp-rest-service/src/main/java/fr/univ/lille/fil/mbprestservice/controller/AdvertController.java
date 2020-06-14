@@ -57,6 +57,16 @@ public class AdvertController {
 		return this.advertService.findAllAdverts();
 	}
 	
+	@GetMapping("/getAllWhereNotProprietaire/{idProprietaire}")
+	public List<ListAdvertItemDTO> getAllWhereNotProprietaire(@PathVariable("idProprietaire") int idProprietaire){
+		return this.advertService.findAllWhereNotProprietaire(idProprietaire);
+	}
+	
+	@GetMapping("/getAllWhereProprietaire/{idProprietaire}")
+	public List<ListAdvertItemDTO> getAllWhereProprietaire(@PathVariable("idProprietaire") int idProprietaire){
+		return this.advertService.findAllWhereProprietaire(idProprietaire);
+	}
+	
 	@GetMapping("/getAdvertById/{id}")
 	public Advert getAdvertById(@PathVariable(value="id") int id) {
 		return this.advertService.findByAid(id);

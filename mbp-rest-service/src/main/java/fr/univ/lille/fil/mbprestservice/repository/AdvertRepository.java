@@ -1,6 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.repository;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,5 +20,12 @@ public interface AdvertRepository extends JpaRepository<Advert, Integer>{
 			@Param("dureeSeance") int dureeSeance, @Param("nom") String nom, @Param("dateSeance") Date dateSeance, @Param("aid") int aid);
 	
 	public Advert findByAid(int aid);
+	
+	@Query("select a.aid, a.description, a.niveau_pratique, a.duree_seance, a.nom, a.date_seance, a.id_seance from annonce a left join proprietaire_annonce p on a.aid=p.aid where p.pid_proprietaire != :aid")
+	public List<Advert> findAllWhereNotProprietaire(int id_proprietaire);
+	
+	@Query("select a.aid, a.description, a.niveau_pratique, a.duree_seance, a.nom, a.date_seance, a.id_seance from annonce a left join proprietaire_annonce p on a.aid=p.aid where p.pid_proprietaire = :aid")
+	public List<Advert> findAllWhereProprietaire(int id_proprietaire);
+	
 
 }

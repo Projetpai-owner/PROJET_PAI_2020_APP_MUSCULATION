@@ -33,6 +33,36 @@ public class AdvertService {
 		return advertRepository.findByAid(aid);
 	}
 	
+	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(int id_proprietaire){
+		List<Advert> ads = advertRepository.findAllWhereNotProprietaire(id_proprietaire);
+		List<ListAdvertItemDTO> res = new ArrayList<>();
+		for(Advert ad : ads) {
+			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
+			tmp.setAid(ad.getAid());
+			tmp.setDate(ad.getDateSeance().toString());
+			tmp.setDescription(ad.getDescription());
+			tmp.setDuree(""+ad.getDureeSeance());
+			tmp.setNomAnnonce(ad.getNom());
+			res.add(tmp);
+		}
+		return res;
+	}
+	
+	public List<ListAdvertItemDTO> findAllWhereProprietaire(int id_proprietaire){
+		List<Advert> ads = advertRepository.findAllWhereProprietaire(id_proprietaire);
+		List<ListAdvertItemDTO> res = new ArrayList<>();
+		for(Advert ad : ads) {
+			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
+			tmp.setAid(ad.getAid());
+			tmp.setDate(ad.getDateSeance().toString());
+			tmp.setDescription(ad.getDescription());
+			tmp.setDuree(""+ad.getDureeSeance());
+			tmp.setNomAnnonce(ad.getNom());
+			res.add(tmp);
+		}
+		return res;
+	}
+	
 	public void delete(int id) {
 		 advertRepository.deleteById(id);
 	}
