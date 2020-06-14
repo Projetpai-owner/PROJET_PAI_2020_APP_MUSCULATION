@@ -27,8 +27,8 @@ export class AdvertListComponent implements OnInit {
   filtreAnnonceForm: FormGroup;
   zoneFiltreVisible: boolean;
   currentUser: CurrentUser;
-  
-  constructor(public advertService: AdvertService, 
+
+  constructor(public advertService: AdvertService,
               private typeSeanceService: TypeSeanceService,
               private salleService: SalleService,
               private router: Router,
@@ -40,10 +40,12 @@ export class AdvertListComponent implements OnInit {
     this.initSelect();
     this.initForm();
     this.initVisibility();
+
   }
 
   initAnnonces(): void{
-    this.advertService.getAdverts().subscribe((res: AdvertItemList[]) => {      
+    this.currentUser = this.authService.currentUserValue;
+    this.advertService.getAdvertsWhereNotProprietaire(+this.currentUser.userId).subscribe((res: AdvertItemList[]) => {
       this.ItemsArray = res;
       this.toutesLesannonces = res;
     });
@@ -115,7 +117,7 @@ export class AdvertListComponent implements OnInit {
     if(formFiltreValue['salle'] != "" && formFiltreValue['salle'] != advert.salleAnnonceur ){
       return false;
     }
-    
+
     return true;
   }
 

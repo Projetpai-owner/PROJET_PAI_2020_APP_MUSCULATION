@@ -18,6 +18,11 @@ import org.hibernate.annotations.Cascade;
 
 import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
 
+/**
+ * Entité qui définie le type Annonce
+ * @author Théo
+ *
+ */
 @Entity
 @Table(name = "annonce")
 public class Advert implements Serializable {

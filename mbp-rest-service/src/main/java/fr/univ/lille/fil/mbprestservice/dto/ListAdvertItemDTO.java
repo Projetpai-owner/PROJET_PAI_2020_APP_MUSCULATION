@@ -7,6 +7,11 @@ import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
+/**
+ * Objet de transfert pour la liste des annonces
+ * @author Théo
+ *
+ */
 public class ListAdvertItemDTO {
 
 	private int aid;

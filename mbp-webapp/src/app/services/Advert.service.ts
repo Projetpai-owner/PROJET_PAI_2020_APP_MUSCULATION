@@ -76,4 +76,10 @@ export class AdvertService {
     return this.http.get<UserBody[]>('http://localhost:8080/getParticipationsForAnnonce/'+aid, this.httpOptions);
   }
 
+  supprimerParticipation(pid: number, aid: number): void {
+    this.http.delete('http://localhost:8080/deleteParticipation/' + aid + '/' + pid).subscribe((s) => {
+      console.log(s);
+    });
+  }
+
 }

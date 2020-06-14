@@ -13,6 +13,11 @@ import fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO;
 import fr.univ.lille.fil.mbprestservice.entity.Advert;
 import fr.univ.lille.fil.mbprestservice.repository.AdvertRepository;
 
+/**
+ * Classe de service qui offre des méthodes d'interaction avec les annonces
+ * @author Théo
+ *
+ */
 @Service
 public class AdvertService {
 
@@ -20,58 +25,95 @@ public class AdvertService {
 	AdvertRepository advertRepository;
 
 	
-
+	/**
+	 * Permet de faire appel au repository pour sauvegarder une annonce
+	 * @param advert
+	 * @return l'annonce sauvegardée
+	 */
 	public Advert save(Advert advert) {
 		return advertRepository.save(advert);
 	}
-
+	
+	/**
+	 * Permet d'obtenir la liste de toutes les annonces
+	 * @return la liste des annonces
+	 */
 	public List<Advert> findAll() {
 		return advertRepository.findAll();
 	}
 	
+	/**
+	 * Permet de faire appel au repository pour retrouver une annonce via son id
+	 * @param aid
+	 * @return l'annonce recherchée
+	 */
 	public Advert findByAid(int aid) {
 		return advertRepository.findByAid(aid);
 	}
 	
+	/**
+	 * Renvoi la liste des annonces dont l'id passé en paramètre n'est pas celui du propriétaire de ces dernières.
+	 * @param id_proprietaire
+	 * @return la liste des annonces dont l'id passé en paramètre n'est pas celui du propriétaire de ces dernières
+	 */
 	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(int id_proprietaire){
-		List<Advert> ads = advertRepository.findAllWhereNotProprietaire(id_proprietaire);
-		List<ListAdvertItemDTO> res = new ArrayList<>();
-		for(Advert ad : ads) {
-			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
-			tmp.setAid(ad.getAid());
-			tmp.setDate(ad.getDateSeance().toString());
-			tmp.setDescription(ad.getDescription());
-			tmp.setDuree(""+ad.getDureeSeance());
-			tmp.setNomAnnonce(ad.getNom());
-			res.add(tmp);
-		}
-		return res;
+		return advertRepository.findAllWhereNotProprietaire(id_proprietaire);
+//		List<ListAdvertItemDTO> res = new ArrayList<>();
+//		for(Advert ad : ads) {
+//			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
+//			tmp.setAid(ad.getAid());
+//			tmp.setDate(ad.getDateSeance().toString());
+//			tmp.setDescription(ad.getDescription());
+//			tmp.setDuree(""+ad.getDureeSeance());
+//			tmp.setNomAnnonce(ad.getNom());
+//			res.add(tmp);
+//		}
+//		return res;
 	}
 	
+	/**
+	 * Renvoi la liste des annonces dont l'id passé en paramètre est celui du propriétaire de ces dernières.
+	 * @param id_proprietaire
+	 * @return la liste des annonces dont l'id passé en paramètre est celui du propriétaire de ces dernières
+	 */
 	public List<ListAdvertItemDTO> findAllWhereProprietaire(int id_proprietaire){
-		List<Advert> ads = advertRepository.findAllWhereProprietaire(id_proprietaire);
-		List<ListAdvertItemDTO> res = new ArrayList<>();
-		for(Advert ad : ads) {
-			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
-			tmp.setAid(ad.getAid());
-			tmp.setDate(ad.getDateSeance().toString());
-			tmp.setDescription(ad.getDescription());
-			tmp.setDuree(""+ad.getDureeSeance());
-			tmp.setNomAnnonce(ad.getNom());
-			res.add(tmp);
-		}
-		return res;
+		return advertRepository.findAllWhereProprietaire(id_proprietaire);
+//		List<ListAdvertItemDTO> res = new ArrayList<>();
+//		for(Advert ad : ads) {
+//			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
+//			tmp.setAid(ad.getAid());
+//			tmp.setDate(ad.getDateSeance().toString());
+//			tmp.setDescription(ad.getDescription());
+//			tmp.setDuree(""+ad.getDureeSeance());
+//			tmp.setNomAnnonce(ad.getNom());
+//			res.add(tmp);
+//		}
+//		return res;
 	}
 	
+	/**
+	 * Permet de supprimer une annonce en base de donnée.
+	 * @param id
+	 */
 	public void delete(int id) {
 		 advertRepository.deleteById(id);
 	}
 	
+	/**
+	 * Permet de mettre à jour une annonce en base de donnée
+	 * @param advert
+	 * @param aid
+	 * @return l'id de l'annonce supprimée
+	 */
 	public int updateAdvert(@Valid Advert advert, int aid) {
 		return advertRepository.updateAdvert(advert.getDescription(), advert.getNiveauPratique(),advert.getDureeSeance(),advert.getNom() , advert.getDateSeance(), aid);
 		 
 	}
 	
+	/**
+	 * Renvoi la liste de toutes les annonces au type ListAdvertItemDTO
+	 * @return la liste de toutes les annonces au type ListAdvertItemDTO
+	 */
 	public List<ListAdvertItemDTO> findAllAdverts(){
 		List<Advert> ads = advertRepository.findAll();
 		List<ListAdvertItemDTO> res = new ArrayList<>();

@@ -1,5 +1,8 @@
 package fr.univ.lille.fil.mbprestservice.entity.composite;
 
+/**
+ * Clé composite qui définie l'id d'une propriété d'annonce
+ */
 import java.io.Serializable;
 
 import javax.persistence.Entity;

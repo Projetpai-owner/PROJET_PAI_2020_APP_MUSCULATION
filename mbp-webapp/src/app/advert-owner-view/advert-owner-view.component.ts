@@ -10,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import {User} from '../models/User.model';
 import {UserBody} from '../models/UserBody.model';
+import {UserBodyPid} from '../models/UserBodyPid.model';
 
 @Component({
   selector: 'app-advert-owner-view',
@@ -34,7 +35,7 @@ export class AdvertOwnerViewComponent implements OnInit {
     this.preAid = this.router.url.split('/').pop();
     this.initForm();
     this.getAdvertInfos();
-    this.advertService.getParticipationsByAid(+this.preAid).subscribe((res: UserBody[]) => {
+    this.advertService.getParticipationsByAid(+this.preAid).subscribe((res: UserBodyPid[]) => {
         this.ItemsArray = res;
       }
     );
@@ -105,5 +106,10 @@ export class AdvertOwnerViewComponent implements OnInit {
     this.errorMessage = '';
     this.advertService.updateAdvert(newAdvert).subscribe(response =>{
       this.router.navigate(['./listAdverts']);});
+  }
+
+  supprimerParticipant(pid: number){
+    this.advertService.supprimerParticipation(pid, +this.preAid);
+    this.ngOnInit();
   }
 }

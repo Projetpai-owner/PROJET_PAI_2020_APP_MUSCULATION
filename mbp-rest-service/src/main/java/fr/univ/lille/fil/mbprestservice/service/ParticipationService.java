@@ -27,5 +27,12 @@ public class ParticipationService {
 		}
 		return tmp2;
 	}
+	
+	public void deleteParticipation(int aid, int pid) {
+		Participe p = new Participe();
+		p.setIdAnnonce(aid);
+		p.setIdUser(pid);
+		repo.delete(p);
+	}
 
 }

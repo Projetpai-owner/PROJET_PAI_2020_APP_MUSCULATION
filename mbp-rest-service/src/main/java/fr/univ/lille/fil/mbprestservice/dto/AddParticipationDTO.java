@@ -1,5 +1,10 @@
 package fr.univ.lille.fil.mbprestservice.dto;
 
+/**
+ * Objet représentant l'ajout d'un participant sur une annonce
+ * @author Théo
+ *
+ */
 public class AddParticipationDTO {
 	
 	private int uid;

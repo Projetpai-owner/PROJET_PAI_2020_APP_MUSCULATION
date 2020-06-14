@@ -15,6 +15,8 @@ import {SupportAdminComponent} from './support-admin/support-admin.component';
 import { FriendManagerComponent } from './friend-manager/friend-manager.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 import {AdvertViewComponent} from './advert-view/advert-view.component';
+import {AdvertOwnerListComponent} from './advert-owner-list/advert-owner-list.component';
+import {AdvertOwnerViewComponent} from './advert-owner-view/advert-owner-view.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
@@ -31,7 +33,9 @@ export const routes: Routes = [
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'friendManager', component: FriendManagerComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
-  {path: 'viewAnnonce/:id', component: AdvertViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
+  {path: 'viewAnnonce/:id', component: AdvertViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'viewAnnonceProprio/:id', component: AdvertOwnerViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'advertListProprio', component: AdvertOwnerListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
 ];
 
 @NgModule({

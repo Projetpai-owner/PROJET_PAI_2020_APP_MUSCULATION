@@ -2,6 +2,11 @@ package fr.univ.lille.fil.mbprestservice.entity.composite;
 
 import java.io.Serializable;
 
+/**
+ * Clé composite qui définie l'id d'une participation
+ * @author Théo
+ *
+ */
 public class ParticipationId implements Serializable {
 	
 	/**

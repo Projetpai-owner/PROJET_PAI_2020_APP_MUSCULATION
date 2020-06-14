@@ -7,6 +7,11 @@ import javax.persistence.Table;
 
 import fr.univ.lille.fil.mbprestservice.entity.composite.ParticipationId;
 
+/**
+ * Entité qui définie le type Participe
+ * @author Théo
+ *
+ */
 @Entity
 @Table(name = "participe")
 @IdClass(ParticipationId.class)
