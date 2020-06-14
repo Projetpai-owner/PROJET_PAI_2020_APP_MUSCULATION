@@ -86,4 +86,26 @@ public class AdvertService {
 		}
 		return res;
 	}
+	
+	/**
+	 * Retourne la liste des annonces avec des informations en plus que sur la méthode 'findAllAvert' classique.
+	 * On a en plus : le type de séance, le niveau de la séance, la salle de sport.
+	 * @return La liste des annonces et leurs informations
+	 */
+	public List<ListAdvertItemDTO> findAllAdvertsWithInfos(){
+		List<Advert> ads = advertRepository.findAll();
+		List<ListAdvertItemDTO> res = advertRepository.getAdvertsWithInfo();
+		/*for(Advert ad : ads) {
+			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
+			tmp.setAid(ad.getAid());
+			tmp.setDate(ad.getDateSeance().toString());
+			tmp.setDescription(ad.getDescription());
+			tmp.setDuree(""+ad.getDureeSeance());
+			tmp.setNomAnnonce(ad.getNom());
+			tmp.setNiveauSeance(ad.getNiveauPratique().toString());
+			tmp.setTypeSeance(ad.getIdSeance().getLibelle());
+			res.add(tmp);
+		}*/
+		return res;
+	}
 }

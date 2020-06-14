@@ -65,7 +65,7 @@ export class AdvertService {
 
   isProprietaireAnnonce(uid: number, aid: number): boolean {
     let userProp;
-    const proprioAnnonce = this.getProprietaireByAid(aid).subscribe( proprio => {
+    this.getProprietaireByAid(aid).subscribe( proprio => {
       userProp  = proprio.pidProprietaire;
     });
     return userProp === uid;

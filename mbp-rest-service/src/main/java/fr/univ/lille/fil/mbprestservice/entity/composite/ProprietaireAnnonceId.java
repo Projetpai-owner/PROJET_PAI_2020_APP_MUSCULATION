@@ -2,6 +2,7 @@ package fr.univ.lille.fil.mbprestservice.entity.composite;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 public class ProprietaireAnnonceId implements Serializable {
 	
 	/**
