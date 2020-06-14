@@ -20,7 +20,7 @@
 			<input type="text" class="form-control" [(ngModel)]="term"  placeholder="email, prenom ou nom"
 				aria-label="Username" aria-describedby="addon-wrapping">
 		</div>
-		
+
 		<div class="ROW_CONTAINER">
 			<div class="row ROW_USER" *ngFor="let user of obsListUser | async | userFilter:term ">
 			<div class="col-10 INFO_USER">
@@ -37,7 +37,7 @@
 					</div>
 					<div class="col">
 						<div class="row">
-							<label class="USER_LABEL">Username</label>&nbsp;:&nbsp; <span>
+							<label class="USER_LABEL">Email</label>&nbsp;:&nbsp; <span>
 								{{ user.username}} </span>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		</div>
-	
+
 	</div>
 
 </div>

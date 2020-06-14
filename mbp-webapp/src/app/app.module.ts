@@ -29,7 +29,7 @@ import { FriendManagerComponent } from './friend-manager/friend-manager.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list'; 
+import {MatListModule} from '@angular/material/list';
 import {FriendService} from './services/Friend.service';
 import {MatButtonModule} from '@angular/material/button';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -40,6 +40,9 @@ import { MessagerieService } from './services/Messagerie.service';
 import { AdvertViewComponent } from './advert-view/advert-view.component';
 import { AdvertOwnerListComponent } from './advert-owner-list/advert-owner-list.component';
 import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.component';
+import {SupportComponent} from './support/support.component';
+import {SupportAdminComponent} from './support-admin/support-admin.component';
+import {SupportService} from './services/SupportUser.service';
 
 @NgModule({
 	declarations: [
@@ -65,7 +68,9 @@ import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.
 		MessageGeneralComponent,
 		AdvertViewComponent,
 		AdvertOwnerListComponent,
-		AdvertOwnerViewComponent
+		AdvertOwnerViewComponent,
+    SupportComponent,
+    SupportAdminComponent
 	],
 	imports: [
 		BrowserModule,
@@ -91,6 +96,7 @@ import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.
 		ConfirmAlertService,
 		ClassicAlertService,
 		FriendService,
+    SupportService,
 		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 
@@ -98,4 +104,3 @@ import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
-

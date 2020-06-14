@@ -1,5 +1,10 @@
 package fr.univ.lille.fil.mbprestservice.dto;
 
+/**
+ * Classe de mapping pour un ami
+ * @author Anthony Bliecq
+ *
+ */
 public class AmiDTO {
 
 	private int pid;

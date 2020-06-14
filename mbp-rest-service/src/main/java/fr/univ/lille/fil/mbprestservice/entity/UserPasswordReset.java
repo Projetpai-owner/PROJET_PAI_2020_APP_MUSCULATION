@@ -8,6 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entite permettant d'interagir avec la table permettant de contenir les token liés au reset d'un mot de passe
+ * @author Anthony Bliecq
+ *
+ */
 @Entity
 @Table(name = "user_password_reset")
 public class UserPasswordReset {

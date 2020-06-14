@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit {
 		    .pipe(first())
             .subscribe(
                 data => {
-					console.log("[onSubmitForm] authentication réussie")
+					console.log("[onSubmitForm] authentication rï¿½ussie")
                     this.router.navigate(["/"]);
                 },
                 error => {
-                   console.log("[onSubmitForm] authentication échouée");
+                   console.log("[onSubmitForm] authentication ï¿½chouï¿½e");
+				   this.errorMessage="Email ou mot de passe incorrect";
                 });
 				
 	}
