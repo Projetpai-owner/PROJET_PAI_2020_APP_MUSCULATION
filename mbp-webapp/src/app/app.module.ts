@@ -37,6 +37,9 @@ import { UserPipe } from './userPipe/user.pipe';
 import { ClassicAlertService } from './services/classic-alert.service';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 import { MessagerieService } from './services/Messagerie.service';
+import { AdvertViewComponent } from './advert-view/advert-view.component';
+import { AdvertOwnerListComponent } from './advert-owner-list/advert-owner-list.component';
+import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.component';
 
 @NgModule({
 	declarations: [
@@ -59,7 +62,10 @@ import { MessagerieService } from './services/Messagerie.service';
 		ClassicAlertComponent,
 		FriendManagerComponent,
 		UserPipe,
-		MessageGeneralComponent
+		MessageGeneralComponent,
+		AdvertViewComponent,
+		AdvertOwnerListComponent,
+		AdvertOwnerViewComponent
 	],
 	imports: [
 		BrowserModule,

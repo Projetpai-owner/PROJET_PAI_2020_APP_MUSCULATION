@@ -12,6 +12,7 @@ import {EditAdvertComponent} from './edit-advert/edit-advert.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FriendManagerComponent } from './friend-manager/friend-manager.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
+import {AdvertViewComponent} from './advert-view/advert-view.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
@@ -25,7 +26,8 @@ export const routes: Routes = [
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'friendManager', component: FriendManagerComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
-  {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}}
+  {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
+  {path: 'viewAnnonce/:id', component: AdvertViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
 ];
 
 @NgModule({

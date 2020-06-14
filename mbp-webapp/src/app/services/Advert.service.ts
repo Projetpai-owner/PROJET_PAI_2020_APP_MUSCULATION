@@ -10,6 +10,7 @@ import {AdvertEdit} from '../models/AdvertEdit.model';
 import {catchError} from 'rxjs/operators';
 import { AddParticipant } from '../models/AddParticipant.model';
 import { ProprietaireAnnonce } from '../models/ProprietaireAnnonce.model';
+import {UserBody} from '../models/UserBody.model';
 
 @Injectable()
 export class AdvertService {
@@ -60,6 +61,11 @@ export class AdvertService {
       userProp  = proprio.pidProprietaire;
     });
     return userProp === uid;
+  }
+
+  getParticipationsByAid(aid: number): Observable<UserBody[]> {
+    console.log(aid);
+    return this.http.get<UserBody[]>('http://localhost:8080/getParticipationsForAnnonce/'+aid, this.httpOptions);
   }
 
 }
