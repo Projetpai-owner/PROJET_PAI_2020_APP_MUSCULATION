@@ -1,0 +1,34 @@
+<div class="MBP_CORPS">
+  <div class="MBP_CORPS_TITRE">
+    <div class="h2 text-center">Les annonces</div>
+  </div>
+  <div class="MBP_CORPS_CONTENU">
+    <table class="table">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Prénom</th>
+        <th scope="col">Nom de l'annonce</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Durée</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of ItemsArray">
+        <td>{{item.nomAnnonce}}</td>
+        <td>{{item.prenom}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.dateSeance}}</td>
+        <td>{{item.duree}}</td>
+        <td>
+          <button type="button" routerLink="/viewAnnonceProprio/{{item.aid}}">Voir</button>
+          <button type="button" routerLink="/editAdvert/{{item.aid}}">Edit</button>
+          <button type="button" class="close" (click)="deleteAdvertById(item.aid)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

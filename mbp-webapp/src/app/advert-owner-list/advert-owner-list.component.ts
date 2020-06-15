@@ -1,23 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {AdvertService} from '../services/Advert.service';
-import {AdvertItemList} from '../models/AdvertItemList.model';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { TypeSeance } from '../models/TypeSeance.model';
-import { TypeSeanceService } from '../services/TypeSeance.service';
-import { SalleService } from '../services/Salle.service';
-import { Salle } from '../models/Salle.model';
-import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CurrentUser} from '../models/CurrentUser.model';
+import {AdvertService} from '../services/Advert.service';
+import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {AdvertItemList} from '../models/AdvertItemList.model';
 import {AddParticipant} from '../models/AddParticipant.model';
+import {Observable} from 'rxjs';
+import {TypeSeance} from '../models/TypeSeance.model';
+import {Salle} from '../models/Salle.model';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {TypeSeanceService} from '../services/TypeSeance.service';
+import {SalleService} from '../services/Salle.service';
 
 @Component({
-  selector: 'app-advert-list',
-  templateUrl: './advert-list.component.html',
-  styleUrls: ['./advert-list.component.scss']
+  selector: 'app-advert-owner-list',
+  templateUrl: './advert-owner-list.component.html',
+  styleUrls: ['./advert-owner-list.component.scss']
 })
-export class AdvertListComponent implements OnInit {
+export class AdvertOwnerListComponent implements OnInit {
 
   @ViewChild('formFiltre') formFiltre:ElementRef;
   ItemsArray = [];
@@ -40,12 +40,11 @@ export class AdvertListComponent implements OnInit {
     this.initSelect();
     this.initForm();
     this.initVisibility();
-
   }
 
   initAnnonces(): void{
     this.currentUser = this.authService.currentUserValue;
-    this.advertService.getAdvertsWhereNotProprietaire(+this.currentUser.userId).subscribe((res: AdvertItemList[]) => {
+    this.advertService.getAdvertsWhereProprietaire(+this.currentUser.userId).subscribe((res: AdvertItemList[]) => {
       this.ItemsArray = res;
       this.toutesLesannonces = res;
     });
@@ -129,7 +128,7 @@ export class AdvertListComponent implements OnInit {
 
   deleteAdvertById(aid: number){
     this.advertService.deleteAdvertById(aid);
-    this.router.navigate(['/']);
+    this.ngOnInit();
   }
 
   addParticipation(aid: number){
