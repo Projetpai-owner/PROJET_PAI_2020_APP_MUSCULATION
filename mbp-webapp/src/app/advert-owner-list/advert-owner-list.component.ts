@@ -1,26 +1,23 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import {AdvertService} from '../services/Advert.service';
-import {AdvertItemList} from '../models/AdvertItemList.model';
-import { Router } from '@angular/router';
-import {ConfirmAlertService} from "../services/confirm-alert.service";
-import {ClassicAlertService} from "../services/classic-alert.service";
-import { Observable } from 'rxjs';
-import { TypeSeance } from '../models/TypeSeance.model';
-import { TypeSeanceService } from '../services/TypeSeance.service';
-import { SalleService } from '../services/Salle.service';
-import { Salle } from '../models/Salle.model';
-import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CurrentUser} from '../models/CurrentUser.model';
+import {AdvertService} from '../services/Advert.service';
+import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {AdvertItemList} from '../models/AdvertItemList.model';
 import {AddParticipant} from '../models/AddParticipant.model';
+import {Observable} from 'rxjs';
+import {TypeSeance} from '../models/TypeSeance.model';
+import {Salle} from '../models/Salle.model';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {TypeSeanceService} from '../services/TypeSeance.service';
+import {SalleService} from '../services/Salle.service';
 
 @Component({
-  selector: 'app-advert-list',
-  templateUrl: './advert-list.component.html',
-  styleUrls: ['./advert-list.component.scss']
+  selector: 'app-advert-owner-list',
+  templateUrl: './advert-owner-list.component.html',
+  styleUrls: ['./advert-owner-list.component.scss']
 })
-
-export class AdvertListComponent implements OnInit {
+export class AdvertOwnerListComponent implements OnInit {
 
   @ViewChild('formFiltre') formFiltre:ElementRef;
   ItemsArray = [];
@@ -31,10 +28,12 @@ export class AdvertListComponent implements OnInit {
   zoneFiltreVisible: boolean;
   currentUser: CurrentUser;
 
-  constructor(public advertService: AdvertService, private confirmAlertService: ConfirmAlertService,
-              private classicAlertService: ClassicAlertService, private router: Router,
-              private typeSeanceService: TypeSeanceService, private salleService: SalleService,
-              private formBuilder: FormBuilder, private authService: AuthService) { }
+  constructor(public advertService: AdvertService,
+              private typeSeanceService: TypeSeanceService,
+              private salleService: SalleService,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initAnnonces();
@@ -45,31 +44,10 @@ export class AdvertListComponent implements OnInit {
 
   initAnnonces(): void{
     this.currentUser = this.authService.currentUserValue;
-    this.advertService.getAdvertsWhereNotProprietaire(+this.currentUser.userId).subscribe((res: AdvertItemList[]) => {
+    this.advertService.getAdvertsWhereProprietaire(+this.currentUser.userId).subscribe((res: AdvertItemList[]) => {
       this.ItemsArray = res;
       this.toutesLesannonces = res;
     });
-  }
-
-  public confirmDeleteAdvert(item: AdvertItemList){
-    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment supprimer l'annonce '"+ item.nom+"' ?","Confirmer","Annuler","lg")
-      .then((confirmed) => {if(confirmed){this.deleteAdvertById(item);}else{this.actionAnnule(item);}})
-      .catch(() => this.actionAnnule(item));
-  }
-
-  deleteAdvertById(item: AdvertItemList) {
-    this.advertService.deleteAdvertById(item.aid).subscribe(res => {
-      this.gereRetourDelete(item);
-    });
-  }
-
-  public gereRetourDelete(item: AdvertItemList){
-    this.ngOnInit();
-    this.classicAlertService.alert("Annonce supprimé","L'annonce '"+item.nom+" a été supprimé","OK","sm")
-  }
-
-  public actionAnnule(item: AdvertItemList) {
-    this.classicAlertService.alert("Action annulée", "L'annonce n'a pas été supprimé", "OK", "sm");
   }
 
   initSelect(): void {
@@ -146,6 +124,11 @@ export class AdvertListComponent implements OnInit {
       this.formFiltre.nativeElement.elements[i].value = '';
     }
     this.ItemsArray = this.toutesLesannonces;
+  }
+
+  deleteAdvertById(aid: number){
+    this.advertService.deleteAdvertById(aid);
+    this.ngOnInit();
   }
 
   addParticipation(aid: number){

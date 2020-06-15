@@ -5,6 +5,7 @@ export class Advert {
               public dureeSeance: number,
               public nom: string,
               public dateSeance: Date,
-              public idSeance: number) {
+              public idSeance: number,
+              public idUser: number) {
   }
 }

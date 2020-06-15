@@ -29,17 +29,20 @@ import { FriendManagerComponent } from './friend-manager/friend-manager.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list'; 
+import {MatListModule} from '@angular/material/list';
 import {FriendService} from './services/Friend.service';
 import {MatButtonModule} from '@angular/material/button';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UserPipe } from './userPipe/user.pipe';
 import { ClassicAlertService } from './services/classic-alert.service';
-import { SupportComponent } from './support/support.component';
-import { SupportService } from './services/SupportUser.service';
-import { SupportAdminComponent } from './support-admin/support-admin.component';
 import { MessageGeneralComponent } from './message-general/message-general.component';
 import { MessagerieService } from './services/Messagerie.service';
+import { AdvertViewComponent } from './advert-view/advert-view.component';
+import { AdvertOwnerListComponent } from './advert-owner-list/advert-owner-list.component';
+import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.component';
+import {SupportComponent} from './support/support.component';
+import {SupportAdminComponent} from './support-admin/support-admin.component';
+import {SupportService} from './services/SupportUser.service';
 
 @NgModule({
 	declarations: [
@@ -60,11 +63,14 @@ import { MessagerieService } from './services/Messagerie.service';
 		EditAdvertComponent,
 		ConfirmAlertComponent,
 		ClassicAlertComponent,
-    FriendManagerComponent,
+		FriendManagerComponent,
 		UserPipe,
-		SupportComponent,
-		SupportAdminComponent,
 		MessageGeneralComponent,
+		AdvertViewComponent,
+		AdvertOwnerListComponent,
+		AdvertOwnerViewComponent,
+    SupportComponent,
+    SupportAdminComponent
 	],
 	imports: [
 		BrowserModule,
@@ -74,7 +80,7 @@ import { MessagerieService } from './services/Messagerie.service';
 		HttpClientModule,
 		AppRoutingModule,
 		NgbModule,
-    BrowserAnimationsModule,
+		BrowserAnimationsModule,
 		MatBadgeModule,
 		MatIconModule,
 		MatListModule,
@@ -84,13 +90,13 @@ import { MessagerieService } from './services/Messagerie.service';
 	providers: [
 		UserService,
 		SalleService,
-    TypeSeanceService,
+		TypeSeanceService,
 		AdvertService,
 		BanniService,
 		ConfirmAlertService,
 		ClassicAlertService,
-    FriendService,
-		SupportService,
+		FriendService,
+    SupportService,
 		MessagerieService,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
 

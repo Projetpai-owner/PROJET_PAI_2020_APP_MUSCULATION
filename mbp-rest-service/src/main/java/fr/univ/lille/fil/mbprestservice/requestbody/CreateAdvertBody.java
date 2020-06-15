@@ -7,6 +7,11 @@ import javax.persistence.Enumerated;
 
 import fr.univ.lille.fil.mbprestservice.enumeration.Niveau;
 
+/**
+ * Objet représentant une requête pour la création d'une annonce
+ * @author Théo
+ *
+ */
 public class CreateAdvertBody {
 
 	private String description;

@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entité qui définie le type d'une séance
+ * @author Théo
+ *
+ */
 @Entity
 @Table(name = "type_seance")
 public class TypeSeance implements Serializable{
