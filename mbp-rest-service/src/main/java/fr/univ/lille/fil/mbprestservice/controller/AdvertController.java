@@ -51,6 +51,8 @@ public class AdvertController {
 	@PostMapping("/createAdvert")
 	public Advert createAdvert(@Valid @RequestBody CreateAdvertBody body) {
 		Advert tmp =  this.advertService.save(mapFromDto(body));
+		System.out.println(body.getIdUser());
+		System.out.println(tmp.getAid());
 		proprioService.register(body.getIdUser(), tmp.getAid());
 		return tmp;
 	}

@@ -8,6 +8,7 @@
       <input type="text" class="form-control" [(ngModel)]="term"  placeholder="email, prenom ou nom"
              aria-label="Username" aria-describedby="addon-wrapping">
     </div>
+    <div *ngIf="(obsListUser | async)?.length > 0">
     <div *ngFor="let user of obsListUser | async | userFilter:term">
 		  <div class="row ROW_USER" *ngIf="myUsername != user.username">
 			  <div class="col-10 INFO_USER">
@@ -37,6 +38,7 @@
 		  	</div>
       </div>
 		</div>
+    </div>
+    <p class="text-info text-center" *ngIf="(obsListUser | async)?.length == 0">Aucun utilisateur.</p>
 	</div>
-	>>>>>>> refs/heads/master
 </div>

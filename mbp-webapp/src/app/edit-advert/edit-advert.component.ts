@@ -100,7 +100,7 @@ export class EditAdvertComponent implements OnInit {
     );
     this.errorMessage = '';
     this.advertService.updateAdvert(newAdvert).subscribe(response =>{
-      this.router.navigate(['./listAdverts']);});
+      this.router.navigate(['./advertListProprio']);});
   }
 
 }

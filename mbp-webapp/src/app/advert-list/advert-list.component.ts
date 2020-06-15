@@ -30,6 +30,8 @@ export class AdvertListComponent implements OnInit {
   filtreAnnonceForm: FormGroup;
   zoneFiltreVisible: boolean;
   currentUser: CurrentUser;
+  participate_success: boolean;
+  nomAnnonce: string;
 
   constructor(public advertService: AdvertService, private confirmAlertService: ConfirmAlertService,
               private classicAlertService: ClassicAlertService, private router: Router,
@@ -49,27 +51,6 @@ export class AdvertListComponent implements OnInit {
       this.ItemsArray = res;
       this.toutesLesannonces = res;
     });
-  }
-
-  public confirmDeleteAdvert(item: AdvertItemList){
-    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment supprimer l'annonce '"+ item.nom+"' ?","Confirmer","Annuler","lg")
-      .then((confirmed) => {if(confirmed){this.deleteAdvertById(item);}else{this.actionAnnule(item);}})
-      .catch(() => this.actionAnnule(item));
-  }
-
-  deleteAdvertById(item: AdvertItemList) {
-    this.advertService.deleteAdvertById(item.aid).subscribe(res => {
-      this.gereRetourDelete(item);
-    });
-  }
-
-  public gereRetourDelete(item: AdvertItemList){
-    this.ngOnInit();
-    this.classicAlertService.alert("Annonce supprimé","L'annonce '"+item.nom+" a été supprimé","OK","sm")
-  }
-
-  public actionAnnule(item: AdvertItemList) {
-    this.classicAlertService.alert("Action annulée", "L'annonce n'a pas été supprimé", "OK", "sm");
   }
 
   initSelect(): void {
@@ -104,7 +85,7 @@ export class AdvertListComponent implements OnInit {
 
   filtreAnnonce(advert : any) : boolean{
     const formFiltreValue = this.filtreAnnonceForm.value;
-    if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.date){
+    if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.dateSeance){
       return false;
     }
     if(formFiltreValue['dureeMin'] != ""){
@@ -125,10 +106,10 @@ export class AdvertListComponent implements OnInit {
         return false;
       }
     }
-    if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveauSeance){
+    if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveau){
       return false;
     }
-    if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.typeSeance){
+    if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.type){
       return false;
     }
     if(formFiltreValue['sex'] != "" && formFiltreValue['sex'] != advert.sexAnnonceur){
@@ -148,10 +129,14 @@ export class AdvertListComponent implements OnInit {
     this.ItemsArray = this.toutesLesannonces;
   }
 
-  addParticipation(aid: number){
+  addParticipation(aid: number, nom: string){
     this.currentUser = this.authService.currentUserValue;
     const newParticipation = new AddParticipant(+this.currentUser.userId, aid);
-    this.advertService.addParticipant(newParticipation).subscribe();
+    this.advertService.addParticipant(newParticipation).subscribe(res => {
+      this.participate_success = true;
+      this.nomAnnonce = nom;
+      setTimeout(() => this.participate_success = false, 6000);
+    });
   }
 
   isProprioAnnonce(aid: number){

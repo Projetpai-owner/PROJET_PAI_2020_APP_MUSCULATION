@@ -41,12 +41,12 @@ export class AdvertViewComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      NomCreaAnnonce: ['', Validators.required],
-      NiveauCreaAnnonce : ['', Validators.required],
-      DescriptionCreaAnnonce: ['', Validators.required],
-      DureeSeanceCreaAnnonce: ['', Validators.required],
-      DateSeanceCreaAnnonce: ['', Validators.required],
-      typeSeanceCreaAnnonce: ['', Validators.required]
+      NomCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      NiveauCreaAnnonce : [{value: '', disabled: true}, Validators.required],
+      DescriptionCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      DureeSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      DateSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      typeSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required]
     });
     this.getAllTypeSeances();
   }

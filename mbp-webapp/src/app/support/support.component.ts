@@ -22,7 +22,11 @@ export class SupportComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private supportService: SupportService,
               private userService: UserService, private authService: AuthService) {
-    authService.currentUser.subscribe(user => { this.initMyUserName(user); });
+    authService.currentUser.subscribe(user => {
+      if(user.userId != null){
+        this.initMyUserName(user);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -37,7 +41,8 @@ export class SupportComponent implements OnInit {
 	}
 
   public initMyUserName(currentUser: CurrentUser) {
-    this.userService.getUser(currentUser.userId).subscribe(user => { this.myUsername = user.username; });
+    this.userService.getUser(currentUser.userId).subscribe(user => {
+      this.myUsername = user.username; });
   }
 
 	onSubmitForm() {

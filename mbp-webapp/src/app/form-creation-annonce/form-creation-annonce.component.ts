@@ -59,19 +59,18 @@ export class FormCreationAnnonceComponent implements OnInit {
     }
 
     const newAdvert = new Advert(
+      +this.currentUser.userId,
       formValue.DescriptionCreaAnnonce,
       formValue.NiveauCreaAnnonce,
       transformTimeIntoNumber(formValue.DureeSeanceCreaAnnonce),
       formValue.NomCreaAnnonce,
       formValue.DateSeanceCreaAnnonce,
-      +formValue.typeSeanceCreaAnnonce,
-      +this.currentUser.userId
-    );
+      +formValue.typeSeanceCreaAnnonce);
     this.errorMessage = '';
     this.advertService.createAdvert(newAdvert).subscribe(res => {
         this.isWait = false;
         const navigationExtras: NavigationExtras = {state: [{data: 'Votre annonce a été créé avec succès'}, {from: 'advert'}]};
-        this.router.navigate(['/'], navigationExtras);
+        this.router.navigate(['/advertListProprio'], navigationExtras);
       },
       (err: HttpErrorResponse) => {
         this.isWait = false;

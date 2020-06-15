@@ -28,7 +28,6 @@ export const routes: Routes = [
   {path: 'myAccount', component: ProfilComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'technicalSupport', component: SupportComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'adminSupport', component: SupportAdminComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
-  {path: 'createAdvert', component: FormCreationAnnonceComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'friendManager', component: FriendManagerComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},

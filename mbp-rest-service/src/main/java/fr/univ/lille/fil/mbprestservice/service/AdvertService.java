@@ -122,7 +122,7 @@ public class AdvertService {
 		for(Advert ad : ads) {
 			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
 			tmp.setAid(ad.getAid());
-			tmp.setDate(formatter.format(ad.getDateSeance()));
+			tmp.setDateSeance(formatter.format(ad.getDateSeance()));
 			tmp.setDescription(ad.getDescription());
 			tmp.setDuree(""+ad.getDureeSeance());
 			tmp.setNom(ad.getNom());

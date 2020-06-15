@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
@@ -19,7 +20,7 @@ public class ListAdvertItemDTO {
 	private String niveau;
 	private String description;
 	private String duree;
-	private String date;
+	private String dateSeance;
 	private String type;
 	private String sexAnnonceur;
 	private String salleAnnonceur;
@@ -28,17 +29,18 @@ public class ListAdvertItemDTO {
 		super();
 	}
 	
-	public ListAdvertItemDTO(int aid, String nomAnnonce,String description, String date, String duree, String typeSeance, String niveau, String sex, String salle){
+	public ListAdvertItemDTO(int aid, String nomAnnonce,String description, Date date, int duree, TypeSeance typeSeance, Niveau niveau, Sexe sex, Salle salle){
 		super();
 		this.aid = aid;
 		this.nom = nomAnnonce;
 		this.description = description;
-		this.date = date.toString();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		this.dateSeance = formatter.format(date);
 		this.duree = duree+"";
-		this.type = typeSeance;
-		this.niveau = niveau;
-		this.sexAnnonceur = sex;
-		this.salleAnnonceur = salle;
+		this.type = typeSeance.getLibelle();
+		this.niveau = niveau.name();
+		this.sexAnnonceur = sex.name();
+		this.salleAnnonceur = salle.getNom();
 	}
 	
 	public int getAid() {
@@ -81,12 +83,12 @@ public class ListAdvertItemDTO {
 		this.duree = duree;
 	}
 	
-	public String getDate() {
-		return date;
+	public String getDateSeance() {
+		return dateSeance;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDateSeance(String date) {
+		this.dateSeance = date;
 	}
 	
 	public String getType() {

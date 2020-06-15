@@ -7,7 +7,7 @@ import { User } from '../models/User.model';
 
 @Injectable()
 export class FriendService {
- 
+
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -26,12 +26,10 @@ export class FriendService {
 	deleteByPid(userId,pid) :Observable<string>{
 		return this.http.delete<string>('http://localhost:8080/deleteFriend/' + userId+'/'+pid,this.httpOptions);
 	}
-   
+
 
 	addFriend(piddeux: number): Observable<string>{
-      console.log(piddeux);
 	 	return this.http.post<string>('http://localhost:8080/addFriend/' + this.authService.currentUserValue.userId, piddeux,this.httpOptions);
-
-    }
+	}
 
 }

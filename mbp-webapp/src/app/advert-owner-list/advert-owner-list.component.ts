@@ -11,6 +11,8 @@ import {Salle} from '../models/Salle.model';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {TypeSeanceService} from '../services/TypeSeance.service';
 import {SalleService} from '../services/Salle.service';
+import {ConfirmAlertService} from "../services/confirm-alert.service";
+import {ClassicAlertService} from "../services/classic-alert.service";
 
 @Component({
   selector: 'app-advert-owner-list',
@@ -33,7 +35,9 @@ export class AdvertOwnerListComponent implements OnInit {
               private salleService: SalleService,
               private router: Router,
               private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private confirmAlertService: ConfirmAlertService,
+              private classicAlertService: ClassicAlertService) { }
 
   ngOnInit(): void {
     this.initAnnonces();
@@ -119,6 +123,27 @@ export class AdvertOwnerListComponent implements OnInit {
     return true;
   }
 
+  public confirmDeleteAdvert(item: AdvertItemList){
+    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment supprimer l'annonce '"+ item.nom+"' ?","Confirmer","Annuler","lg")
+      .then((confirmed) => {if(confirmed){this.deleteAdvertById(item);}else{this.actionAnnule(item);}})
+      .catch(() => this.actionAnnule(item));
+  }
+
+  deleteAdvertById(item: AdvertItemList) {
+    this.advertService.deleteAdvertById(item.aid).subscribe(res => {
+      this.gereRetourDelete(item);
+    });
+  }
+
+  public gereRetourDelete(item: AdvertItemList){
+    this.ngOnInit();
+    this.classicAlertService.alert("Annonce supprimé","L'annonce '"+item.nom+" a été supprimé","OK","sm")
+  }
+
+  public actionAnnule(item: AdvertItemList) {
+    this.classicAlertService.alert("Action annulée", "L'annonce n'a pas été supprimé", "OK", "sm");
+  }
+
   clearForm(): void{
     for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
       this.formFiltre.nativeElement.elements[i].value = '';
@@ -126,19 +151,4 @@ export class AdvertOwnerListComponent implements OnInit {
     this.ItemsArray = this.toutesLesannonces;
   }
 
-  deleteAdvertById(aid: number){
-    this.advertService.deleteAdvertById(aid);
-    this.ngOnInit();
-  }
-
-  addParticipation(aid: number){
-    this.currentUser = this.authService.currentUserValue;
-    const newParticipation = new AddParticipant(+this.currentUser.userId, aid);
-    this.advertService.addParticipant(newParticipation).subscribe();
-  }
-
-  isProprioAnnonce(aid: number){
-    this.currentUser = this.authService.currentUserValue;
-    return this.advertService.isProprietaireAnnonce(+this.currentUser.userId,aid);
-  }
 }
