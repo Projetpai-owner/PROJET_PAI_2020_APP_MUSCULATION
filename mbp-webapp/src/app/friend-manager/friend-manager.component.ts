@@ -18,8 +18,8 @@ export class FriendManagerComponent implements OnInit {
 	friends: Observable<Ami[]>;
 	obsListUser: Observable<User[]>;
 	term:string;
-	
-	
+
+
 	constructor(public userService: UserService, public friendService: FriendService, public authService: AuthService, public classicAlertService: ClassicAlertService) { }
 
 	ngOnInit(): void {
@@ -33,9 +33,7 @@ export class FriendManagerComponent implements OnInit {
 	}
 
 	delete(pid): void {
-		console.log("delete du contact ...")
 		this.friendService.deleteByPid(this.authService.currentUserValue.userId, pid).subscribe(message => {
-			console.log(message)
 			this.ngOnInit();
 		});
 	}
@@ -43,7 +41,6 @@ export class FriendManagerComponent implements OnInit {
 
 	public addFriend(user:User){
 		this.friendService.addFriend(user.pid).subscribe(message =>{
-			console.log(message)
 			this.ngOnInit();
 		});
 	}

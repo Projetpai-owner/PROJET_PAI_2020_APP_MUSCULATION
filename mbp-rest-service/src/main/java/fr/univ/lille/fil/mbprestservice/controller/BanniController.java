@@ -26,7 +26,6 @@ import fr.univ.lille.fil.mbprestservice.service.UserService;
  */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@Secured(value = "ROLE_ADMIN")
 public class BanniController {
 	@Autowired
 	private BanniService banniService;
@@ -42,7 +41,6 @@ public class BanniController {
 	@Transactional
 	@PostMapping("/addBanni")
 	public Banni createBanni(@Valid @RequestBody BannirUserBody bannirUserBody) {
-		System.out.println("AO");
 		Banni banni = this.mapFromDTO(bannirUserBody);
 		// Supprime le user en base
 		this.userService.logoutUserByUsername(banni.getEmail());

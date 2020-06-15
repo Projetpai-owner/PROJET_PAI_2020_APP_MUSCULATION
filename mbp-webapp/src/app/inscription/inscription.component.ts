@@ -21,6 +21,7 @@ export class InscriptionComponent implements OnInit {
 	inscriptionForm: FormGroup;
 	obsSalles: Observable<Salle[]>;
 	IsWait: boolean;
+	toDate = new Date();
 
 	constructor(private formBuilder: FormBuilder,
 		private userService: UserService,
@@ -36,14 +37,14 @@ export class InscriptionComponent implements OnInit {
 
 	initForm() {
 		this.inscriptionForm = this.formBuilder.group({
-			prenom: ['', Validators.required],
-			nom: ['', Validators.required],
+			prenom: ['', [Validators.required, Validators.maxLength(30)]],
+			nom: ['', [Validators.required, Validators.maxLength(25)]],
 			bornDate: ['', Validators.required],
 			sexe: ['', Validators.required],
-			adresse: ['', Validators.required],
+			adresse: ['', [Validators.required, Validators.maxLength(200)]],
 			sid: ['', Validators.required],
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required, Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$")]],
+			email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+			password: ['', [Validators.required, Validators.pattern("^(?=.{7,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"), Validators.maxLength(50)]],
 			confirmpassword: ['', [Validators.required]]
 		}, {
 			validator: this.mustMatch('password', 'confirmpassword')
@@ -88,7 +89,7 @@ export class InscriptionComponent implements OnInit {
 			}
 			this.IsWait = false;
 		});
-		
+
 	}
 
 	mustMatch(controlName: string, matchingControlName: string){

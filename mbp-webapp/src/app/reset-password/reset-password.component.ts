@@ -15,13 +15,15 @@ export class ResetPasswordComponent implements OnInit {
 	resetPasswordForm: FormGroup
 	createTokenForm: FormGroup
 	errorMessage: string;
-	goodToken: boolean
+	goodToken: boolean;
+	isWait: boolean;
+
 	constructor(private formBuilder: FormBuilder, private userService: UserService, private classicAlertService:ClassicAlertService,private routeActive: ActivatedRoute, private hashService: HashService,
 	private router: Router) { }
 
 	ngOnInit(): void {
-		this.containsQueryParameter()
-		this.initForm()
+		this.containsQueryParameter();
+		this.initForm();
 	}
 
 	containsQueryParameter() {
@@ -59,16 +61,19 @@ export class ResetPasswordComponent implements OnInit {
 		if (this.createTokenForm.invalid) {
 			return;
 		}
+		this.isWait = true;
 		const formValue = this.createTokenForm.value;
 		this.userService.createPasswordToken(formValue['email'])
 			.pipe(first())
 			.subscribe(
 				data => {
+				  this.isWait = false;
 					console.log("reset password token crée")
 					this.router.navigate(['/']);
 					this.classicAlertService.alert("Réinitialisation de mot de passe","Vous allez recevoir un mail contenant les instructions pour réinitialiser votre mot de passe","OK","lg")
 				},
 				error => {
+				  this.isWait = false;
 					this.errorMessage=error.error.message
 					console.log("email non valide");
 				});
@@ -79,24 +84,27 @@ export class ResetPasswordComponent implements OnInit {
 		if (this.resetPasswordForm.invalid) {
 			return;
 		}
+		this.isWait = true;
 		const formValue = this.resetPasswordForm.value;
 		const hashedPassword = this.hashService.hashPassword(formValue['password'])
 		this.userService.resetPassword(hashedPassword,this.routeActive.snapshot.queryParams['token'])
 		.pipe(first())
 		.subscribe(
 				data => {
+				  this.isWait = false;
 					console.log("mot de passe changé")
-					this.classicAlertService.alert("Réinitialisation de mot de passe","votre mot de passe a bien été changé","OK","lg")
+					this.classicAlertService.alert("Réinitialisation de mot de passe","Votre mot de passe a bien été changé","OK","lg")
 					this.router.navigate(['/']);
 				},
 				error => {
+				  this.isWait = false;
 					this.classicAlertService.alert("Réinitialisation de mot de passe",error.error.message,"OK","lg")
 					console.log("token expiré ou non valide");
 		});
 
 	}
-	
-	
+
+
 	mustMatch(controlName: string, matchingControlName: string){
 		return (formGroup: FormGroup) => {
 			const control = formGroup.controls[controlName];

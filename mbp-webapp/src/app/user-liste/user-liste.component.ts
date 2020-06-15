@@ -18,6 +18,7 @@ export class UserListeComponent implements OnInit {
 
   obsListUser: Observable<User[]>;
   myUsername: string;
+  term: string;
 
   constructor(private userService: UserService, private banniService: BanniService,private authService:AuthService,private confirmAlertService:  ConfirmAlertService
     ,private classicAlertService: ClassicAlertService) {
@@ -54,7 +55,6 @@ export class UserListeComponent implements OnInit {
   }
   public initMyUserName(currentuser: CurrentUser){
     (this.userService.getUser(currentuser.userId)).subscribe(user => {this.myUsername = user.username});
-    console.log("test" + this.myUsername);
   }
 
 

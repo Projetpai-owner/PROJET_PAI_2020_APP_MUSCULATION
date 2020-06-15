@@ -17,11 +17,16 @@ export class SupportComponent implements OnInit {
 	supportForm: FormGroup;
 	errorMessage: string;
   myUsername: string;
+  isWait: boolean;
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private supportService: SupportService,
               private userService: UserService, private authService: AuthService) {
-    authService.currentUser.subscribe(user => { this.initMyUserName(user); });
+    authService.currentUser.subscribe(user => {
+      if(user.userId != null){
+        this.initMyUserName(user);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -30,20 +35,24 @@ export class SupportComponent implements OnInit {
 
 	initForm() {
 		this.supportForm = this.formBuilder.group({
-			object: ['', Validators.required],
-			description: ['', Validators.required]
+			object: ['', [Validators.required, Validators.maxLength(50)]],
+			description: ['', [Validators.required, Validators.maxLength(500)]]
 		});
 	}
 
   public initMyUserName(currentUser: CurrentUser) {
-    this.userService.getUser(currentUser.userId).subscribe(user => { this.myUsername = user.username; });
+    this.userService.getUser(currentUser.userId).subscribe(user => {
+      this.myUsername = user.username; });
   }
 
 	onSubmitForm() {
 		 if (this.supportForm.invalid) {
             return;
         }
-		 const formValue = this.supportForm.value;
+
+    this.isWait = true;
+
+    const formValue = this.supportForm.value;
 
 		 const ticket = new Support(
 		   this.myUsername,
@@ -53,10 +62,12 @@ export class SupportComponent implements OnInit {
 
 		 this.errorMessage = '';
 		 this.supportService.addTicket(ticket).subscribe(res => {
-				const navigationExtras: NavigationExtras = {state: [{data: 'Votre demande de support est prise en compte'}, {from: 'support'}]};
-				this.router.navigate(['/'], navigationExtras);
+         this.isWait = false;
+         const navigationExtras: NavigationExtras = {state: [{data: 'Votre demande de support est prise en compte'}, {from: 'support'}]};
+         this.router.navigate(['/'], navigationExtras);
 			},
 			(err: HttpErrorResponse) => {
+		    this.isWait = false;
 				this.errorMessage = err.error.message;
 			}
 		);

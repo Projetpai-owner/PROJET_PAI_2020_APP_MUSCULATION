@@ -3,6 +3,7 @@
     <div class="h2 text-center">Liste des tickets de support</div>
   </div>
   <div class="MBP_CORPS_CONTENU">
+    <div *ngIf="(obsListTickets | async)?.length > 0">
     <div class="row ROW_USER" *ngFor="let ticket of obsListTickets | async">
       <div class="col-10 INFO_USER">
         <div class="row">
@@ -28,5 +29,7 @@
         </button>
       </div>
     </div>
+    </div>
+    <p class="text-center text-info" *ngIf="(obsListTickets | async)?.length == 0">Aucun ticket support en cours.</p>
   </div>
 </div>

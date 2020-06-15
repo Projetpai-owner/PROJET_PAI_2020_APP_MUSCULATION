@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -117,13 +118,16 @@ public class AdvertService {
 	public List<ListAdvertItemDTO> findAllAdverts(){
 		List<Advert> ads = advertRepository.findAll();
 		List<ListAdvertItemDTO> res = new ArrayList<>();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		for(Advert ad : ads) {
 			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
 			tmp.setAid(ad.getAid());
-			tmp.setDate(ad.getDateSeance().toString());
+			tmp.setDateSeance(formatter.format(ad.getDateSeance()));
 			tmp.setDescription(ad.getDescription());
 			tmp.setDuree(""+ad.getDureeSeance());
-			tmp.setNomAnnonce(ad.getNom());
+			tmp.setNom(ad.getNom());
+			tmp.setNiveau(ad.getNiveauPratique().name());
+			tmp.setType(ad.getIdSeance().getLibelle());
 			res.add(tmp);
 		}
 		return res;

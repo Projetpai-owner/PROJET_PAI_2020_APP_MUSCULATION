@@ -29,7 +29,12 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button class="btn MBP_BTN_SUBMIT float-right"  type="submit" [disabled]="loginForm.invalid">Valider</button>
+                  <button class="btn MBP_BTN_SUBMIT float-right" *ngIf="!isWait" type="submit" [disabled]="loginForm.invalid">Valider</button>
+                  <div class="float-right" *ngIf="isWait">
+                    <div class="spinner-border MBP_SPINNER" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
                 </div>
             </div>
         </form>

@@ -3,7 +3,7 @@
     <div class="h2 text-center">Consulter une annonce</div>
   </div>
   <div class="MBP_CORPS_CONTENU">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmitForm()">
+    <form [formGroup]="loginForm">
       <div class="row">
         <div class="form-group col">
           <label for="NomCreaAnnonce">Nom</label>
@@ -22,7 +22,7 @@
       <div class="MBP_LINE_1PX"></div>
       <div class="form-group">
         <label for="DescriptionCreaAnnonce">Description</label>
-        <input type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce" formControlName="DescriptionCreaAnnonce" [disabled]="true">
+        <textarea type="txt" id="DescriptionCreaAnnonce" class="form-control"placeholder="Description pour votre annonce" rows="2" formControlName="DescriptionCreaAnnonce" [disabled]="true"></textarea>
       </div>
       <div class="MBP_LINE_1PX"></div>
       <div class="row">
@@ -42,16 +42,37 @@
           <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.idSeance}}">{{typeSeance.libelle}}</option>
         </select>
       </div>
-      <div class="row">
-        <div class="col text-center">
+      <div class="MBP_LINE_1PX"></div>
+      <div class="form-group">
+        <label>Participants</label>
+        <table class="table" *ngIf="ItemsArray.length > 0">
+          <caption></caption>
+          <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Username</th>
+            <th scope="col">Sexe</th>
+            <th scope="col">Salle</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
           <tr *ngFor="let item of ItemsArray">
             <td>{{item.nom}}</td>
             <td>{{item.prenom}}</td>
+            <td>{{item.username}}</td>
+            <td>{{item.sexe}}</td>
+            <td>{{item.sid.nom}}</td>
             <td>
-              <button type="button" (click)="supprimerParticipant(item.pid)" >Supprimer Participant</button>
+              <button mat-mini-fab color="warn" (click)="confirmDeleteParticipant(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
             </td>
           </tr>
-        </div>
+          </tbody>
+        </table>
+        <p class="text-info" *ngIf="ItemsArray.length == 0">Il n'y a pas de participants sur cette annonce</p>
       </div>
     </form>
     <p class="text-danger">{{errorMessage}}</p>

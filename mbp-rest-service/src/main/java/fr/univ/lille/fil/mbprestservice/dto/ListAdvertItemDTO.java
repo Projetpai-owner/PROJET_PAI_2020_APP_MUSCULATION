@@ -1,5 +1,6 @@
 package fr.univ.lille.fil.mbprestservice.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
@@ -15,13 +16,12 @@ import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 public class ListAdvertItemDTO {
 
 	private int aid;
-	private String prenom;
-	private String nomAnnonce;
+	private String nom;
+	private String niveau;
 	private String description;
-	private String date;
 	private String duree;
-	private String typeSeance;
-	private String niveauSeance;
+	private String dateSeance;
+	private String type;
 	private String sexAnnonceur;
 	private String salleAnnonceur;
 	
@@ -29,51 +29,20 @@ public class ListAdvertItemDTO {
 		super();
 	}
 	
-	public ListAdvertItemDTO(int aid, String nomAnnonce,String description, Date date, int duree, TypeSeance typeSeance, Niveau niveau,Sexe sex,Salle salle){
+	public ListAdvertItemDTO(int aid, String nomAnnonce,String description, Date date, int duree, TypeSeance typeSeance, Niveau niveau, Sexe sex, Salle salle){
 		super();
 		this.aid = aid;
-		this.nomAnnonce = nomAnnonce;
+		this.nom = nomAnnonce;
 		this.description = description;
-		this.date = date.toString();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		this.dateSeance = formatter.format(date);
 		this.duree = duree+"";
-		this.typeSeance = typeSeance.getLibelle();
-		this.niveauSeance = niveau.toString();
-		this.sexAnnonceur = sex.toString();
-		this.salleAnnonceur = salle.getSid()+"";
+		this.type = typeSeance.getLibelle();
+		this.niveau = niveau.name();
+		this.sexAnnonceur = sex.name();
+		this.salleAnnonceur = salle.getNom();
 	}
-
-	public String getSexAnnonceur() {
-		return sexAnnonceur;
-	}
-
-	public void setSexAnnonceur(String sexAnnonceur) {
-		this.sexAnnonceur = sexAnnonceur;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	public String getTypeSeance() {
-		return typeSeance;
-	}
-
-	public void setTypeSeance(String typeSeance) {
-		this.typeSeance = typeSeance;
-	}
-
-	public String getNiveauSeance() {
-		return niveauSeance;
-	}
-
-	public void setNiveauSeance(String niveauSeance) {
-		this.niveauSeance = niveauSeance;
-	}
-
+	
 	public int getAid() {
 		return aid;
 	}
@@ -81,15 +50,23 @@ public class ListAdvertItemDTO {
 	public void setAid(int aid) {
 		this.aid = aid;
 	}
-
-	public String getNomAnnonce() {
-		return nomAnnonce;
+	
+	public String getNom() {
+		return nom;
 	}
 
-	public void setNomAnnonce(String nomAnnonce) {
-		this.nomAnnonce = nomAnnonce;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
-
+	
+	public String getNiveau() {
+		return niveau;
+	}
+	
+	public void setNiveau(String niveau) {
+		this.niveau = niveau;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -97,15 +74,7 @@ public class ListAdvertItemDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
+	
 	public String getDuree() {
 		return duree;
 	}
@@ -113,7 +82,31 @@ public class ListAdvertItemDTO {
 	public void setDuree(String duree) {
 		this.duree = duree;
 	}
+	
+	public String getDateSeance() {
+		return dateSeance;
+	}
 
+	public void setDateSeance(String date) {
+		this.dateSeance = date;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getSexAnnonceur() {
+		return sexAnnonceur;
+	}
+
+	public void setSexAnnonceur(String sexAnnonceur) {
+		this.sexAnnonceur = sexAnnonceur;
+	}
+	
 	public String getSalleAnnonceur() {
 		return salleAnnonceur;
 	}

@@ -157,7 +157,6 @@ public class User implements UserDetails{
 
 
 	    authorities.add(new SimpleGrantedAuthority("ROLE_"+role.toString()));
-	    System.out.println(authorities.get(0).getAuthority());
 
 	    return authorities;
 	}

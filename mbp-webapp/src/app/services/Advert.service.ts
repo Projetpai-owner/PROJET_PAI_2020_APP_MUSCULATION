@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Advert } from '../models/Advert.model';
 import {Observable, throwError} from 'rxjs';
-import {TypeSeance} from '../models/TypeSeance.model';
 import {AdvertItemList} from '../models/AdvertItemList.model';
-import {User} from '../models/User.model';
 import { AdvertEntity } from '../models/AdvertEntity.model';
 import {AdvertEdit} from '../models/AdvertEdit.model';
-import {catchError} from 'rxjs/operators';
 import { AddParticipant } from '../models/AddParticipant.model';
 import { ProprietaireAnnonce } from '../models/ProprietaireAnnonce.model';
 import {UserBody} from '../models/UserBody.model';
@@ -31,17 +28,16 @@ export class AdvertService {
     return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllAdvertsItems');
   }
 
+  deleteAdvertById( aid: number): Observable<Advert> {
+    return this.http.delete<Advert>('http://localhost:8080/deleteAdvert/' + aid);
+  }
+
   getAdvertsWhereNotProprietaire(pid: number): Observable<AdvertItemList[]> {
     return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllWhereNotProprietaire/' + pid, this.httpOptions);
   }
 
   getAdvertsWhereProprietaire(pid: number): Observable<AdvertItemList[]> {
     return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllWhereProprietaire/' + pid, this.httpOptions);
-  }
-
-  deleteAdvertById( aid: number): void {
-    this.http.delete('http://localhost:8080/deleteAdvert/' + aid).subscribe((s) => {
-      });
   }
 
   getAdvertById( aid: number): Observable<AdvertEntity>  {
@@ -72,9 +68,8 @@ export class AdvertService {
     return this.http.get<UserBody[]>('http://localhost:8080/getParticipationsForAnnonce/'+aid, this.httpOptions);
   }
 
-  supprimerParticipation(pid: number, aid: number): void {
-    this.http.delete('http://localhost:8080/deleteParticipation/' + aid + '/' + pid).subscribe((s) => {
-    });
+  supprimerParticipation(pid: number, aid: number): Observable<AddParticipant> {
+    return this.http.delete<AddParticipant>('http://localhost:8080/deleteParticipation/' + aid + '/' + pid);
   }
 
 }

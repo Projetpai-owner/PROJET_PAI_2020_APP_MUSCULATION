@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {AdvertService} from '../services/Advert.service';
 import {AdvertItemList} from '../models/AdvertItemList.model';
 import { Router } from '@angular/router';
+import {ConfirmAlertService} from "../services/confirm-alert.service";
+import {ClassicAlertService} from "../services/classic-alert.service";
 import { Observable } from 'rxjs';
 import { TypeSeance } from '../models/TypeSeance.model';
 import { TypeSeanceService } from '../services/TypeSeance.service';
@@ -17,6 +19,7 @@ import {AddParticipant} from '../models/AddParticipant.model';
   templateUrl: './advert-list.component.html',
   styleUrls: ['./advert-list.component.scss']
 })
+
 export class AdvertListComponent implements OnInit {
 
   @ViewChild('formFiltre') formFiltre:ElementRef;
@@ -27,20 +30,19 @@ export class AdvertListComponent implements OnInit {
   filtreAnnonceForm: FormGroup;
   zoneFiltreVisible: boolean;
   currentUser: CurrentUser;
+  participate_success: boolean;
+  nomAnnonce: string;
 
-  constructor(public advertService: AdvertService,
-              private typeSeanceService: TypeSeanceService,
-              private salleService: SalleService,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+  constructor(public advertService: AdvertService, private confirmAlertService: ConfirmAlertService,
+              private classicAlertService: ClassicAlertService, private router: Router,
+              private typeSeanceService: TypeSeanceService, private salleService: SalleService,
+              private formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initAnnonces();
     this.initSelect();
     this.initForm();
     this.initVisibility();
-
   }
 
   initAnnonces(): void{
@@ -83,7 +85,7 @@ export class AdvertListComponent implements OnInit {
 
   filtreAnnonce(advert : any) : boolean{
     const formFiltreValue = this.filtreAnnonceForm.value;
-    if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.date){
+    if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.dateSeance){
       return false;
     }
     if(formFiltreValue['dureeMin'] != ""){
@@ -104,10 +106,10 @@ export class AdvertListComponent implements OnInit {
         return false;
       }
     }
-    if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveauSeance){
+    if(formFiltreValue['niveau'] != "" && formFiltreValue['niveau'] != advert.niveau){
       return false;
     }
-    if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.typeSeance){
+    if(formFiltreValue['typeSeance'] != "" && formFiltreValue['typeSeance'] != advert.type){
       return false;
     }
     if(formFiltreValue['sex'] != "" && formFiltreValue['sex'] != advert.sexAnnonceur){
@@ -127,19 +129,14 @@ export class AdvertListComponent implements OnInit {
     this.ItemsArray = this.toutesLesannonces;
   }
 
-  deleteAdvertById(aid: number){
-    this.advertService.deleteAdvertById(aid);
-    this.router.navigate(['/']);
-  }
-
-  addParticipation(aid: number){
+  addParticipation(aid: number, nom: string){
     this.currentUser = this.authService.currentUserValue;
     const newParticipation = new AddParticipant(+this.currentUser.userId, aid);
-    this.advertService.addParticipant(newParticipation).subscribe();
+    this.advertService.addParticipant(newParticipation).subscribe(res => {
+      this.participate_success = true;
+      this.nomAnnonce = nom;
+      setTimeout(() => this.participate_success = false, 6000);
+    });
   }
 
-  isProprioAnnonce(aid: number){
-    this.currentUser = this.authService.currentUserValue;
-    return this.advertService.isProprietaireAnnonce(+this.currentUser.userId,aid);
-  }
 }

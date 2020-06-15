@@ -9,6 +9,8 @@ import {AdvertService} from '../services/Advert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import {UserBodyPid} from '../models/UserBodyPid.model';
+import {ClassicAlertService} from "../services/classic-alert.service";
+import {ConfirmAlertService} from "../services/confirm-alert.service";
 
 @Component({
   selector: 'app-advert-owner-view',
@@ -25,7 +27,9 @@ export class AdvertOwnerViewComponent implements OnInit {
   preAid: string;
   currentAdvert: AdvertEntity;
 
-  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService,
+              private advertService: AdvertService, private router: Router, private route: ActivatedRoute,
+              private classicAlertService: ClassicAlertService, private confirmAlertService: ConfirmAlertService) { }
 
   ItemsArray = [];
 
@@ -41,12 +45,12 @@ export class AdvertOwnerViewComponent implements OnInit {
 
   initForm() {
     this.loginForm = this.formBuilder.group({
-      NomCreaAnnonce: ['', Validators.required],
-      NiveauCreaAnnonce : ['', Validators.required],
-      DescriptionCreaAnnonce: ['', Validators.required],
-      DureeSeanceCreaAnnonce: ['', Validators.required],
-      DateSeanceCreaAnnonce: ['', Validators.required],
-      typeSeanceCreaAnnonce: ['', Validators.required]
+      NomCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      NiveauCreaAnnonce : [{value: '', disabled: true}, Validators.required],
+      DescriptionCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      DureeSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      DateSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      typeSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required]
     });
     this.getAllTypeSeances();
   }
@@ -102,11 +106,27 @@ export class AdvertOwnerViewComponent implements OnInit {
     );
     this.errorMessage = '';
     this.advertService.updateAdvert(newAdvert).subscribe(response =>{
-      this.router.navigate(['./listAdverts']);});
+      this.router.navigate(['./advertListProprio']);});
   }
 
-  supprimerParticipant(pid: number){
-    this.advertService.supprimerParticipation(pid, +this.preAid);
+  public confirmDeleteParticipant(item: UserBodyPid){
+    this.confirmAlertService.confirm("Confirmez votre action : ","Voulez-vous vraiment supprimer le participant '"+ item.username+"' ?","Confirmer","Annuler","lg")
+      .then((confirmed) => {if(confirmed){this.supprimerParticipant(item);}else{this.actionAnnule(item);}})
+      .catch(() => this.actionAnnule(item));
+  }
+
+  public gereRetourDelete(item: UserBodyPid){
     this.ngOnInit();
+    this.classicAlertService.alert("Annonce supprimé","Le participant '"+item.username+" a été supprimé","OK","sm")
+  }
+
+  public actionAnnule(item: UserBodyPid) {
+    this.classicAlertService.alert("Action annulée", "Le participant n'a pas été supprimé", "OK", "sm");
+  }
+
+  supprimerParticipant(item: UserBodyPid){
+    this.advertService.supprimerParticipation(item.pid, +this.preAid).subscribe(res => {
+      this.gereRetourDelete(item);
+    });
   }
 }

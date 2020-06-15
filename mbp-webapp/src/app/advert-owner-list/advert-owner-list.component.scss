@@ -1,1 +1,36 @@
-//not empty
+.MBP_CORPS {
+  background-image: url('../../assets/img/photo_accueil/page-background-5.jpg');
+  width: 100%;
+  height: 130vh;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.MBP_CORPS_CONTENU {
+  background-color: white;
+  height: 90%;
+  margin : 0% 10vw 0% 10vw;
+  width: 80vw;
+}
+
+@media screen and (max-height: 600px) {
+  .h2 {
+    font-size: 3vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .h2 {
+    font-size: 5vw;
+  }
+}
+
+.MBP_CORPS_TITRE {
+  background-color: white;
+  height: 10vh;
+  margin : 0% 10vw 0% 10vw;
+  width: 80vw;
+}
