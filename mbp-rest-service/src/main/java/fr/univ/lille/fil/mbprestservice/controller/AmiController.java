@@ -45,7 +45,6 @@ public class AmiController {
 	 */
 	@PostMapping("/addFriend/{pidun}")
 	public ResponseEntity<String> addAmi(@PathVariable(value="pidun")int pidun,@RequestBody int piddeux){
-		System.out.println("COUCOU");
 		amiService.addAmi(pidun,piddeux);
 		return new ResponseEntity<>("{ \"message\": \"friend added successfully\" }", HttpStatus.OK);
 
@@ -59,7 +58,6 @@ public class AmiController {
 	 */
 	@DeleteMapping("/deleteFriend/{userId}/{pid}")
 	public ResponseEntity<String> deleteFriend(@PathVariable("userId") int userId ,@PathVariable("pid") int pid) {
-		System.out.println(pid);
 		this.amiService.delete(userId,pid);
 		
 		return new ResponseEntity<>("{ \"message\": \"Deleted friend with success\" }", HttpStatus.OK);

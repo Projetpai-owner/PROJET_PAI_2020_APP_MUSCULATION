@@ -41,7 +41,6 @@ public class BanniController {
 	@Transactional
 	@PostMapping("/addBanni")
 	public Banni createBanni(@Valid @RequestBody BannirUserBody bannirUserBody) {
-		System.out.println("AO");
 		Banni banni = this.mapFromDTO(bannirUserBody);
 		// Supprime le user en base
 		this.userService.logoutUserByUsername(banni.getEmail());
