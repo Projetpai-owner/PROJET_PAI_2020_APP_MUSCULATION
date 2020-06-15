@@ -9,7 +9,6 @@ import {AdvertService} from '../services/Advert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import {UserBodyPid} from '../models/UserBodyPid.model';
-import {AdvertItemList} from "../models/AdvertItemList.model";
 import {ClassicAlertService} from "../services/classic-alert.service";
 import {ConfirmAlertService} from "../services/confirm-alert.service";
 

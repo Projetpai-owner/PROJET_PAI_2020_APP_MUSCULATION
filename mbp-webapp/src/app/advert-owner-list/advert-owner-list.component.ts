@@ -4,7 +4,6 @@ import {AdvertService} from '../services/Advert.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {AdvertItemList} from '../models/AdvertItemList.model';
-import {AddParticipant} from '../models/AddParticipant.model';
 import {Observable} from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
 import {Salle} from '../models/Salle.model';
@@ -75,15 +74,6 @@ export class AdvertOwnerListComponent implements OnInit {
     this.zoneFiltreVisible = false;
   }
 
-  showZoneFiltre(): void{
-    this.zoneFiltreVisible = !this.zoneFiltreVisible;
-  }
-
-  submitForm(): void{
-    this.ItemsArray = this.toutesLesannonces;
-    this.ItemsArray = this.ItemsArray.filter(annonce => this.filtreAnnonce(annonce));
-  }
-
   filtreAnnonce(advert : any) : boolean{
     const formFiltreValue = this.filtreAnnonceForm.value;
     if(formFiltreValue['date'] != "" && formFiltreValue['date'] != advert.date){
@@ -142,13 +132,6 @@ export class AdvertOwnerListComponent implements OnInit {
 
   public actionAnnule(item: AdvertItemList) {
     this.classicAlertService.alert("Action annulée", "L'annonce n'a pas été supprimé", "OK", "sm");
-  }
-
-  clearForm(): void{
-    for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
-      this.formFiltre.nativeElement.elements[i].value = '';
-    }
-    this.ItemsArray = this.toutesLesannonces;
   }
 
 }

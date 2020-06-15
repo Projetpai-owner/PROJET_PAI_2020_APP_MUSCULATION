@@ -1,9 +1,13 @@
 .MBP_CORPS_TITRE{
+    background-color: white;
+    height: 10vh;
     margin : 0% 10vw 0% 10vw;
     width: 80vw;
 }
 
 .MBP_CORPS_CONTENU{
+    background-color: white;
+    height: 90%;
     margin : 0% 10vw 0% 10vw;
     width: 80vw;
 }
@@ -32,11 +36,6 @@
   overflow: hidden;
 }
 
-.MBP_CORPS_CONTENU {
-  background-color: white;
-  height: 90%;
-}
-
 @media screen and (max-height: 600px) {
   .h2 {
     font-size: 3vh;
@@ -49,9 +48,5 @@
   }
 }
 
-.MBP_CORPS_TITRE {
-  background-color: white;
-  height: 10vh;
-}
 
 

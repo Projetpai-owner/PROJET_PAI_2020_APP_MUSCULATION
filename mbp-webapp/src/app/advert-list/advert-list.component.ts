@@ -139,8 +139,4 @@ export class AdvertListComponent implements OnInit {
     });
   }
 
-  isProprioAnnonce(aid: number){
-    this.currentUser = this.authService.currentUserValue;
-    return this.advertService.isProprietaireAnnonce(+this.currentUser.userId,aid);
-  }
 }
