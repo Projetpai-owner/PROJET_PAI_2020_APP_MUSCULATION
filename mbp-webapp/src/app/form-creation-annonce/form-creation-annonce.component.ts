@@ -68,7 +68,6 @@ export class FormCreationAnnonceComponent implements OnInit {
       +this.currentUser.userId
     );
     this.errorMessage = '';
-    console.log(newAdvert);
     this.advertService.createAdvert(newAdvert).subscribe(res => {
         this.isWait = false;
         this.router.navigate(['/']);

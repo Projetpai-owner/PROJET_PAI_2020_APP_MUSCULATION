@@ -101,7 +101,6 @@ export class AdvertListComponent implements OnInit {
       var mine = parseInt(duremax.substring(3,5));
       duremax = heure*60 + mine;
       if(duremax < parseInt(advert.duree)){
-        console.log("3");
         return false;
       }
     }

@@ -41,7 +41,6 @@ export class AdvertService {
 
   deleteAdvertById( aid: number): void {
     this.http.delete('http://localhost:8080/deleteAdvert/' + aid).subscribe((s) => {
-        console.log(s);
       });
   }
 
@@ -54,8 +53,6 @@ export class AdvertService {
   }
 
   addParticipant(body: AddParticipant): Observable<AddParticipant> {
-    console.log(body.aid);
-    console.log(body.uid);
     return this.http.post<AddParticipant>('http://localhost:8080/addParticipant', body, this.httpOptions);
   }
 
@@ -72,13 +69,11 @@ export class AdvertService {
   }
 
   getParticipationsByAid(aid: number): Observable<UserBody[]> {
-    console.log(aid);
     return this.http.get<UserBody[]>('http://localhost:8080/getParticipationsForAnnonce/'+aid, this.httpOptions);
   }
 
   supprimerParticipation(pid: number, aid: number): void {
     this.http.delete('http://localhost:8080/deleteParticipation/' + aid + '/' + pid).subscribe((s) => {
-      console.log(s);
     });
   }
 

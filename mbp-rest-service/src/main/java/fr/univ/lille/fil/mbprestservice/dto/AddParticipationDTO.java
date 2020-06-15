@@ -10,6 +10,10 @@ public class AddParticipationDTO {
 	private int uid;
 	private int aid;
 	
+	public AddParticipationDTO() {
+		
+	}
+	
 	public AddParticipationDTO(int uid, int aid) {
 		this.uid = uid;
 		this.aid = aid;

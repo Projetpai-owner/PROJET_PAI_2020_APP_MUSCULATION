@@ -8,7 +8,6 @@ import {TypeSeanceService} from '../services/TypeSeance.service';
 import {AdvertService} from '../services/Advert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertEdit} from '../models/AdvertEdit.model';
-import {User} from '../models/User.model';
 import {UserBody} from '../models/UserBody.model';
 
 @Component({
@@ -38,7 +37,6 @@ export class AdvertViewComponent implements OnInit {
       this.ItemsArray = res;
     }
     );
-    console.log(this.ItemsArray);
   }
 
   initForm() {
