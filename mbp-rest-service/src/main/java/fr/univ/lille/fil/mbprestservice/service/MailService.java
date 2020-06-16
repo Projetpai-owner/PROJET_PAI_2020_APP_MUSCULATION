@@ -9,6 +9,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
+import fr.univ.lille.fil.mbprestservice.exceptions.EmailSendingException;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -21,7 +23,9 @@ public class MailService implements Runnable{
 	
 	private String username = "projetpai2020fa@gmail.com";
 	private String password = "paifa2020";
-	private String destination,object,msg;
+	private String destination;
+	private String object;
+	private String msg;
 	
 	
 	public MailService (String destination, String object, String msg) {
@@ -56,7 +60,7 @@ public class MailService implements Runnable{
 			Transport.send(message);
 			
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);			
+			throw new EmailSendingException();			
 		}
 		
 	}

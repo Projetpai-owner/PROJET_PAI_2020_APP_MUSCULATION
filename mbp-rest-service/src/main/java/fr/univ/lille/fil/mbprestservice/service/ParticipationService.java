@@ -32,7 +32,6 @@ public class ParticipationService {
 		List<Participe> tmp = this.repo.findAllByIdUser(uid);
 		List<Integer> tmp2 = new ArrayList<>();
 		for(Participe p : tmp) {
-			System.out.println(p.getIdAnnonce());
 			tmp2.add(p.getIdAnnonce());
 		}
 		return tmp2;

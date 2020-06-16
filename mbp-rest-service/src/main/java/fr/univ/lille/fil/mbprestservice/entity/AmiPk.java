@@ -17,7 +17,7 @@ public class AmiPk implements Serializable{
 	private int piddeux;
 	
 	public AmiPk() {
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public AmiPk(int pidun, int piddeux) {
@@ -28,14 +28,12 @@ public class AmiPk implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
 		return ((AmiPk)obj).pidun==this.pidun&&((AmiPk)obj).piddeux==this.piddeux;
 	}
 
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
 		return super.hashCode();
 	}
 	

@@ -10,7 +10,7 @@ public class AuthenticationRequest {
 	private String password;
 	
 	public AuthenticationRequest() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public AuthenticationRequest(String username, String password) {
