@@ -2,7 +2,7 @@
 ------------------------------------
 	Cloud 83 - Hosting Template
 	Version: 1.0
- ------------------------------------ 
+ ------------------------------------
  ====================================*/
 
 
@@ -13,7 +13,7 @@ $(window).on('load', function() {
 	/*------------------
 		Preloder
 	--------------------*/
-	$(".loader").fadeOut(); 
+	$(".loader").fadeOut();
 	$("#preloder").delay(400).fadeOut("slow");
 
 });
@@ -52,7 +52,7 @@ $(window).on('load', function() {
 		autoplay: true
 	});
 
-	var dot = $('.hero-slider .owl-dot');
+	dot = $('.hero-slider .owl-dot');
 	dot.each(function() {
 		var index = $(this).index() + 1;
 		if(index < 10){
@@ -66,17 +66,17 @@ $(window).on('load', function() {
 
 
 	/*------------------
-		Video Popup 
+		Video Popup
 	--------------------*/
 	$('.video-popup').magnificPopup({
   		type: 'iframe'
 	});
 
-	
+
 
 
 	/*------------------
-		Testimonials 
+		Testimonials
 	--------------------*/
 	$('.testimonials-slider').owlCarousel({
 		loop: true,
@@ -101,7 +101,7 @@ $(window).on('load', function() {
 
 
 
-	
+
 	/*------------------
 		Accordions
 	--------------------*/

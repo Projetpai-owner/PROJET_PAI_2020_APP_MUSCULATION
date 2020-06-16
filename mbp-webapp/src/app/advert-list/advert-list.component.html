@@ -100,7 +100,7 @@
           <td>{{item.dateSeance}}</td>
           <td>{{item.duree * 60000 | date: 'H:mm':'UTC'}}</td>
           <td>
-            <button mat-mini-fab color="accent" (click)="addParticipation(item.aid, item.nom)">
+            <button *ngIf="!this.aidList.includes(item.aid)" mat-mini-fab color="accent" (click)="addParticipation(item.aid, item.nom)">
           		<mat-icon>group_add</mat-icon>
        		  </button>
         	  <button mat-mini-fab color="primary" routerLink="/viewAnnonce/{{item.aid}}">

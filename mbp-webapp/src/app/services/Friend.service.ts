@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Ami } from '../models/Ami.model';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { User } from '../models/User.model';
 
 @Injectable()
 export class FriendService {

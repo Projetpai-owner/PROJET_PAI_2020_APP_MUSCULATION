@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.univ.lille.fil.mbprestservice.dto.AddParticipationDTO;
+import fr.univ.lille.fil.mbprestservice.entity.Advert;
 import fr.univ.lille.fil.mbprestservice.entity.User;
+import fr.univ.lille.fil.mbprestservice.service.AdvertService;
 import fr.univ.lille.fil.mbprestservice.service.ParticipationService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;
 
@@ -34,6 +36,9 @@ public class ParticipationController {
 	
 	@Autowired
 	public UserService uService;
+	
+	@Autowired
+	public AdvertService aService;
 	
 	/**
 	 * Requête permettant d'ajouter un participant
@@ -59,6 +64,16 @@ public class ParticipationController {
 			usersFound.add(uService.findUserById(""+a));
 		}
 		return usersFound;
+	}
+	
+	@GetMapping("/getParticipationsForUser/{uid}")
+	public List<Advert> getParticipationsForUser(@PathVariable(value="uid") int uid){
+		List<Integer> advertToFind = pService.findAdvertByParticipation(uid);
+		List<Advert> advertsFound = new ArrayList<>();
+		for(Integer a : advertToFind) {
+			advertsFound.add(aService.findByAid(a));
+		}
+		return advertsFound;
 	}
 	
 	/**
