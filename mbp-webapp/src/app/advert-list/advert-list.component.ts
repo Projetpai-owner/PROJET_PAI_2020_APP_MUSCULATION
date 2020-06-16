@@ -13,7 +13,6 @@ import { FormGroup, FormBuilder,FormControl} from '@angular/forms';
 import {CurrentUser} from '../models/CurrentUser.model';
 import {AuthService} from '../services/auth.service';
 import {AddParticipant} from '../models/AddParticipant.model';
-import {Advert} from "../models/Advert.model";
 
 @Component({
   selector: 'app-advert-list',
