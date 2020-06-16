@@ -28,7 +28,6 @@ import fr.univ.lille.fil.mbprestservice.service.UserService;
  *
  */
 @RestController
-@Secured(value = "ROLE_USER")
 public class ParticipationController {
 	
 	@Autowired

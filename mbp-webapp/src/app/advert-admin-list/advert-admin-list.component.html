@@ -1,0 +1,115 @@
+<div class="MBP_CORPS">
+  <div class="MBP_CORPS_TITRE">
+    <div class="h2 text-center">Liste des annonces</div>
+  </div>
+  <div class="MBP_CORPS_CONTENU">
+    <div class="FILTRE_ANNONCE">
+      <div class="EN_TETE_FILTRE_ANNONCE">
+        <div class="row" style="margin-left: 1%">
+          <div class="h5 font-weight-bold">Filtrer les annonces </div>
+          <button mat-icon-button color="warn" (click)="showZoneFiltre()">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="ZONE_FILTRE_ANNONCE" >
+        <form #formFiltre *ngIf="zoneFiltreVisible" [formGroup]="filtreAnnonceForm" (ngSubmit)="submitForm();" id="form-filtre-annonce" name="form-filtre-annonce">
+          <div class="row form-group">
+            <div class="col">
+              <label for="input-date">date : </label>
+              <input type="date" name="date" formControlName="date" id="input-date" class="form-control">
+            </div>
+            <div class="col">
+              <label for="input-duree-min">durée minimum : </label>
+              <input type="time" name="dureeMin" formControlName="dureeMin" id="input-duree-min" class="form-control">
+            </div>
+            <div class="col">
+              <label for="input-duree-max">durée maximum : </label>
+              <input type="time" name="dureeMax" formControlName="dureeMax" id="input-duree-max" class="form-control">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label for="select-niveau">niveau : </label>
+              <select name="niveau" formControlName="niveau" id="select-niveau" class="form-control">
+                <option value=""></option>
+                <option value="DEBUTANT">Débutant</option>
+                <option value="AMATEUR">Amateur</option>
+                <option value="AVANCE">Avancé</option>
+                <option value="PROFESSIONEL">Professionnel</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="select-type-seance">Type de séance : </label>
+              <select name="typeSeance" formControlName="typeSeance" id="select-type-seance" class="form-control">
+                <option value=""></option>
+                <option *ngFor="let typeSeance of obsTypeSeance | async" value="{{typeSeance.libelle}}">{{typeSeance.libelle}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col">
+              <label for="select-salle">Salle de sport : </label>
+              <select name="salle" formControlName="salle" id="select-salle" class="form-control">
+                <option value=""></option>
+                <option *ngFor="let salle of obsSalles | async" value="{{salle.nom}}">{{salle.nom}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="select-sex">Partenaire : </label>
+              <select name="sex" formControlName="sex" id="select-sex" class="form-control">
+                <option value=""></option>
+                <option value="H">HOMME</option>
+                <option value="F">FEMME</option>
+                <option value="NC">Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-3">
+              <button class="btn MBP_BTN_SUBMIT" type="submit">Appliquer les filtres</button>
+            </div>
+            <div class="col-3">
+              <button class="btn MBP_BTN_SUBMIT" type="button" (click)="clearForm()">Réinitialiser les filtres</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <table class="table" *ngIf="ItemsArray.length > 0">
+      <caption></caption>
+      <thead>
+      <tr>
+        <th scope="col">Nom de l'annonce</th>
+        <th scope="col">Salle</th>
+        <th scope="col">Partenaire</th>
+        <th scope="col">Niveau</th>
+        <th scope="col">Type</th>
+        <th scope="col">Date</th>
+        <th scope="col">Durée</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of ItemsArray">
+        <td>{{item.nom}}</td>
+        <td>{{item.salleAnnonceur}}</td>
+        <td>{{item.sexAnnonceur}}</td>
+        <td>{{item.niveau}}</td>
+        <td>{{item.type}}</td>
+        <td>{{item.dateSeance}}</td>
+        <td>{{item.duree * 60000 | date: 'H:mm':'UTC'}}</td>
+        <td>
+          <button mat-mini-fab color="primary" routerLink="/viewAnnonce/{{item.aid}}">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" (click)="confirmDeleteAdvert(item)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="text-info text-center" *ngIf="ItemsArray.length == 0">Il n'y a aucune annonce à afficher.</p>
+  </div>
+</div>

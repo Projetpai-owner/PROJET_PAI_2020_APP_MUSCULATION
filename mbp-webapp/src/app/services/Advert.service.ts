@@ -7,6 +7,7 @@ import { AdvertEntity } from '../models/AdvertEntity.model';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import { AddParticipant } from '../models/AddParticipant.model';
 import {UserBody} from '../models/UserBody.model';
+import {ProprietaireAnnonce} from "../models/ProprietaireAnnonce.model";
 
 @Injectable()
 export class AdvertService {
@@ -18,6 +19,10 @@ export class AdvertService {
   };
 
   constructor(private http: HttpClient) { }
+
+  getAdverts(): Observable<AdvertItemList[]> {
+    return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllAdvertsItems');
+  }
 
   createAdvert(advert: Advert): Observable<Advert> {
     return this.http.post<Advert>('http://localhost:8080/createAdvert', advert, this.httpOptions);
@@ -37,6 +42,10 @@ export class AdvertService {
 
   getAdvertById( aid: number): Observable<AdvertEntity>  {
     return this.http.get<AdvertEntity>('http://localhost:8080/getAdvertById/' + aid );
+  }
+
+  getProprietaireByAid(aid: number): Observable<ProprietaireAnnonce> {
+    return this.http.get<ProprietaireAnnonce>('http://localhost:8080/getProprioByAid/' + aid, this.httpOptions);
   }
 
   updateAdvert(advert: AdvertEdit): Observable<AdvertEdit> {

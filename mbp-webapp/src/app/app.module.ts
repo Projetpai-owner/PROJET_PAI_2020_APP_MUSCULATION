@@ -43,6 +43,7 @@ import { AdvertOwnerViewComponent } from './advert-owner-view/advert-owner-view.
 import {SupportComponent} from './support/support.component';
 import {SupportAdminComponent} from './support-admin/support-admin.component';
 import {SupportService} from './services/SupportUser.service';
+import { AdvertAdminListComponent } from './advert-admin-list/advert-admin-list.component';
 
 @NgModule({
 	declarations: [
@@ -70,7 +71,8 @@ import {SupportService} from './services/SupportUser.service';
 		AdvertOwnerListComponent,
 		AdvertOwnerViewComponent,
     SupportComponent,
-    SupportAdminComponent
+    SupportAdminComponent,
+    AdvertAdminListComponent
 	],
 	imports: [
 		BrowserModule,

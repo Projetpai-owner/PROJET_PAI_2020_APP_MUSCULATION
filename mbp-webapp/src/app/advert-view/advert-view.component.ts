@@ -9,6 +9,8 @@ import {AdvertService} from '../services/Advert.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import {UserBody} from '../models/UserBody.model';
+import {UserService} from "../services/User.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-advert-view',
@@ -24,24 +26,39 @@ export class AdvertViewComponent implements OnInit {
   currentUser: CurrentUser;
   preAid: string;
   currentAdvert: AdvertEntity;
+  proprioId: string;
+  proprioUsername: string;
 
-  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService, private advertService: AdvertService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private typeSeanceService: TypeSeanceService,
+              private advertService: AdvertService, private router: Router,
+              private userService: UserService, private authService: AuthService, private route: ActivatedRoute) { }
 
   ItemsArray = [];
 
   ngOnInit(): void {
     this.preAid = this.router.url.split('/').pop();
-    this.initForm();
-    this.getAdvertInfos();
     this.advertService.getParticipationsByAid(+this.preAid).subscribe((res: UserBody[]) => {
       this.ItemsArray = res;
-    }
-    );
+    });
+    this.initProprio();
+    this.initForm();
+    this.getAdvertInfos();
+  }
+
+  initProprio(){
+    this.advertService.getProprietaireByAid(+this.preAid).subscribe(res => {
+      this.proprioId = res.pidProprietaire.toString();
+      this.userService.getUser(this.proprioId).subscribe(res2 => {
+        this.proprioUsername = res2.username;
+        this.loginForm.controls['UsernameAnnonce'].setValue(this.proprioUsername);
+      })
+    });
   }
 
   initForm() {
     this.loginForm = this.formBuilder.group({
       NomCreaAnnonce: [{value: '', disabled: true}, Validators.required],
+      UsernameAnnonce: [{value: '', disabled: true}, Validators.required],
       NiveauCreaAnnonce : [{value: '', disabled: true}, Validators.required],
       DescriptionCreaAnnonce: [{value: '', disabled: true}, Validators.required],
       DureeSeanceCreaAnnonce: [{value: '', disabled: true}, Validators.required],
