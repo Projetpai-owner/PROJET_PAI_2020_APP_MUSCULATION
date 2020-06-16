@@ -2,6 +2,7 @@ package fr.univ.lille.fil.mbprestservice.entity.composite;
 
 /**
  * Clé composite qui définie l'id d'une propriété d'annonce
+ * @author Théo
  */
 import java.io.Serializable;
 

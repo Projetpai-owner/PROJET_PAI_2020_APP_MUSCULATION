@@ -10,6 +10,10 @@
           <input type="text" id="NomCreaAnnonce" class="form-control" placeholder="Nom de votre annonce" formControlName="NomCreaAnnonce" [disabled]="true">
         </div>
         <div class="form-group col">
+          <label for="UsernameAnnonce">Créateur</label>
+          <input type="text" id="UsernameAnnonce" class="form-control" formControlName="UsernameAnnonce" [disabled]="true">
+        </div>
+        <div class="form-group col">
           <label for="NiveauCreaAnnonce">Niveau pratiquant</label>
           <select id="NiveauCreaAnnonce" class="form-control form-control-sm" formControlName="NiveauCreaAnnonce" [disabled]="true">
             <option value="DEBUTANT">Débutant</option>

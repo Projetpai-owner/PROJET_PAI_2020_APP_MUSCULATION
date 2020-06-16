@@ -17,6 +17,7 @@ import { MessageGeneralComponent } from './message-general/message-general.compo
 import {AdvertViewComponent} from './advert-view/advert-view.component';
 import {AdvertOwnerListComponent} from './advert-owner-list/advert-owner-list.component';
 import {AdvertOwnerViewComponent} from './advert-owner-view/advert-owner-view.component';
+import {AdvertAdminListComponent} from './advert-admin-list/advert-admin-list.component';
 
 export const routes: Routes = [
   {path: '', component: AcceuilComponent},
@@ -29,10 +30,11 @@ export const routes: Routes = [
   {path: 'technicalSupport', component: SupportComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'adminSupport', component: SupportAdminComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
   {path: 'listAdverts', component: AdvertListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'listAdvertsAdmin', component: AdvertAdminListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
   {path: 'editAdvert/:id', component: EditAdvertComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'friendManager', component: FriendManagerComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'messageGeneral', component: MessageGeneralComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_ADMIN'}},
-  {path: 'viewAnnonce/:id', component: AdvertViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
+  {path: 'viewAnnonce/:id', component: AdvertViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_BOTH'}},
   {path: 'viewAnnonceProprio/:id', component: AdvertOwnerViewComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}},
   {path: 'advertListProprio', component: AdvertOwnerListComponent, canActivate: [AuthGuard], data: {expectedRole: 'ROLE_USER'}}
 ];

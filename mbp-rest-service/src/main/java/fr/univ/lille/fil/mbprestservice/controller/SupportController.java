@@ -18,6 +18,11 @@ import fr.univ.lille.fil.mbprestservice.requestbody.SupportBody;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SupportService;
 
+/**
+ * Classe permettant d'intéragir avec le système de support technique de l'application
+ * @author Rem
+ *
+ */
 @CrossOrigin
 @RestController
 public class SupportController {
@@ -25,6 +30,11 @@ public class SupportController {
 	@Autowired
 	private SupportService supportService;
 
+	/**
+	 * Reuqête permettant de créer un ticket de support technique
+	 * @param supportBody
+	 * @return L'objet support créé
+	 */
 	@PostMapping("/createTicket")
 	public Support createTicket(@Valid @RequestBody SupportBody supportBody) {
 		Support support = this.mapFromDto(supportBody);
@@ -32,11 +42,19 @@ public class SupportController {
 		return supportService.createTicket(support);
 	}
 
+	/**
+	 * Requête permettant de récupérer tous les tickets de support en base
+	 * @return la liste des tickets de support
+	 */
 	@GetMapping("/getAllTickets")
 	public List<Support> getAllTickets(){
 		return supportService.getAllTickets();
 	}
 
+	/**
+	 * Requête permettant de supprimer un ticket de support dont l'id est donnée en paramètre
+	 * @param suid
+	 */
 	@DeleteMapping("/deleteTicket/{suid}")
 	public void deleteTicket (@PathVariable("suid") int suid) {
 		Support support = supportService.getTicketById(suid);
@@ -49,6 +67,11 @@ public class SupportController {
 		
 	}
 
+	/**
+	 * Méthode permettant de mapper l'entité support à partir d'un model objet SupportBody
+	 * @param supportBody
+	 * @return L'entité objet Support créé
+	 */
 	private Support mapFromDto(SupportBody supportBody) {
 		Support support = new Support();
 		support.setUsername(supportBody.getUsername());
@@ -57,6 +80,12 @@ public class SupportController {
 		return support;
 	}
 	
+	/**
+	 * Méthode permettant d'envoyer un mail à l'utilisateur l'informant de la suppression d'un ticket de support
+	 * @param username
+	 * @param object
+	 * @param message
+	 */
 	private void sendMail(String username, String object, String message) {
 		new Thread(new MailService(username, object, message)).start();
 	}

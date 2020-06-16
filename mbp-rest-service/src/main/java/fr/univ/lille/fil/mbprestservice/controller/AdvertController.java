@@ -32,7 +32,6 @@ import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
  *
  */
 @RestController
-@Secured(value = "ROLE_USER")
 public class AdvertController {
 
 	@Autowired

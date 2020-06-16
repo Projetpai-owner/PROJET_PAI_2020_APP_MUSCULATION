@@ -23,12 +23,12 @@ export class UserService {
 	    return this.http.post<string>('http://localhost:8080/createPasswordToken/'+email, this.httpOptions);
 
 	}
-	
+
 	isValidPasswordToken(token:string):Observable<string> {
 	    return this.http.get<string>('http://localhost:8080/isValidPasswordToken/'+token, this.httpOptions);
 
 	}
-	
+
 	resetPassword(password:string,token:string):Observable<string> {
 		return this.http.put<string>('http://localhost:8080/resetPasswordWithToken/'+token, {password},this.httpOptions);
 
@@ -48,7 +48,7 @@ export class UserService {
     cancelUserAccount(username: string): Observable<User> {
         return this.http.delete<User>('http://localhost:8080/cancelUserAccount' + '?username=' + username);
     }
-	
+
 	getAllUsersExceptFriendsAndMe(pid): Observable<User[]>{
 		return this.http.get<User[]>('http://localhost:8080/getAllUsersExceptFriendsAndMe/'+pid);
 	}

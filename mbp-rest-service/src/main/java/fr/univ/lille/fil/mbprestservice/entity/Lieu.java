@@ -6,6 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entité qui permet de représenter un lieu
+ * le lieu est utilisé pour définir l'adresse d'une salle de sport
+ * @author Rem
+ *
+ */
 @Entity
 @Table(name = "lieu")
 public class Lieu {

@@ -104,7 +104,12 @@ public class JwtUtil {
 				.signWith(SignatureAlgorithm.HS256, SECRETKEY).compact();
 	}
 
-	
+	/**
+	 * Valide un tocket grâce au détail de l'user
+	 * @param token
+	 * @param userDetails
+	 * @return
+	 */
 	public boolean validateToken(String token,UserDetails userDetails) {
 		final String username=extractUsername(token);
 		return (username.equals(userDetails.getUsername())&&!isTokenExpired(token));

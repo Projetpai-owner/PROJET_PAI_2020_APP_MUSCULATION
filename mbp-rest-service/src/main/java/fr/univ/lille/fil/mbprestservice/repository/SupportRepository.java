@@ -7,6 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import fr.univ.lille.fil.mbprestservice.entity.Support;
 
+/**
+ * Classe représentant un repository permettant de récupérer les tickets de support et
+ * de les supprimer 
+ * @author Rem
+ *
+ */
 public interface SupportRepository extends JpaRepository<Support, Integer>{
 	
 	@Modifying(clearAutomatically=true)

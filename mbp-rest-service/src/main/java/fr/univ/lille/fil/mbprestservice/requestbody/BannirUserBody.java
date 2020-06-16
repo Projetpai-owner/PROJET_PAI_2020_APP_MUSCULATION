@@ -1,7 +1,7 @@
 package fr.univ.lille.fil.mbprestservice.requestbody;
 /**
  * Objet représentant un banni envoyé par la WebApp 
- *
+ *	@author Clément
  */
 public class BannirUserBody {
 	private String email;

@@ -16,7 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 /**
  * Service pour l'envoie des email.
- * 
+ * @author Clément
  *
  */
 public class MailService implements Runnable{
