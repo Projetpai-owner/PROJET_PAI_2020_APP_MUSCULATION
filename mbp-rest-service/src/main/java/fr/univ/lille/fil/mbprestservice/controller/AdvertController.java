@@ -163,20 +163,4 @@ public class AdvertController {
 		return adv;
 	}
 	
-	/**
-	 * Méthode permettant de transformer une objet de type annonce en objet de type CreateAdvertBody
-	 * @param body
-	 * @return l'annonce converite au format CreateAdvertBody
-	 */
-	private CreateAdvertBody mapToDto(Advert body) {
-		CreateAdvertBody adv = new CreateAdvertBody();
-		adv.setDescription(body.getDescription());
-		adv.setDateSeance(body.getDateSeance());
-		adv.setDureeSeance(body.getDureeSeance());
-		adv.setNom(body.getNom());
-		adv.setNiveauPratique(body.getNiveauPratique());
-		adv.setIdSeance(body.getIdSeance().getIdSeance());
-		return adv;
-	}
-	
 }

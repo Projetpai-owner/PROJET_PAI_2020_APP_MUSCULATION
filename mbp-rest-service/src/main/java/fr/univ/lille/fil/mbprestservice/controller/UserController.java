@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
-import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.entity.Salle;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.entity.UserPasswordReset;
@@ -31,7 +30,6 @@ import fr.univ.lille.fil.mbprestservice.exceptions.NoAccountFoundException;
 import fr.univ.lille.fil.mbprestservice.requestbody.AuthenticationRequest;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateUserBody;
 import fr.univ.lille.fil.mbprestservice.requestbody.ResetPasswordBody;
-import fr.univ.lille.fil.mbprestservice.service.BanniService;
 import fr.univ.lille.fil.mbprestservice.service.MailService;
 import fr.univ.lille.fil.mbprestservice.service.SalleService;
 import fr.univ.lille.fil.mbprestservice.service.UserService;

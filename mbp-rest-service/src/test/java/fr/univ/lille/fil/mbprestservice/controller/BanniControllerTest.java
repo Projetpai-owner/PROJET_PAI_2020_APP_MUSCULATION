@@ -42,7 +42,7 @@ public class BanniControllerTest {
 		//on verifie que findAll est appele lors du get
 		Mockito.verify(banniService).findAll();
 		
-		assertEquals(mvcResult.getResponse().getContentAsString(), "[{\"email\":\"antho59.bliecq@gmail.com\"}]");
+		assertEquals("[{\"email\":\"antho59.bliecq@gmail.com\"}]", mvcResult.getResponse().getContentAsString());
 		
 	}
 	

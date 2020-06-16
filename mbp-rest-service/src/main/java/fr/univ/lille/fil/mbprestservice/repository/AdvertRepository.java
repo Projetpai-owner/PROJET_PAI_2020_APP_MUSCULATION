@@ -27,11 +27,11 @@ public interface AdvertRepository extends JpaRepository<Advert, Integer>{
 	
 	public Advert findByAid(int aid);
 	
-	@Query("select new fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO(a.aid,a.nom,a.description,a.dateSeance,a.dureeSeance,a.idSeance,a.niveauPratique,u.sexe,u.sid) from fr.univ.lille.fil.mbprestservice.entity.Advert a JOIN fr.univ.lille.fil.mbprestservice.entity.ProprietaireAnnonce p ON a.aid = p.aid JOIN fr.univ.lille.fil.mbprestservice.entity.User u ON p.pidProprietaire = u.pid where p.pidProprietaire != :id_proprietaire")
-	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(@Param("id_proprietaire") int id_proprietaire);
+	@Query("select new fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO(a.aid,a.nom,a.description,a.dateSeance,a.dureeSeance,a.idSeance,a.niveauPratique,u.sexe,u.sid) from fr.univ.lille.fil.mbprestservice.entity.Advert a JOIN fr.univ.lille.fil.mbprestservice.entity.ProprietaireAnnonce p ON a.aid = p.aid JOIN fr.univ.lille.fil.mbprestservice.entity.User u ON p.pidProprietaire = u.pid where p.pidProprietaire != :idProprietaire")
+	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(@Param("idProprietaire") int idProprietaire);
 	
-	@Query("select new fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO(a.aid,a.nom,a.description,a.dateSeance,a.dureeSeance,a.idSeance,a.niveauPratique,u.sexe,u.sid) from fr.univ.lille.fil.mbprestservice.entity.Advert a JOIN fr.univ.lille.fil.mbprestservice.entity.ProprietaireAnnonce p ON a.aid = p.aid JOIN fr.univ.lille.fil.mbprestservice.entity.User u ON p.pidProprietaire = u.pid where p.pidProprietaire = :id_proprietaire")
-	public List<ListAdvertItemDTO> findAllWhereProprietaire(@Param("id_proprietaire") int id_proprietaire);
+	@Query("select new fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO(a.aid,a.nom,a.description,a.dateSeance,a.dureeSeance,a.idSeance,a.niveauPratique,u.sexe,u.sid) from fr.univ.lille.fil.mbprestservice.entity.Advert a JOIN fr.univ.lille.fil.mbprestservice.entity.ProprietaireAnnonce p ON a.aid = p.aid JOIN fr.univ.lille.fil.mbprestservice.entity.User u ON p.pidProprietaire = u.pid where p.pidProprietaire = :idProprietaire")
+	public List<ListAdvertItemDTO> findAllWhereProprietaire(@Param("idProprietaire") int idProprietaire);
 	
 	@Query("SELECT new fr.univ.lille.fil.mbprestservice.dto.ListAdvertItemDTO(a.aid,a.nom,a.description,a.dateSeance,a.dureeSeance,a.idSeance,a.niveauPratique,u.sexe,u.sid) "+
 			"FROM fr.univ.lille.fil.mbprestservice.entity.Advert a JOIN fr.univ.lille.fil.mbprestservice.entity.ProprietaireAnnonce p ON a.aid = p.aid " + 

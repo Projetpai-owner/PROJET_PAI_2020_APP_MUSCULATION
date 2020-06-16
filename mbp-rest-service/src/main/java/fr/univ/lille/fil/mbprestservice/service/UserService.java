@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 
 import fr.univ.lille.fil.mbprestservice.dto.AccessTokenDTO;
 import fr.univ.lille.fil.mbprestservice.dto.AuthenticationResponseDTO;
-import fr.univ.lille.fil.mbprestservice.entity.Ami;
 import fr.univ.lille.fil.mbprestservice.entity.User;
 import fr.univ.lille.fil.mbprestservice.entity.UserPasswordReset;
 import fr.univ.lille.fil.mbprestservice.exceptions.ResetPasswordTokenExpiratedException;
 import fr.univ.lille.fil.mbprestservice.exceptions.ResetPasswordTokenInvalidException;
-import fr.univ.lille.fil.mbprestservice.repository.AmiRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserPasswordResetRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRefreshTokenRepository;
 import fr.univ.lille.fil.mbprestservice.repository.UserRepository;
@@ -90,7 +88,7 @@ public class UserService implements UserDetailsService{
 	 * Récupère un utilisateur grâce à son username (email)
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 

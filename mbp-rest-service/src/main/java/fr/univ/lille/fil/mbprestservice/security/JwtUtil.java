@@ -26,7 +26,7 @@ public class JwtUtil {
 	@Autowired
 	private UserRefreshTokenRepository userRefreshTokenRepository;
 	
-	private final String SECRET_KEY="secret";
+	private static final String SECRETKEY="secret";
 	
 	/**
 	 * Récupère le username correspondant au token passé
@@ -48,14 +48,12 @@ public class JwtUtil {
 	
 	
 	public <T> T extractClaim(String token, Function<Claims,T> claimsResolver) {
-		// TODO Auto-generated method stub
 		final Claims claims=extractAllClaims(token);
 		return claimsResolver.apply(claims);
 	}
 
 	private Claims extractAllClaims(String token) {
-		// TODO Auto-generated method stub
-		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(SECRETKEY).parseClaimsJws(token).getBody();
 	}
 	
 	/**
@@ -99,12 +97,11 @@ public class JwtUtil {
 	 * @return
 	 */
 	private String createToken(Map<String, Object> claims, String username) {
-		// TODO Auto-generated method stub
 		return Jwts.builder().setClaims(claims)
 				.setSubject(username)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*15))
-				.signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+				.signWith(SignatureAlgorithm.HS256, SECRETKEY).compact();
 	}
 
 	

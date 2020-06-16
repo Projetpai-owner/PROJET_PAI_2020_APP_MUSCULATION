@@ -3,7 +3,6 @@ package fr.univ.lille.fil.mbprestservice.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -57,19 +56,8 @@ public class AdvertService {
 	 * @param id_proprietaire
 	 * @return la liste des annonces dont l'id passé en paramètre n'est pas celui du propriétaire de ces dernières
 	 */
-	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(int id_proprietaire){
-		return advertRepository.findAllWhereNotProprietaire(id_proprietaire);
-//		List<ListAdvertItemDTO> res = new ArrayList<>();
-//		for(Advert ad : ads) {
-//			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
-//			tmp.setAid(ad.getAid());
-//			tmp.setDate(ad.getDateSeance().toString());
-//			tmp.setDescription(ad.getDescription());
-//			tmp.setDuree(""+ad.getDureeSeance());
-//			tmp.setNomAnnonce(ad.getNom());
-//			res.add(tmp);
-//		}
-//		return res;
+	public List<ListAdvertItemDTO> findAllWhereNotProprietaire(int idProprietaire){
+		return advertRepository.findAllWhereNotProprietaire(idProprietaire);
 	}
 	
 	/**
@@ -77,19 +65,8 @@ public class AdvertService {
 	 * @param id_proprietaire
 	 * @return la liste des annonces dont l'id passé en paramètre est celui du propriétaire de ces dernières
 	 */
-	public List<ListAdvertItemDTO> findAllWhereProprietaire(int id_proprietaire){
-		return advertRepository.findAllWhereProprietaire(id_proprietaire);
-//		List<ListAdvertItemDTO> res = new ArrayList<>();
-//		for(Advert ad : ads) {
-//			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
-//			tmp.setAid(ad.getAid());
-//			tmp.setDate(ad.getDateSeance().toString());
-//			tmp.setDescription(ad.getDescription());
-//			tmp.setDuree(""+ad.getDureeSeance());
-//			tmp.setNomAnnonce(ad.getNom());
-//			res.add(tmp);
-//		}
-//		return res;
+	public List<ListAdvertItemDTO> findAllWhereProprietaire(int idProprietaire){
+		return advertRepository.findAllWhereProprietaire(idProprietaire);
 	}
 	
 	/**
@@ -139,19 +116,6 @@ public class AdvertService {
 	 * @return La liste des annonces et leurs informations
 	 */
 	public List<ListAdvertItemDTO> findAllAdvertsWithInfos(){
-		List<Advert> ads = advertRepository.findAll();
-		List<ListAdvertItemDTO> res = advertRepository.getAdvertsWithInfo();
-		/*for(Advert ad : ads) {
-			ListAdvertItemDTO tmp = new ListAdvertItemDTO();
-			tmp.setAid(ad.getAid());
-			tmp.setDate(ad.getDateSeance().toString());
-			tmp.setDescription(ad.getDescription());
-			tmp.setDuree(""+ad.getDureeSeance());
-			tmp.setNomAnnonce(ad.getNom());
-			tmp.setNiveauSeance(ad.getNiveauPratique().toString());
-			tmp.setTypeSeance(ad.getIdSeance().getLibelle());
-			res.add(tmp);
-		}*/
-		return res;
+		return advertRepository.getAdvertsWithInfo();
 	}
 }
