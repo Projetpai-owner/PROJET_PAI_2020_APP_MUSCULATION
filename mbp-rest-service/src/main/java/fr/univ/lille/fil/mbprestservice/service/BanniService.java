@@ -1,7 +1,5 @@
 package fr.univ.lille.fil.mbprestservice.service;
-/**
- * Service pour les actions sur les bannis
- */
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +9,10 @@ import org.springframework.stereotype.Service;
 import fr.univ.lille.fil.mbprestservice.entity.Banni;
 import fr.univ.lille.fil.mbprestservice.repository.BanniRepository;
 
-
+/**
+* Service pour les actions sur les bannis
+* @author Clément
+*/
 @Service
 public class BanniService {
 

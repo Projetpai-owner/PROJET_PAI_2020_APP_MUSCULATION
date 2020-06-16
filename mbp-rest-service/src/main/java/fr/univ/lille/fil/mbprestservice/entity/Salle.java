@@ -10,6 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entité représentant le type Salle définit par
+ * un nom, une capacité et un lieu
+ * @author Rem
+ *
+ */
 @Entity
 @Table(name="salle")
 public class Salle implements Serializable {

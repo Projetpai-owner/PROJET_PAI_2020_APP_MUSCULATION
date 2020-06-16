@@ -6,6 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entité qui permet de définir le type Support
+ * représentant un ticket de support technique 
+ * avec l'username du créateur du ticket
+ * ainsi que l'objet et la description de la demande
+ * @author Rem
+ *
+ */
 @Entity
 @Table(name = "support")
 public class Support {

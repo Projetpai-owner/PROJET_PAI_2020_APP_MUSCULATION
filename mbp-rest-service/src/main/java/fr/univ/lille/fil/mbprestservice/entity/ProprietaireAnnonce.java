@@ -8,6 +8,12 @@ import javax.persistence.Table;
 
 import fr.univ.lille.fil.mbprestservice.entity.composite.ProprietaireAnnonceId;
 
+/**
+ * Entité qui définit le type PropriétaireAnnonce 
+ * qui représente le propriétaire d'une annonce donnée
+ * @author Rem
+ *
+ */
 @Entity
 @Table(name = "proprietaire_annonce")
 @IdClass(ProprietaireAnnonceId.class)

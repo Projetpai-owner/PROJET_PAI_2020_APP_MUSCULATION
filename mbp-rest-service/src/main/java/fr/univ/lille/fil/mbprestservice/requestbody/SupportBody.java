@@ -1,5 +1,10 @@
 package fr.univ.lille.fil.mbprestservice.requestbody;
 
+/**
+ * Objet utlisé par la requête de création ou de suppression de ticket de support
+ * @author Rem
+ *
+ */
 public class SupportBody {
 	
 	private String username;

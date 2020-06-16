@@ -8,6 +8,11 @@ import javax.persistence.Enumerated;
 import fr.univ.lille.fil.mbprestservice.enumeration.Role;
 import fr.univ.lille.fil.mbprestservice.enumeration.Sexe;
 
+/**
+ * Objet utilisé par la requête de création d'utilisateur
+ * @author Rem
+ *
+ */
 public class CreateUserBody {
 	
 	private String nom;

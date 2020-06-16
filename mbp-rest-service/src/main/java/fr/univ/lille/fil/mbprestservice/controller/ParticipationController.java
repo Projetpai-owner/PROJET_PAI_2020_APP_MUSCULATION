@@ -66,6 +66,11 @@ public class ParticipationController {
 		return usersFound;
 	}
 	
+	/**
+	 * Requête permettant de récupérer toutes les annonces où participe un utilisateur donné
+	 * @param uid, l'utilisateur dont on veut retrouver les annonces où il participe
+	 * @return la liste des annonces où l'utilisateur participe
+	 */
 	@GetMapping("/getParticipationsForUser/{uid}")
 	public List<Advert> getParticipationsForUser(@PathVariable(value="uid") int uid){
 		List<Integer> advertToFind = pService.findAdvertByParticipation(uid);
