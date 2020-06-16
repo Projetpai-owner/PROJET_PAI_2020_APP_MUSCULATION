@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Advert } from '../models/Advert.model';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AdvertItemList} from '../models/AdvertItemList.model';
 import { AdvertEntity } from '../models/AdvertEntity.model';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 import { AddParticipant } from '../models/AddParticipant.model';
-import { ProprietaireAnnonce } from '../models/ProprietaireAnnonce.model';
 import {UserBody} from '../models/UserBody.model';
 
 @Injectable()
@@ -22,10 +21,6 @@ export class AdvertService {
 
   createAdvert(advert: Advert): Observable<Advert> {
     return this.http.post<Advert>('http://localhost:8080/createAdvert', advert, this.httpOptions);
-  }
-
-  getAdverts(): Observable<AdvertItemList[]> {
-    return this.http.get<AdvertItemList[]>('http://localhost:8080/getAllAdvertsItems');
   }
 
   deleteAdvertById( aid: number): Observable<Advert> {
@@ -52,20 +47,12 @@ export class AdvertService {
     return this.http.post<AddParticipant>('http://localhost:8080/addParticipant', body, this.httpOptions);
   }
 
-  getProprietaireByAid(aid: number): Observable<ProprietaireAnnonce> {
-      return this.http.get<ProprietaireAnnonce>('http://localhost:8080/getProprioByAid/' + aid, this.httpOptions);
-  }
-
-  isProprietaireAnnonce(uid: number, aid: number): boolean {
-    let userProp;
-    this.getProprietaireByAid(aid).subscribe( proprio => {
-      userProp  = proprio.pidProprietaire;
-    });
-    return userProp === uid;
-  }
-
   getParticipationsByAid(aid: number): Observable<UserBody[]> {
     return this.http.get<UserBody[]>('http://localhost:8080/getParticipationsForAnnonce/'+aid, this.httpOptions);
+  }
+
+  getParticipationsByUid(uid: number): Observable<AdvertItemList[]> {
+    return this.http.get<AdvertItemList[]>('http://localhost:8080/getParticipationsForUser/' + uid, this.httpOptions);
   }
 
   supprimerParticipation(pid: number, aid: number): Observable<AddParticipant> {

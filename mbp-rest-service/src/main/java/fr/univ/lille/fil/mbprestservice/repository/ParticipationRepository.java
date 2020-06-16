@@ -14,5 +14,7 @@ import fr.univ.lille.fil.mbprestservice.entity.Participe;
 public interface ParticipationRepository extends JpaRepository<Participe, String>{
 	
 	public List<Participe> findAllByIdAnnonce(int idAnnonce);
+	
+	public List<Participe> findAllByIdUser(int idUser);
 
 }

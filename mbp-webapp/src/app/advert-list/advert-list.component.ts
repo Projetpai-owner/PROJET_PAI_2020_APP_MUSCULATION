@@ -32,6 +32,7 @@ export class AdvertListComponent implements OnInit {
   currentUser: CurrentUser;
   participate_success: boolean;
   nomAnnonce: string;
+  aidList: number[] = [];
 
   constructor(public advertService: AdvertService, private confirmAlertService: ConfirmAlertService,
               private classicAlertService: ClassicAlertService, private router: Router,
@@ -43,6 +44,7 @@ export class AdvertListComponent implements OnInit {
     this.initSelect();
     this.initForm();
     this.initVisibility();
+    this.initParticipation();
   }
 
   initAnnonces(): void{
@@ -72,6 +74,14 @@ export class AdvertListComponent implements OnInit {
 
   initVisibility(): void{
     this.zoneFiltreVisible = false;
+  }
+
+  initParticipation() : void {
+    this.advertService.getParticipationsByUid(+this.currentUser.userId).subscribe((res : AdvertItemList[]) => {
+      for(let advert of res) {
+        this.aidList.push(advert.aid);
+      }
+    });
   }
 
   showZoneFiltre(): void{
@@ -136,6 +146,7 @@ export class AdvertListComponent implements OnInit {
       this.participate_success = true;
       this.nomAnnonce = nom;
       setTimeout(() => this.participate_success = false, 6000);
+      this.ngOnInit();
     });
   }
 

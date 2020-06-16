@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TypeSeanceService} from '../services/TypeSeance.service';
 import {AdvertService} from '../services/Advert.service';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import {Advert} from '../models/Advert.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TypeSeance} from '../models/TypeSeance.model';
 import {CurrentUser} from '../models/CurrentUser.model';
-import {tap} from 'rxjs/operators';
 import {AdvertEntity} from '../models/AdvertEntity.model';
 import {AdvertEdit} from '../models/AdvertEdit.model';
 
