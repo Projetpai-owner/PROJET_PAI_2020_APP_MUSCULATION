@@ -16,5 +16,7 @@ public interface ParticipationRepository extends JpaRepository<Participe, String
 	public List<Participe> findAllByIdAnnonce(int idAnnonce);
 	
 	public List<Participe> findAllByIdUser(int idUser);
+	
+	public List<Participe> deleteByIdAnnonce(int idAnnonce);
 
 }

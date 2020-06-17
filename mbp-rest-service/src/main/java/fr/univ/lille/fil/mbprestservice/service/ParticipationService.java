@@ -68,5 +68,13 @@ public class ParticipationService {
 		p.setIdUser(pid);
 		repo.delete(p);
 	}
+	
+	/**
+	 * Supprime la participation de tous les utilisateurs pour une annonce donnée
+	 * @param aid
+	 */
+	public void deleteParticipationByAid(int aid) {
+		repo.deleteByIdAnnonce(aid);
+	}
 
 }

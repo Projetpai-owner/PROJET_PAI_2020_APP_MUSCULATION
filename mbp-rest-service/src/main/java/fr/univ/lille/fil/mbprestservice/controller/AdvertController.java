@@ -23,6 +23,7 @@ import fr.univ.lille.fil.mbprestservice.entity.TypeSeance;
 import fr.univ.lille.fil.mbprestservice.requestbody.CreateAdvertBody;
 import fr.univ.lille.fil.mbprestservice.requestbody.EditAdvertBody;
 import fr.univ.lille.fil.mbprestservice.service.AdvertService;
+import fr.univ.lille.fil.mbprestservice.service.ParticipationService;
 import fr.univ.lille.fil.mbprestservice.service.ProprietaireAnnonceService;
 import fr.univ.lille.fil.mbprestservice.service.TypeSeanceService;
 
@@ -40,6 +41,8 @@ public class AdvertController {
 	TypeSeanceService typeSeanceService;
 	@Autowired
 	ProprietaireAnnonceService proprioService;
+	@Autowired
+	ParticipationService participationService;
 	
 	/**
 	 * Requête permettant la création d'une annonce via le endpoint /createAdvert et prenant un paramètre type CreateAdvertBody
@@ -63,6 +66,7 @@ public class AdvertController {
 	public void deleteAdvert(@PathVariable("aid") int advertId) {
 		this.proprioService.deleteByAid(advertId);
 		this.advertService.delete(advertId);
+		this.participationService.deleteParticipationByAid(advertId);
 	}
 	
 	/**
