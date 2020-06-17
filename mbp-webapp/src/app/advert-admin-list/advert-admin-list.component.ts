@@ -122,10 +122,7 @@ export class AdvertAdminListComponent implements OnInit {
   }
 
   clearForm(): void{
-    for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
-      this.formFiltre.nativeElement.elements[i].value = '';
-    }
-    this.ItemsArray = this.toutesLesannonces;
+    this.ngOnInit();
   }
 
   public confirmDeleteAdvert(item: AdvertItemList){

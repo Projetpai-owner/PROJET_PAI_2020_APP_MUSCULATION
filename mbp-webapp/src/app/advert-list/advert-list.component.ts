@@ -78,6 +78,7 @@ export class AdvertListComponent implements OnInit {
 
   initParticipation() : void {
     this.advertService.getParticipationsByUid(+this.currentUser.userId).subscribe((res : AdvertItemList[]) => {
+      console.log(res);
       for(let advert of res) {
         this.aidList.push(advert.aid);
       }
@@ -133,10 +134,7 @@ export class AdvertListComponent implements OnInit {
   }
 
   clearForm(): void{
-    for(let i=0; i < this.formFiltre.nativeElement.elements.length-2;i++){
-      this.formFiltre.nativeElement.elements[i].value = '';
-    }
-    this.ItemsArray = this.toutesLesannonces;
+    this.ngOnInit();
   }
 
   addParticipation(aid: number, nom: string){

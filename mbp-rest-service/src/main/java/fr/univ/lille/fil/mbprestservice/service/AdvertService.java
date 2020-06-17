@@ -84,7 +84,7 @@ public class AdvertService {
 	 * @return l'id de l'annonce supprimée
 	 */
 	public int updateAdvert(@Valid Advert advert, int aid) {
-		return advertRepository.updateAdvert(advert.getDescription(), advert.getNiveauPratique(),advert.getDureeSeance(),advert.getNom() , advert.getDateSeance(), aid);
+		return advertRepository.updateAdvert(advert.getDescription(), advert.getNiveauPratique(), advert.getIdSeance(), advert.getDureeSeance(),advert.getNom() , advert.getDateSeance(), aid);
 		 
 	}
 	
