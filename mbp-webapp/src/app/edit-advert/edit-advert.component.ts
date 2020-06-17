@@ -86,6 +86,8 @@ export class EditAdvertComponent implements OnInit {
       return tmp1 + tmp2;
     }
 
+    console.log(formValue.typeSeanceCreaAnnonce);
+
     const newAdvert = new AdvertEdit(
       formValue.DescriptionCreaAnnonce,
       formValue.NiveauCreaAnnonce,
