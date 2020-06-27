@@ -10,6 +10,7 @@
 
 Ce que vous avez besoin pour installer le projet :
 
+* Etre connecté au vpn de l'université de lille
 * Cloner le projet :  https://github.com/Projetpai-owner/PROJET_PAI_2020_APP_MUSCULATION.git
 * [JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 * [NODE JS](https://nodejs.org/dist/v12.16.1/) 
